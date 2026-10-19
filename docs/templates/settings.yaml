@@ -1,0 +1,6 @@
+# Copied to doc/product/settings.yaml, one per product [R8-Q2]. Read by the gate check.
+
+# discovery: PRD §3b numeric targets are optional.
+# growth:    PRD §3b numeric targets with baselines are mandatory.
+# The founders switch it, e.g. after the first paying customers [R4-Q4b].
+metrics_stage: discovery

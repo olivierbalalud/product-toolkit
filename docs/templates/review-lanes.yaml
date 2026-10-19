@@ -1,0 +1,57 @@
+# EXAMPLE ONLY. It lives in our project plugin in the monorepo, not here: this repo creates no plugins.
+# Each lane skill reads its reviewers from this file, so adding or swapping a reviewer is a config change [R4-Q7a].
+# Reviewers run as parallel subagents; reports are shown side by side per lane, never merged or reranked [R4-Q7a].
+# Upstream names and SHAs are placeholders: pin real ones from chapter 11 before use [R3-B4].
+
+lanes:
+  code:
+    skill: <plugin>:review-code
+    runs_on: [slice-pr, fix-pr, implement-spec]          # [R4-Q7b, R7-Q4]
+    reviewers:
+      - id: standards-and-spec
+        skill: mattpocock-skills:code-review              # two axes: standards + spec
+      - id: pr-review-toolkit
+        agents: [silent-failure-hunter, pr-test-analyzer, type-design-analyzer]   # verify names when pinning
+      - id: bdd-conventions
+        skill: <plugin>:check-bdd-conventions             # ours, to specify (chapter 12)
+      - id: i18n-conventions
+        skill: <plugin>:check-i18n-conventions            # ours, to specify
+
+  security:
+    skill: <plugin>:review-security
+    runs_on: [slice-pr, fix-pr]
+    reviewers:
+      - id: sentry-security-review
+        skill: <getsentry plugin>:security-review         # pinned [R3-B2]
+      - id: builtin-security-review
+        builtin: /security-review
+      - id: privacy
+        skill: <plugin>:review-privacy                    # GDPR / CNIL, ours, to specify
+      - id: required-tests
+        script: scripts/check_security_tests.py           # authorisation and privacy tests exist [R4-Q9]
+
+  ux:
+    skill: <plugin>:review-ux
+    runs_on: [slice-pr, fix-pr, design-gate]              # design-gate = on prototypes [R4-Q7d]
+    applies_when_paths: ["src/apps/web/**", "src/packages/ui/**"]   # [R4-Q7b]
+    reviewers:
+      - id: ux-rules
+        skill: ui-ux-pro-max                              # the skill folder only [R3-B1]
+      - id: accessibility
+        skill: <web-quality plugin>:accessibility          # WCAG 2.2
+      - id: web-guidelines
+        skill: <plugin>:check-web-guidelines              # our pinned Vercel copy [R3-D1..D7]
+      - id: motion
+        skill: <emil plugin>:review-animations
+      - id: copy-and-voice
+        skills: [ux-copy, <plugin>:check-copy]            # French included in ours
+      - id: state-matrix
+        skill: <plugin>:check-state-matrix
+      - id: conformance
+        skill: <plugin>:check-flow-conformance            # flows.md and copy deck vs rendered screens
+        mcp: [playwright]                                 # declared in the monorepo's .mcp.json [R4-Q7e]
+
+findings:
+  severities: [blocking, advisory]                        # blocking findings block Done [R4-Q7c]
+  ux_design_change: open-dcr                              # never fixed silently in the slice [R4-Q7c]
+  reports: ci-artifact                                    # summary comment per lane on the PR; never committed

@@ -20,10 +20,10 @@ How to take a `Dev-ready` PRD to `Done` as one slice and one slice PR. The gates
 ## 4.3 Step 2: Open the slice
 
 ```bash
-claude --worktree slice-PRD-012.1-book-room
+make slice PRD=PRD-012.1 SLUG=book-room
 ```
 
-The `WorktreeCreate` hook creates the branch `slice/PRD-012.1-book-room` from `main` and gives the worktree its own ports, Compose project and database, so two slices can run side by side ([chapter 5](05-worktrees-and-parallelism.md)) [R2-Q9, R4-Q5′].
+The script creates the branch `slice/PRD-012.1-book-room` from `origin/main` (or opens it) in the worktree `.claude/worktrees/slice-PRD-012.1-book-room`, runs `make env-up` there to give it its own ports, Compose project and database, and launches `claude --worktree slice-PRD-012.1-book-room`. Two slices can then run side by side ([chapter 5](05-worktrees-and-parallelism.md)) [R2-Q9, R4-Q5′, R16-Q0].
 
 Set `status: In development` and commit: `docs(PRD-012.1): start slice`.
 

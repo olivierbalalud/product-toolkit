@@ -75,7 +75,7 @@ The security and privacy lane checks that these tests exist ([chapter 9](09-revi
 ## 8.6 Environments and data
 
 - **Design worktrees** run the frontend only, against MSW mocks of the draft contract. Prototype routes need no tests [R2-Q9, R4-Q11].
-- **Slice worktrees** get their own ports, Compose project and database from the `WorktreeCreate` hook, so integration and UI tests of two slices never share data [R2-Q9].
+- **Slice worktrees** get their own ports, Compose project and database from `make env-up`, so integration and UI tests of two slices never share data [R2-Q9, R16-Q0].
 - **Each test owns its data.** It passes in any order, in parallel, and when run twice [R14-Q4].
 - **Fixtures are synthetic.** Production data never goes into tests, fixtures or CI artifacts [R14-Q4].
 

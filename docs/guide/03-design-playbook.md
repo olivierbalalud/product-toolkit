@@ -69,10 +69,10 @@ Ron Jeffries' **three Cs** (2001) explain what a story is for: the **Card** (the
 2. Create the design worktree and branch:
 
    ```bash
-   claude --worktree design-PRD-012.1-book-room
+   make design PRD=PRD-012.1 SLUG=book-room
    ```
 
-   Our `WorktreeCreate` hook turns the name into the branch `design/PRD-012.1-book-room` and sets up a **frontend-only** environment with its own port, running against mocks [R2-Q9, R4-Q5′].
+   The script creates the branch `design/PRD-012.1-book-room` from `origin/main` (or opens it if it exists) in the worktree `.claude/worktrees/design-PRD-012.1-book-room`, sets up a **frontend-only** environment on its own port, running against mocks, and then launches `claude --worktree design-PRD-012.1-book-room`, which reopens that folder [R2-Q9, R4-Q5′, R16-Q0].
 3. Set `status: Exploring` and commit with the PRD as scope: `docs(PRD-012.1): start exploring`.
 
 ## 3.5 Step 4: Iterate on flows, screens and copy
@@ -189,4 +189,4 @@ To "go back" to Figma, duplicate the PRD's `as-built` page and annotate the dupl
 - Each PRD has its own folder and worktree, so parallel PRDs don't touch the same files [R3-Q1c].
 - Shared layers (tokens, `globals.css`, design-system components, OpenAPI, migrations) change only in their own enabler slice, one at a time [R2-Q9].
 - The fit analysis warns when two PRDs in *Exploring* overlap; their drivers settle it before either reaches the gate [R4-Q8e′].
-- Worktrees, hooks and environments are covered in [chapter 5](05-worktrees-and-parallelism.md).
+- Worktrees, start scripts and environments are covered in [chapter 5](05-worktrees-and-parallelism.md).

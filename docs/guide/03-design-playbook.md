@@ -156,7 +156,7 @@ Then:
 
 1. Write **§3a user benefits**, each with an observable signal [R4-Q4a]. The **"so that" part of the user story** (its benefit, see [§3.3](#what-a-user-story-is)) must trace to one of these benefits: a story whose benefit is not in §3a has no measurable reason to exist.
 2. If `docs/product/settings.yaml` says `metrics_stage: growth`, write **§3b success metrics** with baseline, target and window, referencing `MET-` IDs from the metric catalogue [R4-Q4b, R8-Q3].
-3. Write the **§4 measurement plan**: each event goes in `docs/product/tracking-plan.md` with an `EVT-` ID, a snake_case name, and a privacy class per property (`none`, `pseudonymous`, `personal`) [R4-Q4c, R8-Q4, R9-Q2].
+3. Write the **§4 measurement plan**: each event goes in `docs/product/tracking-plan.md` with an `EVT-` ID, a snake_case name, and a privacy class per property (`none`, `pseudonymous`, `personal`), and whether it needs consent (`consent: exempt | required`; `exempt` only if it meets every CNIL audience-measurement condition, see the [GDPR one-pager](../foundations/gdpr-one-pager.md)) [R4-Q4c, R8-Q4, R9-Q2, R21-Q1].
 4. If a metric needs a pipeline, dashboard or BI model that doesn't exist, raise an enabler slice. It doesn't block Dev-ready, but must be done before the outcome review [R4-Q4d].
 
 ## 3.9 Step 8: Who, what data, and for whom

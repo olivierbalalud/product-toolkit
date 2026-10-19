@@ -17,9 +17,12 @@
 
 <!-- ID plus a snake_case name, since analytics tools key events by name [R8-Q4].
      Privacy class per property: none | pseudonymous | personal. `personal` needs a reason recorded in the
-     PRD's privacy inventory, and the privacy reviewer flags it [R9-Q2]. -->
+     PRD's privacy inventory, and the privacy reviewer flags it [R9-Q2].
+     Consent per event: `exempt` only if it meets every CNIL audience-measurement condition (publisher-only audience
+     measurement, anonymous statistics, no cross-referencing or passing on, no cross-site tracking); otherwise
+     `required`, and the event is sent only after the user consents. The privacy reviewer checks it [R21-Q1]. -->
 
-| ID | Name | Trigger | Properties (name: type, privacy class) | Feeds | PRDs | Status |
-|---|---|---|---|---|---|---|
-| EVT-013 | `booking_started` | Booking form opened | `room_size: int, none` | MET-003 | PRD-012.1 | planned |
-| EVT-014 | `room_booked` | Booking confirmed | `duration_min: int, none` | MET-003 | PRD-012.1 | planned / emitted |
+| ID | Name | Trigger | Properties (name: type, privacy class) | Consent | Feeds | PRDs | Status |
+|---|---|---|---|---|---|---|---|
+| EVT-013 | `booking_started` | Booking form opened | `room_size: int, none` | exempt | MET-003 | PRD-012.1 | planned |
+| EVT-014 | `room_booked` | Booking confirmed | `duration_min: int, none` | exempt | MET-003 | PRD-012.1 | planned / emitted |

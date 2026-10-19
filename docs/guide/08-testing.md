@@ -105,5 +105,5 @@ Recorded responses make AI features deterministic in tests, but say nothing abou
 |---|---|---|
 | Design PR (`design/…`) | Lint (prototype routes included), gate check, coverage, step-vocabulary check, UX lane guideline checks | R4-Q11, R4-Q12, R4-Q7d |
 | Slice PR (`slice/…`) | Everything in §8.2, `@ui` scenarios in every enabled locale, AI eval sets when prompts or model configuration change, gate check, all applicable review lanes | R2-Q5, R4-Q7b, R14-Q2, R14-Q5 |
-| Enabler PR (`enb/…`) | Everything in §8.2 that its changes touch, gate check, code and security lanes | R7-Q2 |
+| Enabler PR (`enb/…`) | Everything in §8.2 that its changes touch, gate check, code and security lanes, UX when the UI is touched | R7-Q2, R15-Q1 |
 | Fix PR (`fix/…`) | Everything in §8.2 that its changes touch; a regression test tagged with the scenario; code and security lanes, UX when the UI is touched | R5-Q2, R7-Q4 |

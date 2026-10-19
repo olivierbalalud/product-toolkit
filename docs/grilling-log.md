@@ -228,3 +228,12 @@ This revisits R2-Q8, which the user rejected as a closed list.
 | R8-Q2 | **Where `metrics_stage` lives.** R4-Q4b says only "in `doc/product/`". | `doc/product/settings.yaml`, read by the gate check; other product-wide settings can go there later. | **Accepted.** |
 | R8-Q3 | **ID for metrics in the catalogue.** | `MET-NNN`, so a PRD's §3b and the tracking plan refer to the same metric definition. | **Accepted.** |
 | R8-Q4 | **Event ID format.** | `EVT-NNN`, plus a separate snake_case event name (e.g. `invoice_uploaded`), since analytics tools key events by name. | **Accepted.** |
+
+---
+
+## Round 9: Points found while writing the templates (2026-10-19)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R9-Q1 | **No separate story file.** A story and its PRD are 1:1, so the story is the Draft version of `prd.md` in the same folder; the `story.md` template is only that file's starting content. | Yes. | **Accepted.** |
+| R9-Q2 | **Privacy classes for event properties** in the tracking plan: `none`, `pseudonymous`, `personal`. `personal` is allowed only with a reason recorded in the PRD's privacy inventory, and the privacy reviewer flags it. | Yes. | **Accepted.** |

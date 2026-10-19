@@ -35,7 +35,7 @@ Interview-style skills such as `grill-with-docs` and `domain-modeling` help when
 
 ### What a user story is
 
-A user story is a short statement of a need, written from the user's side. It comes from Extreme Programming (Kent Beck, late 1990s) and is described at length in Mike Cohn's *User Stories Applied* (2004). The usual sentence form is the **Connextra template** (Rachel Davies, Connextra, 2001), which has three parts:
+A user story is a short statement of a need, written from the user's side. It comes from Extreme Programming (Kent Beck, late 1990s) and is described at length in Mike Cohn's *User Stories Applied* (2004). The usual sentence form is the **Connextra template** (Connextra, 2001; usually credited to Rachel Davies), which has three parts:
 
 | Part | Says | Example |
 |---|---|---|

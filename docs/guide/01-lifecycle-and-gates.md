@@ -187,6 +187,7 @@ This gate is passed through the **slice PR** into `main`. There are no personas;
 | A UX change to a PRD that is `Design-complete`, `Dev-ready` or `In development`, found at any time | A **design change request** (`DCR-…`). Only the change goes back through *Exploring*, and the persona review covers only that change. The PRD keeps its status; the affected tickets pause until the DCR is `Design-complete`. | R2-Q4, R7-Q3 |
 | A UX finding from the review lanes during the slice | Not fixed silently: it opens a DCR. | R4-Q7c |
 | A purely technical change | Stays in development. No DCR. | R2-Q4 |
+| An architecture gap found during the slice | A `Proposed` ADR; only the tickets it affects pause. If its outcome changes the UX, it becomes a DCR. | R13-Q3 |
 | A new PRD contradicts a `Done` PRD | The earlier PRD is **not** reopened. The new PRD lists the scenarios it changes (`amends:`), its design PR edits the older `.feature` files, and the earlier PRD gains `amended_by:`. | R4-Q8e′ |
 | A new PRD contradicts a PRD that is `Dev-ready` or `In development` | Not allowed directly. The change goes to that PRD as a DCR; the new PRD waits or drops the conflicting scenario. | R4-Q8e′ |
 | Two PRDs in `Exploring` overlap | The two drivers settle it before either reaches Design-complete. | R4-Q8e′ |

@@ -366,9 +366,9 @@ The user announced two changes before chapter 6 is finalised. **Change 1:** the 
 
 | # | Question | Recommended | Decision |
 |---|----------|-------------|----------|
-| R19-Q1 | **Where the `needs-review` mark lives.** ICU JSON catalogs have no room for metadata. | A sidecar per catalog, `src/packages/i18n/status/<locale>/<feature>.json`: per key its status (`needs-review` / `reviewed`), reviewer and date, and a hash of the source text. When the source changes, CI resets the translation to `needs-review`. | _pending_ |
-| R19-Q2 | **Where locales are switched on and off** (R4-Q10). | `src/packages/i18n/locales.ts` lists each locale with the environments it is enabled in; the production build fails if an enabled locale has a `needs-review` string. In code, because it changes what ships. | _pending_ |
-| R19-Q3 | **Adding a language.** | An enabler slice: the locale's glossary column, its voice-guide rules, its catalogs from the translation skill (all `needs-review`), a layout check for text expansion, and the locale enabled for staging only. | _pending_ |
+| R19-Q1 | **Where the `needs-review` mark lives.** ICU JSON catalogs have no room for metadata. | A sidecar per catalog, `src/packages/i18n/status/<locale>/<feature>.json`: per key its status (`needs-review` / `reviewed`), reviewer and date, and a hash of the source text. When the source changes, CI resets the translation to `needs-review`. | **Accepted.** |
+| R19-Q2 | **Where locales are switched on and off** (R4-Q10). | `src/packages/i18n/locales.ts` lists each locale with the environments it is enabled in; the production build fails if an enabled locale has a `needs-review` string. In code, because it changes what ships. | **Accepted.** |
+| R19-Q3 | **Adding a language.** | An enabler slice: the locale's glossary column, its voice-guide rules, its catalogs from the translation skill (all `needs-review`), a layout check for text expansion, and the locale enabled for staging only. | **Accepted.** |
 
 ---
 
@@ -382,3 +382,13 @@ The user asked for a UX-centred map in chapter 6 of where each part of the look 
 | R20-Q2 | **Where third-party and internal components sit, and their origin.** | All in `src/packages/ui/src/components/`, where the CLI writes them. Origin, version and licence of each pulled component in `src/packages/ui/THIRD_PARTY.md`, and an origin column (`shadcn` / `registry:<name>` / `internal`) in the component inventory in `docs/design/design-system.md`. One primitives library (Radix, as now): a component built on another (e.g. Optics on Base UI) needs an ADR. | **Accepted.** |
 | R20-Q3 | **App-only components.** shadcn puts app-specific blocks in `src/apps/web/components/`. | Allowed only as compositions of design-system components, with no styling beyond tokens. A second feature reusing one promotes it to `src/packages/ui` through an enabler slice. | **Accepted.** |
 | R20-Q4 | **Figma variables file.** | The tokens build also writes the Figma variables import file to `src/packages/tokens/build/`, so the technical founder imports a generated file instead of exporting by hand. | **Accepted.** |
+
+---
+
+## Round 21: Points found while reviewing Foundations (2026-10-20)
+
+The user asked for the lens layout (contents, numbering, line breaks) to be applied to `security-privacy-ai.md`, and for a review of the GDPR and AI Act one-pagers and the use cases vs user stories file. Fixed directly: layout and numbering of the security file (its overview table rebuilt from the entries' Roles lines, which had gone stale); numbered sections in both one-pagers; the comparison file's header lines broken into a list; GDPR Art. 12(3) response deadline added; AI Act Art. 50(2) exception for assistive editing added (checked on the AI Act Service Desk, 2026-10-20). The review found one gap:
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R21-Q1 | **Analytics trackers need consent unless exempt.** Trackers on a user's device fall under Art. 82 of the French *loi Informatique et Libertés* (ePrivacy), not only the GDPR. The CNIL exempts audience measurement from consent only if it measures audience for the publisher alone, produces anonymous statistics only, isn't cross-referenced or passed on, and doesn't track people across sites (CNIL page of 4 July 2025). Added to the GDPR one-pager as §6. | Each event in the tracking plan declares `consent: exempt \| required`. `exempt` is allowed only for events that meet all the CNIL conditions; the privacy reviewer checks it, and events marked `required` are sent only after consent. | **Accepted.** |

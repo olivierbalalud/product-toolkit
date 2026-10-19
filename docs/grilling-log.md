@@ -306,3 +306,13 @@ The user pointed out that chapter 3 never explains how a user story is structure
 | R14-Q3 | **Code coverage thresholds.** Not decided anywhere. | Requirement coverage (`coverage.md`) is the gate. Line and branch coverage are reported; **diff coverage** (changed lines) is shown on the PR and flagged as an advisory finding by the code lane below 80%. No blocking percentage. | **Accepted.** |
 | R14-Q4 | **Test data and external systems.** Not decided. | Each test owns its data and passes in any order, in parallel, and when run twice. Fixtures are synthetic, never production data. Business-layer tests use fakes only; adapter integration tests use a real Postgres; third-party APIs (LLM providers included) use responses recorded at the port level, re-recorded deliberately (never in CI) and scrubbed of secrets and personal data. | **Accepted.** |
 | R14-Q5 | **Evaluating AI feature output (gap found while writing up R14-Q4).** Recorded responses make AI tests deterministic but say nothing about output quality when a prompt or model changes. | Each AI feature has an eval set (examples with expected properties and graders) listed in PRD §11b. It runs in CI on PRs that change that feature's prompts or model configuration; below the threshold agreed in the PRD it is a blocking finding. | **Accepted.** |
+
+---
+
+## Round 15: Points found while writing chapter 9 (2026-10-19)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R15-Q1 | **Review lanes on enabler PRs.** Not decided; chapter 8 says "code and security", chapter 9 drafts the slice rule. | Same as fix PRs: code and security always, UX when the diff touches the web app or the UI package (an enabler adding a DS component always touches the UI package). | **Accepted.** |
+| R15-Q2 | **Reviewers are leaves.** | Reviewer subagents don't spawn further subagents (`Agent` removed from their tools), so a lane's cost and depth stay predictable. | **Accepted.** |
+| R15-Q3 | **When lanes run in CI, and their cost.** Lanes in CI are billed model calls; running them on every push could use most of the €100/month budget. | Lanes run when a PR is marked ready for review and when a re-review is requested, not on every push; each run has a cost cap; monthly spend is reviewed with the eval spend (R5-Q4c). | **Accepted.** |

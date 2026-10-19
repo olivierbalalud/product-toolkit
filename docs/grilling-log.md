@@ -359,3 +359,26 @@ The user announced two changes before chapter 6 is finalised. **Change 1:** the 
 | R18-Q5 | **Snapshots stay in Figma for every PRD** (R3-Q7): design-complete and as-built pages are captured from code with code-to-canvas, whichever tool explored. Figma remains the visual archive and "go back" target; Figma seats stay. | Yes. | **Accepted.** |
 | R18-Q6 | **Keep the final Claude Design export.** Claude Design has no version history, so the final export (standalone HTML or handoff bundle) is saved in the design branch at `stories/US-…/design-export/` and merged with the design PR. | Yes. | **Accepted.** |
 | R18-Q7 | **Change 2, DCRs and Exploring.** Today a DCR is needed only after Design-complete has merged (R2-Q4); everything before, including rounds of gate review on the design PR, is plain iteration. The diagram's DCR arrows from Design-complete onward suggest otherwise and will be redrawn. Is that what change 2 means, or should DCRs also become lighter after Design-complete? | Confirm: no DCR before the design PR merges; DCRs after it unchanged. | **Accepted:** no DCR before the design PR merges, including rounds of gate review; DCRs after the merge unchanged. |
+
+---
+
+## Round 19: Points found while writing chapter 7 (2026-10-20)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R19-Q1 | **Where the `needs-review` mark lives.** ICU JSON catalogs have no room for metadata. | A sidecar per catalog, `src/packages/i18n/status/<locale>/<feature>.json`: per key its status (`needs-review` / `reviewed`), reviewer and date, and a hash of the source text. When the source changes, CI resets the translation to `needs-review`. | _pending_ |
+| R19-Q2 | **Where locales are switched on and off** (R4-Q10). | `src/packages/i18n/locales.ts` lists each locale with the environments it is enabled in; the production build fails if an enabled locale has a `needs-review` string. In code, because it changes what ships. | _pending_ |
+| R19-Q3 | **Adding a language.** | An enabler slice: the locale's glossary column, its voice-guide rules, its catalogs from the translation skill (all `needs-review`), a layout check for text expansion, and the locale enabled for staging only. | _pending_ |
+
+---
+
+## Round 20: Where the look layer lives (2026-10-20)
+
+The user asked for a UX-centred map in chapter 6 of where each part of the look layer sits: shadcn components, design systems, Figma, Claude Design, motion, components, tokens, libraries, and extensions or components pulled from registries or built internally. Added as chapter 6 §6.9 (facts on the shadcn monorepo layout checked at ui.shadcn.com/docs/monorepo on 2026-10-20). It surfaced four points:
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R20-Q1 | **Generated tokens vs `globals.css`.** shadcn's CLI writes CSS variables into `globals.css` when a component needs new ones, which would clash with a file generated from tokens. | Split: `tokens.css` (generated: `:root`, `.dark`, `@theme inline`) imported by a hand-kept `globals.css` (Tailwind import, base layer). CI flags any CSS variable defined outside `tokens.css`; the enabler that added the component moves it into DTCG. | **Accepted.** |
+| R20-Q2 | **Where third-party and internal components sit, and their origin.** | All in `src/packages/ui/src/components/`, where the CLI writes them. Origin, version and licence of each pulled component in `src/packages/ui/THIRD_PARTY.md`, and an origin column (`shadcn` / `registry:<name>` / `internal`) in the component inventory in `docs/design/design-system.md`. One primitives library (Radix, as now): a component built on another (e.g. Optics on Base UI) needs an ADR. | **Accepted.** |
+| R20-Q3 | **App-only components.** shadcn puts app-specific blocks in `src/apps/web/components/`. | Allowed only as compositions of design-system components, with no styling beyond tokens. A second feature reusing one promotes it to `src/packages/ui` through an enabler slice. | **Accepted.** |
+| R20-Q4 | **Figma variables file.** | The tokens build also writes the Figma variables import file to `src/packages/tokens/build/`, so the technical founder imports a generated file instead of exporting by hand. | **Accepted.** |

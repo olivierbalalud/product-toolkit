@@ -206,3 +206,14 @@ This revisits R2-Q8, which the user rejected as a closed list.
 |---|----------|-------------|----------|
 | R6-Q1 | **How the next use case is chosen.** The brief says "picking a use case from a list" but not how the list is ordered. Proposed: a `priority:` field in UC and US frontmatter, set by the founders together; the generated `doc/product/index.md` lists items in priority order with status and driver; no scoring method imposed (RICE, WSJF can come later); picking respects the WIP limits (R4-Q6). | Yes. | **Amended by the user:** the next item is **picked manually and explicitly by a founder**. The `priority:` frontmatter field is kept. |
 | R6-Q2 | **Where `to-tickets` writes a slice's tickets.** (a) Markdown files in the story folder, `stories/US-…/tickets/NN-slug.md`, on the slice branch and merged with it, with `status` and `blocked_by` in frontmatter; or (b) GitHub Issues linked from the PRD. (a) keeps everything in git with no extra tool, matches the monorepo's existing markdown tracker, and subagent worktrees can read it directly. | (a). | **Accepted** (a). |
+
+---
+
+## Round 7: Points found while writing chapter 1 (2026-10-19)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R7-Q1 | **Use case statuses and sign-off.** The completeness gate (R4-Q2) is decided, but not the status values or who signs. | `Draft → Complete`, signed by the use case's driver. | **Amended by the user:** `Draft → Ready for review → Under review → Complete`, signed by the use case's driver. |
+| R7-Q2 | **Enabler slice lifecycle.** | `Draft → Dev-ready → In development → Done`, skipping design, except an enabler that adds a design-system component: it goes through *Exploring* and the UX persona review. | **Accepted.** |
+| R7-Q3 | **How a DCR is tracked.** R2-Q4 says the PRD "goes back to *Exploring* for the delta only", which would make an in-progress slice lose its status. | The PRD's own `status:` doesn't change. The DCR file carries its own status (`Exploring → Design-complete`), the PRD lists it under `open_dcrs:`, and the tickets it affects pause until it closes. | **Accepted.** |
+| R7-Q4 | **Review lanes on `fix/` PRs.** R4-Q7b covers slice PRs only. | The code and security lanes run on every `fix/` PR; the UX lane only when the diff touches the web app or the UI package. | **Accepted.** |

@@ -25,6 +25,9 @@ lanes:
         skill: <getsentry plugin>:security-review         # pinned [R3-B2]
       - id: builtin-security-review
         builtin: /security-review
+      - id: llm-security
+        skill: <plugin>:review-llm-security               # OWASP Top 10 for LLM Applications [R12-Q6b]
+        applies_when_paths: ["<LLM gateway path>/**", "<AI feature paths>/**"]
       - id: privacy
         skill: <plugin>:review-privacy                    # GDPR / CNIL, ours, to specify
       - id: required-tests

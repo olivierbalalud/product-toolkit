@@ -33,6 +33,20 @@ Interview-style skills such as `grill-with-docs` and `domain-modeling` help when
 
 **Who:** the use case's driver.
 
+### What a user story is
+
+A user story is a short statement of a need, written from the user's side. It comes from Extreme Programming (Kent Beck, late 1990s) and is described at length in Mike Cohn's *User Stories Applied* (2004). The usual sentence form is the **Connextra template** (Rachel Davies, Connextra, 2001), which has three parts:
+
+| Part | Says | Example |
+|---|---|---|
+| **As a** <role> | who needs it | As an employee |
+| **I want** <capability> | what they want to do | I want to book a free meeting room |
+| **so that** <benefit> | why: the value they get | so that my team has a place to meet without double bookings |
+
+Ron Jeffries' **three Cs** (2001) explain what a story is for: the **Card** (the short statement), the **Conversation** that works out the details, and the **Confirmation** that shows it is done. In this framework the card is the story statement at the top of the PRD (§2), the conversation is *Exploring*, and the confirmation is the Gherkin scenarios [R3-C1]. A story here is also always a **path through a use case**, never a free-standing wish [R4-Q3].
+
+### Cutting stories
+
 1. With the **story writer**, cut the use case into **vertical paths**: the main scenario or a coherent part of it, plus the extensions that path must handle [R4-Q3].
 2. Check each story against **INVEST** (Bill Wake, 2003), read for this framework as follows. Split any story that would take more than about one week of slice work.
 
@@ -122,7 +136,7 @@ Then:
 
 ## 3.8 Step 7: Define the outcome and how to measure it
 
-1. Write **§3a user benefits**, each with an observable signal [R4-Q4a]. The story's "so that" must trace to one of them.
+1. Write **§3a user benefits**, each with an observable signal [R4-Q4a]. The **"so that" part of the user story** (its benefit, see [§3.3](#what-a-user-story-is)) must trace to one of these benefits: a story whose benefit is not in §3a has no measurable reason to exist.
 2. If `doc/product/settings.yaml` says `metrics_stage: growth`, write **§3b success metrics** with baseline, target and window, referencing `MET-` IDs from the metric catalogue [R4-Q4b, R8-Q3].
 3. Write the **§4 measurement plan**: each event goes in `doc/product/tracking-plan.md` with an `EVT-` ID, a snake_case name, and a privacy class per property (`none`, `pseudonymous`, `personal`) [R4-Q4c, R8-Q4, R9-Q2].
 4. If a metric needs a pipeline, dashboard or BI model that doesn't exist, raise an enabler slice. It doesn't block Dev-ready, but must be done before the outcome review [R4-Q4d].
@@ -131,14 +145,16 @@ Then:
 
 - **§10 Who may perform each action:** a role × action table. It becomes the authorisation test matrix [R2-Q3 (j), R4-Q9].
 - **§11 Privacy data inventory:** every personal data item shown, collected, logged or sent to analytics, with purpose, legal basis and retention [R2-Q3 (k)].
+- **§11b AI use**, when the PRD uses an AI model: model and provider, data sent, human oversight, the transparency notice, the AI Act risk category [R12-Q6a].
 - **§13 Accessibility and responsive:** focus order, keyboard use, labels, contrast through tokens, breakpoints [R2-Q3 (h, i)].
 
 ## 3.10 Step 9: Prepare the gate
 
 1. Run the **UX lane's guideline checks** on the prototype: accessibility, web guidelines, UX rules, copy and voice, state matrix. Link their reports in `reviews.md` and fix the blocking findings [R4-Q7d].
-2. Run the **persona reviewers** (PM, UX, Eng) on the PRD and prototype. Record findings and resolutions in `reviews.md` [R1-Q12].
-3. Run the **gate check** locally to catch missing files or fields before opening the PR [R4-Q12].
-4. Empty §15 Open questions as far as possible. Anything left must be gone by Dev-ready [R5-Q1].
+2. Run the **persona reviewers** (PM, UX, Eng) on the PRD and prototype. Record findings and resolutions in `reviews.md` [R1-Q12]. The Eng review includes a STRIDE-style threat check when the PRD adds an endpoint, a data store or a third party, covering prompt injection when user or third-party content reaches an LLM [R11-Q12, R12-Q6c].
+3. **Strongly recommended** for a new flow: test the prototype with 3–5 real users and record the findings in `reviews.md`. It is not mandatory; the gate check only warns [R11-Q10].
+4. Run the **gate check** locally to catch missing files or fields before opening the PR [R4-Q12].
+5. Empty §15 Open questions as far as possible. Anything left must be gone by Dev-ready [R5-Q1].
 
 ## 3.11 Step 10: Pass Design-complete
 

@@ -113,17 +113,18 @@ This is the main design gate. It is passed through the **design PR** from `desig
 | (h) | Accessibility basics: focus order, keyboard use, labels, contrast through tokens. | R2-Q3 |
 | (i) | Responsive behaviour is defined. | R2-Q3 |
 | (j) | Authorisation per action: who may do what. | R2-Q3 |
-| (k) | Privacy data inventory: personal data shown or collected, purpose, retention. It includes the analytics event properties. | R2-Q3, R4-Q4c |
+| (k) | Privacy data inventory: personal data shown or collected, purpose, retention. It includes the analytics event properties, and an **AI use** part when the PRD uses an AI model (model and provider, data sent, human oversight, transparency notice, AI Act risk category). | R2-Q3, R4-Q4c, R12-Q6a |
 | (l) | A draft API contract that the prototype mocks against, written against the fit analysis. | R2-Q3, R4-Q8a |
 | (m) | Technical questions are listed and linked to ADRs. | R2-Q3 |
 | (n) | The PM, UX and Eng persona reviews are recorded in `reviews.md`. | R2-Q3 |
 | (o) | **Expected outcome and measurement plan:** user benefits with observable signals; numeric targets once `metrics_stage: growth`; events listed in the tracking plan. | R4-Q4a–c |
 | (p) | **Fit analysis** (`fit.md`): each endpoint, use case and data entity classed as reuse, extend, change or new. | R4-Q8a |
+| (q) | **Strongly recommended, not mandatory:** for a PRD that adds a new flow, a light usability test of the prototype with 3–5 real users, findings in `reviews.md`. The gate check reports a missing test as a warning, not a failure. | R11-Q10 |
 
 ### Reviews and sign-off
 
 - The **UX review lane's guideline checks** (accessibility, web guidelines, UX rules, copy and voice, state matrix) run on the prototype first. Their reports feed the UX persona [R4-Q7d].
-- The **PM, UX and Eng persona reviewer agents** run on the PRD and prototype [R1-Q12].
+- The **PM, UX and Eng persona reviewer agents** run on the PRD and prototype [R1-Q12]. For a PRD that adds an endpoint, a data store or a third party, the Eng review includes a short **STRIDE-style threat check** [R11-Q12], which covers **prompt injection** when the PRD sends user or third-party content to an LLM [R12-Q6c].
 - **Two humans sign**: the PRD's driver plus one other founder or developer. One person may hold all three roles [R4-Q1]. With two founders, both sign every design gate.
 - If the PRD **amends** scenarios of an earlier PRD (`amends:`), that earlier PRD's driver also signs [R4-Q8e′].
 
@@ -163,7 +164,7 @@ This gate is passed through the **slice PR** into `main`. There are no personas;
 |---|---|
 | All Gherkin scenarios pass: business layer with fakes, and Playwright-BDD on the UI. | R2-Q5, R4-Q8′ |
 | Technical tests pass, including integration tests against a real Postgres. | R2-Q5, R4-Q8′ |
-| Security and privacy tests pass: authorisation matrix, privacy inventory, relevant OWASP ASVS L1 items, dependency and secret scanning. | R4-Q9 |
+| Security and privacy tests pass: authorisation matrix, privacy inventory, relevant OWASP ASVS L1 items, dependency and secret scanning. Slices touching the LLM gateway or AI features are also reviewed against the OWASP Top 10 for LLM Applications. | R4-Q9, R12-Q6b |
 | The OpenAPI diff shows no breaking change the PRD doesn't list. | R4-Q8c |
 | No review lane (code, security and privacy, UX) has an open **blocking** finding. | R4-Q7a–c |
 | The events in the measurement plan are emitted, asserted in tests through the analytics port, and visible on staging. | R4-Q4c |

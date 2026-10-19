@@ -94,6 +94,19 @@ See [`copy.md`](copy.md).
 |---|---|---|---|---|---|
 | | screen / API / log / analytics event | | | | |
 
+### 11b. AI use
+
+<!-- Only if the PRD uses an AI model [R12-Q6a]. Not legal advice: see docs/foundations/ai-act-one-pager.md. -->
+
+| Item | Answer |
+|---|---|
+| Model and provider | |
+| Data sent to the model (link the rows above) | |
+| Human oversight | <who checks or can override the output> |
+| Transparency notice to users (AI Act Art. 50) | <copy key of the notice> |
+| AI Act risk category | prohibited / high-risk / limited (transparency) / minimal |
+| User or third-party content sent to the model? | yes → prompt-injection threat check in the Eng review [R12-Q6c] |
+
 ## 12. Draft API contract
 
 See [`contract.draft.yaml`](contract.draft.yaml). It is written against the fit analysis, [`fit.md`](fit.md) [R4-Q8a]; the prototype mocks against it.

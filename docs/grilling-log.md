@@ -237,3 +237,13 @@ This revisits R2-Q8, which the user rejected as a closed list.
 |---|----------|-------------|----------|
 | R9-Q1 | **No separate story file.** A story and its PRD are 1:1, so the story is the Draft version of `prd.md` in the same folder; the `story.md` template is only that file's starting content. | Yes. | **Accepted.** |
 | R9-Q2 | **Privacy classes for event properties** in the tracking plan: `none`, `pseudonymous`, `personal`. `personal` is allowed only with a reason recorded in the PRD's privacy inventory, and the privacy reviewer flags it. | Yes. | **Accepted.** |
+
+---
+
+## Round 10: Points found while writing chapter 3 (2026-10-19)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R10-Q1 | **Branch for a design change request.** R4-Q5′ puts DCRs under `design/` but gives no name format. | `design/DCR-012.1-01-<slug>`, worktree `design-DCR-012.1-01-<slug>`, commit scope the DCR ID (e.g. `docs(DCR-012.1-01): update copy deck`). | **Accepted.** |
+
+The user also asked whether INVEST was explained anywhere. It wasn't; chapter 3 step 2 now explains it, and chapter 1 and the story template link to it.

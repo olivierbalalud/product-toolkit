@@ -60,8 +60,8 @@ src/packages/tokens/
 ```
 
 1. **DTCG JSON is canonical** [R3-Q2].
-2. **Style Dictionary builds** the shadcn `globals.css`: the semantic pairs under `:root` and `.dark`, and `@theme inline`. A new token must appear in all three places, which the build guarantees. It will build native token files later [R3-Q2, R3-Q8].
-3. **Into Figma:** the technical founder updates Figma Variables by native JSON import or through the MCP (`use_figma`) [R3-Q2].
+2. **Style Dictionary builds `tokens.css`**: the shadcn semantic pairs under `:root` and `.dark`, and `@theme inline`. A new token must appear in all three places, which the build guarantees. A hand-kept `globals.css` imports it. CI flags any CSS variable defined outside `tokens.css`, such as one the shadcn CLI adds with a new component; the enabler that added the component moves it into DTCG. The build also writes the Figma variables import file, and native token files later [R3-Q2, R3-Q8, R20-Q1, R20-Q4].
+3. **Into Figma:** the technical founder imports the generated variables file, or updates variables through the MCP (`use_figma`) [R3-Q2, R20-Q4].
 4. **Back from Figma:** a token changed in Figma comes back as a **PR prepared by Claude** from a `get_variable_defs` diff, never applied automatically [R3-Q2].
 5. **Lint** forbids raw colours, arbitrary Tailwind values (`bg-[#123456]`) and raw durations in feature code [R3-Q2, R3-Q6′].
 6. Tokens are a **standalone package**, so the separate company website could use the brand tokens later [R2-Q10].
@@ -126,3 +126,62 @@ From the [tooling research](../research/tooling-landscape.md), with the rule tha
 | Code Connect maps going stale | Maps beside each component, checked in CI (§6.5) |
 | Per-screen tweaks to theme or motion | The look changes only through an enabler slice |
 | Parallel worktrees editing tokens or `globals.css` | Shared layers change in one enabler slice at a time [R2-Q9] |
+
+## 6.9 Where everything lives: the UX view
+
+A map of the look layer across the repository and the two design tools. Paths follow the agreed layout [R3-Q1a–h, R13-Q0] and shadcn's monorepo setup (`packages/ui` holds shared components, `apps/web` the app; each has a `components.json`). Decisions in brackets point to the log.
+
+```
+docs/design/
+  design-system.md        component inventory (with origin), token name table (generated),
+                          mirror sync record: Figma and Claude Design [R17-Q1, R18-Q3]
+  motion.md               motion policy and intent catalogue [R3-Q6′]
+  voice-and-tone.md       voice guide (chapter 7)
+
+src/packages/tokens/      the design tokens, canonical
+  src/*.json              DTCG: colour, spacing, radius, typography…
+  src/motion.json         durations, easings, distances [R3-Q6′]
+  style-dictionary.config DTCG → CSS variable mapping [R17-Q1]
+  build/                  generated: CSS variables, TS constants, Figma variables import file [R20-Q4]
+
+src/packages/ui/          the design system: shared components (@<org>/ui) [R3-Q5′]
+  components.json         shadcn config; registries for third-party sources
+  package.json            the libraries: Tailwind v4, Radix, class-variance-authority, motion library
+  src/styles/
+    globals.css           hand-kept: Tailwind import and base layer; imports tokens.css [R20-Q1]
+    tokens.css            generated from tokens: :root, .dark, @theme inline [R20-Q1]
+  src/components/
+    button.tsx            a shadcn component, as `shadcn add` writes it
+    button.stories.tsx    its Storybook story
+    button.figma.tsx      its Code Connect map, beside it [R17-Q2]
+    …                     internal and third-party components sit here too [R20-Q2]
+  src/motion/             presets.ts, motion.css, reduced-motion handling [R3-Q6′]
+  src/hooks/, src/lib/    shared hooks; utils (cn)
+  .storybook/             Storybook config; Chromatic publishes from here
+  THIRD_PARTY.md          origin, version and licence of every pulled component [R20-Q2]
+
+src/apps/web/
+  components.json         shadcn config of the app
+  components/             app-only compositions of design-system components [R20-Q3]
+  app/(prototypes)/       prototype routes, excluded from production builds [R3-Q1g]
+  mocks/                  MSW mocks of draft contracts
+
+docs/product/…/US-012.1-<slug>/
+  flows.md, copy.md       the flow and voice layers of the PRD
+  design-export/          final Claude Design export, if design_tool is claude-design [R18-Q6]
+```
+
+| What | Where it lives | Notes |
+|---|---|---|
+| **Frameworks and libraries** (Tailwind, Radix, shadcn tooling, motion library) | Dependencies of `src/packages/ui/package.json` | Tailwind v4 is configured in CSS, so there is no `tailwind.config.js`. Feature code never imports the motion library directly; it uses presets [R3-Q6′] |
+| **shadcn components** | `src/packages/ui/src/components/`, where `shadcn add` writes them when run from `src/apps/web` | Shared parts go to `packages/ui` and imports are rewritten to the package; app-only blocks go to `apps/web/components` (shadcn docs) |
+| **Tokens** | `src/packages/tokens/src/` (DTCG, canonical); built CSS in `src/packages/ui/src/styles/` | Never edited in Figma or Claude Design [R3-Q2, R18-Q3] |
+| **Motion** | Tokens in `src/packages/tokens/src/motion.json`; presets in `src/packages/ui/src/motion/`; policy in `docs/design/motion.md` | [R3-Q6′] |
+| **Internally developed components** | `src/packages/ui/src/components/`, through a design-system enabler slice; origin `internal` in the inventory | [R7-Q2, R20-Q2] |
+| **Components pulled from a registry or website** (e.g. ReUI, Motion Primitives, Optics) | `src/packages/ui/src/components/`, through an enabler slice only; origin, version and licence in `THIRD_PARTY.md`, origin `registry:<name>` in the inventory | Never added from a feature PRD [R3-Q5′]. **One primitives library, Radix:** a component built on another, such as Optics on Base UI (research §7), needs an ADR [R20-Q2] |
+| **Design systems** | One, in code: `src/packages/tokens` + `src/packages/ui` | Mirrored in Figma and in Claude Design [R18-Q3] |
+| **Figma** | Outside the repo: the design-system library file and one product file per use case [R17-Q3] | In the repo: the Code Connect maps, and the variables import file generated by the tokens build [R20-Q4] |
+| **Claude Design** | Outside the repo: its design system, synced from `src/packages/ui` with `/design-sync` | In the repo: the sync record in `docs/design/design-system.md`, and each PRD's final export in `design-export/` [R18-Q3, R18-Q6] |
+| **Storybook and Chromatic** | Stories beside each component; config in `src/packages/ui/.storybook/` | One story per motion preset [R3-Q6′] |
+| **App-only components** | `src/apps/web/components/`: compositions of design-system components only, no styling beyond tokens. Promoted to `src/packages/ui` by an enabler once a second feature reuses one | [R20-Q3] |
+| **Prototypes** | `src/apps/web/app/(prototypes)/`, moved into real routes during the slice | [R4-Q11] |

@@ -14,10 +14,11 @@ flowchart TB
   end
   subgraph R2 [Design and development]
     direction LR
-    E[Exploring] -->|Design-complete gate| DC[Design-complete]
+    E[Exploring] -->|iterate, incl. gate review| E
+    E -->|design PR merged| DC[Design-complete]
     DC -->|Dev-ready gate| DR[Dev-ready]
     DR -->|slice starts| ID[In development]
-    DC -.->|DCR| E
+    DC -.->|DCR, after the merge| E
     DR -.->|DCR| E
     ID -.->|DCR| E
   end
@@ -29,7 +30,7 @@ flowchart TB
   R2 -->|Done gate| R3
 ```
 
-- **Design** covers everything up to Design-complete. The three personas (PM, UX, Eng) review only here [R1-Q12].
+- **Design** covers everything up to Design-complete. The three personas (PM, UX, Eng) review only here [R1-Q12]. Iterating in *Exploring*, including rounds of review on the open design PR, needs no DCR; a DCR is needed only once the design PR has merged [R2-Q4, R18-Q7].
 - **Development** covers Dev-ready to Done. No persona reviews; the review lanes take over [R4-Q7′].
 - **Granularity:** one user story = one PRD = one slice = one slice PR [R1-Q9]. Work that no single story owns is an **enabler slice** (`ENB-…`) [R3-A3].
 - **Status lives in each artifact's frontmatter** (`status:`), and `docs/product/index.md` is generated from it. There is no separate tracker [R3-A4].
@@ -93,11 +94,11 @@ Stories are then cut as **vertical paths** that deliver value on their own, pass
 - at most **3 PRDs in *Exploring* per driver**;
 - enabler slices that block feature slices go first.
 
-**Inside *Exploring*, anything goes** [R2-Q4]. There are no reviews and no gate checks. The driver may use Claude Design as a sketchpad, but only the real-stack prototype and the markdown artifacts count [R1-Q5, R2-Q1].
+**Inside *Exploring*, anything goes** [R2-Q4]. There are no reviews and no gate checks. The driver explores in **one** design tool per PRD, either Figma or Claude Design, recorded as `design_tool:` in the frontmatter and fixed once *Exploring* starts [R18-Q4]. Whatever the tool, only the real-stack prototype and the markdown artifacts count at the gate [R1-Q5, R18-Q2].
 
 ## 1.5 Exploring → Design-complete
 
-This is the main design gate. It is passed through the **design PR** from `design/PRD-…` into `main` [R4-Q5′].
+This is the main design gate. It is passed through the **design PR** from `design/PRD-…` into `main` [R4-Q5′]. Rounds of review and fixes on the open design PR are still *Exploring*: no DCR is needed until it merges [R18-Q7].
 
 ### Checklist
 
@@ -134,6 +135,7 @@ This is the main design gate. It is passed through the **design PR** from `desig
 - The `.feature` files are **frozen**. A wording tweak for testability is allowed; any change in meaning needs a DCR [R3-Q1a].
 - The prototype's screens are captured into Figma on a frozen `PRD-… / design-complete` page [R3-Q7].
 - A `Proposed` ADR does **not** block this gate. It blocks the next one [R1-Q13].
+- If the PRD was explored in Claude Design, its final export is saved in `design-export/` and merges with the design PR [R18-Q6].
 
 ## 1.6 Design-complete → Dev-ready
 
@@ -209,7 +211,8 @@ A **gate check** runs on every PR that changes a `status:` field, both as one of
 - that the generated coverage has no gaps;
 - the sign-offs in `reviews.md`;
 - the status of linked ADRs;
-- for `Done`: that no review lane has an open blocking finding.
+- for `Done`: that no review lane has an open blocking finding;
+- as a **warning**, that the copy of the design system in the PRD's `design_tool` was synced after the last design-system change [R18-Q3].
 
 A failed check blocks the status change. The checks that a script can do mechanically are done by a script, so that CI needs no agent for them; the agent judges only what the script cannot ([chapter 12](12-skills-to-build.md), R5-Q4′).
 

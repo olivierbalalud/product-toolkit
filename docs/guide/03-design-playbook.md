@@ -73,11 +73,17 @@ Ron Jeffries' **three Cs** (2001) explain what a story is for: the **Card** (the
    ```
 
    The script creates the branch `design/PRD-012.1-book-room` from `origin/main` (or opens it if it exists) in the worktree `.claude/worktrees/design-PRD-012.1-book-room`, sets up a **frontend-only** environment on its own port, running against mocks, and then launches `claude --worktree design-PRD-012.1-book-room`, which reopens that folder [R2-Q9, R4-Q5′, R16-Q0].
-3. Set `status: Exploring` and commit with the PRD as scope: `docs(PRD-012.1): start exploring`.
+3. **Choose the design tool** for this PRD, Figma or Claude Design, and record it as `design_tool:` in the PRD frontmatter. It stays fixed for the whole exploration, so mockups and code stay aligned in style. Switching means restarting the exploration in the other tool from the current prototype routes [R18-Q4].
+4. Check that the tool's copy of the design system is in sync with code: `docs/design/design-system.md` records the commit each copy was last synced from ([chapter 6](06-design-system-and-figma.md)) [R18-Q3].
+5. Set `status: Exploring` and commit with the PRD as scope: `docs(PRD-012.1): start exploring`.
 
 ## 3.5 Step 4: Iterate on flows, screens and copy
 
-This is the loop that *Exploring* exists for. Repeat until the driver is satisfied; nothing here is reviewed yet.
+This is the loop that *Exploring* exists for. Repeat until the driver is satisfied; nothing here is reviewed yet, and no change needs a DCR [R2-Q4, R18-Q7].
+
+### Start from what is built
+
+If the PRD changes screens that already exist, start from **what is built**: the running app on `main` and its `as-built` page in Figma. Never start from an earlier PRD's files in either tool, which may be out of date [R18-Q1]. In Claude Design, recreate the current screen from screenshots of the running app, using the synced design system; Claude Design can't open Figma frames as editable screens. In Figma, duplicate the `as-built` page.
 
 ### Flow
 
@@ -98,10 +104,22 @@ This is the loop that *Exploring* exists for. Repeat until the driver is satisfi
 - Write every visible string in [`copy.md`](../templates/copy.md) in the PRD's source language, following `docs/design/voice-and-tone.md` [R2-Q7]. An agent derives the semantic keys (`<feature>.<screen>.<element>`) and writes them to the feature's message catalog [R2-Q6].
 - The prototype reads strings through next-intl from the start, so screens show readable copy and keys exist from the first prototype [R1-Q11, R3-Q4].
 
-### Sketching and annotation
+### In the design tool
 
-- **Claude Design** may be used as a throwaway sketchpad. It has no version history, so nothing in it counts [R2-Q1].
-- **Figma** is where screens are reviewed and annotated. Push prototype screens to Figma with code-to-canvas through the Figma MCP when a visual review helps. The canonical capture happens at the gate [R2-Q1, R3-Q7].
+Both tools are working material; the record is the prototype in code and the markdown artifacts [R18-Q1, R18-Q2].
+
+| | Figma (`design_tool: figma`) | Claude Design (`design_tool: claude-design`) |
+|---|---|---|
+| Design system | The Figma library: Obra kit, variables, Code Connect | The design system synced from the repo with `/design-sync` |
+| Explore | Mockups built from library components | Prototypes built from the synced components, with chat beside the canvas |
+| Into code | The Figma MCP with Code Connect emits our real components into the prototype routes | The "handoff to Claude Code" bundle (designs, chat, README) is re-implemented in the prototype routes |
+| Keep | Nothing extra: Figma keeps history | The final export (standalone HTML or the handoff bundle) in `design-export/`, merged with the design PR, because Claude Design has no version history [R18-Q6] |
+
+Rules for both:
+
+- **Never change the look in the tool.** Tokens and components change only through an enabler slice [R18-Q3, R2-Q9].
+- **Re-implement in code before the gate.** The gate artefact is always the real-stack prototype, so the lanes, the usability test, Chromatic and the mocks work the same whichever tool was used [R18-Q2].
+- **Annotation and visual review** happen in Figma for every PRD: push prototype screens there with code-to-canvas when a visual review helps. The canonical captures happen at the gates [R3-Q7, R18-Q5].
 
 ## 3.6 Step 5: Write the scenarios
 
@@ -182,7 +200,7 @@ Any UX change to a PRD that is past Design-complete, from any source, is a **des
 3. Work the change in its own branch and worktree, `design/DCR-012.1-01-<slug>` and `design-DCR-012.1-01-<slug>`, as in steps 4–9 but for the change only. Commits use the DCR as scope, e.g. `docs(DCR-012.1-01): update copy deck` [R10-Q1].
 4. The personas review the change only; two people sign [R2-Q4, R4-Q1]. Set the DCR to `Design-complete`, remove it from `open_dcrs:`, and the paused tickets resume.
 
-To "go back" to Figma, duplicate the PRD's `as-built` page and annotate the duplicate. The annotation is input to a DCR; nothing is merged back automatically [R3-Q7].
+To "go back" to Figma, duplicate the PRD's `as-built` page and annotate the duplicate. The annotation is input to a DCR; nothing is merged back automatically [R3-Q7]. A DCR is explored in the PRD's own `design_tool` [R18-Q4]; in Claude Design, start from screenshots of the as-built screens [R18-Q1].
 
 ## 3.14 Designing in parallel
 

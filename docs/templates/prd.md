@@ -7,6 +7,7 @@ status: Exploring        # Draft | Exploring | Design-complete | Dev-ready | In 
 driver: <name>
 priority: <number or label>
 source_locale: en        # en | fr [R1-Q11]
+design_tool: figma       # figma | claude-design; fixed once Exploring starts [R18-Q4]
 extensions: [UC-012.2a, UC-012.3a]
 adrs: []                 # e.g. [ADR-0007]; a Proposed ADR blocks Dev-ready [R1-Q13]
 trds: []                 # e.g. [TRD-012.1]

@@ -54,6 +54,7 @@ docs/
             contract.draft.yaml    draft API contract
             features/*.feature     English Gherkin [R3-Q1a]
             reviews.md             persona reviews and sign-offs
+            design-export/         final Claude Design export, if design_tool is claude-design [R18-Q6]
             dcr/DCR-012.1-01-<slug>.md
             tickets/NN-<slug>.md   written by to-tickets on the slice branch [R6-Q2]
   design/
@@ -112,6 +113,7 @@ These are the fields the gate check relies on. Each template in [`../templates/`
 | `amended_by` | Later PRDs or `fix/` branches that changed this PRD's scenarios. | R4-Q8e′, R5-Q2 |
 | `open_dcrs` | Design change requests not yet closed. | R7-Q3 |
 | `outcome_review_due` | Date of the outcome review: Done plus the measurement window. | R4-Q4e |
+| `design_tool` | `figma` or `claude-design`; fixed once *Exploring* starts. | R18-Q4 |
 
 ### Product-wide setting
 

@@ -26,5 +26,6 @@ adrs: []
 
 - [ ] <testable criterion>
 - [ ] Shared layers it touches (tokens, `globals.css`, DS components, OpenAPI, migrations) change only here [R2-Q9]
+- [ ] If it changes the design system: the Figma library (variables, Code Connect) and the Claude Design design system (`/design-sync`) are both re-synced, and their sync commits recorded in `docs/design/design-system.md` [R18-Q3]
 
 ## Notes for the slices it unblocks

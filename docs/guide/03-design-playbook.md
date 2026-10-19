@@ -1,0 +1,176 @@
+# 3. Design Playbook
+
+How to take a use case from a rough idea to a PRD that passes the Design-complete gate. The gates themselves are in [chapter 1](01-lifecycle-and-gates.md), the files in [chapter 2](02-artifacts-and-ids.md) and the [templates](../templates/). Decision IDs in brackets point to [`../grilling-log.md`](../grilling-log.md).
+
+Skills are named by their role here. Their exact names, sources and pins are in [chapter 11](11-tooling-and-plugins.md) (third-party) and [chapter 12](12-skills-to-build.md) (ours).
+
+## 3.1 Principles
+
+1. **Three layers, kept apart** [R1-Q4]:
+   - **Flow**, per PRD: screens, transitions, key information and key actions.
+   - **Look**, global: tokens, design-system components and motion presets. A PRD never designs the look; it only uses it.
+   - **Voice**, global guide plus a per-PRD copy deck.
+2. **Code is the source of truth for the look** [R1-Q3]. Figma is a synced consumer for review and annotation [R2-Q1].
+3. **Prototypes are built in the real stack**: Next.js and shadcn components from the design system, with mocked data [R1-Q5]. Anything sketched elsewhere is exploration only.
+4. **Readable copy from the first screen**: a button says "Next step" or "Étape suivante", never a key like `screen1.panel2.next.label` [R1-Q4].
+5. **Edge cases come from the use case, not the story**: extensions found by the failure-category check, then covered by scenarios [R1-Q7, R4-Q2].
+6. **Inside *Exploring*, anything goes**. Reviews happen at the gate, not during iteration [R2-Q4].
+
+## 3.2 Step 1: Complete the use case
+
+**Who:** the use case's driver, with Claude Code.
+
+1. Pick a use case from `doc/product/index.md`. Set `status: Draft` and `driver:`.
+2. Gather the inputs it draws on (personas, journeys, pain points) from `doc/product/inputs/` and cite them by ID [R3-A5]. Existing material is imported as input, not rewritten.
+3. With the **use-case writer** skill, fill in the Cockburn "fully dressed" fields from [`use-case.md`](../templates/use-case.md) [R1-Q6].
+4. Run every main-scenario step through the **failure-category grid**. Every "yes" becomes an extension `UC-012.<step><letter>` with a handling outcome, or is marked `deferred` or `out-of-scope` with a reason [R4-Q2].
+5. Check domain words against `doc/product/glossary.md`. Add new terms in both languages.
+6. Set `status: Ready for review`. The **extension checker** runs and reviewers comment (`Under review`). The driver signs it off as `Complete` [R7-Q1].
+
+Interview-style skills such as `grill-with-docs` and `domain-modeling` help when the use case is still vague [R3-B1].
+
+## 3.3 Step 2: Cut stories
+
+**Who:** the use case's driver.
+
+1. With the **story writer**, cut the use case into **vertical paths**: the main scenario or a coherent part of it, plus the extensions that path must handle [R4-Q3].
+2. Check each story against **INVEST** (Bill Wake, 2003), read for this framework as follows. Split any story that would take more than about one week of slice work.
+
+   | Letter | Criterion | What it means here |
+   |---|---|---|
+   | **I** | Independent | It can be designed, built and shipped without waiting for another story. Shared work it needs is an enabler slice, not another story. |
+   | **N** | Negotiable | It states the user's need, not a fixed solution; flows and screens are worked out in *Exploring*. |
+   | **V** | Valuable | It delivers a benefit the user notices on its own, traced to PRD §3a. A technical layer alone is not a story. |
+   | **E** | Estimable | The team can size it. If not, it lacks information (a fit analysis, a spike, an ADR) or is too big. |
+   | **S** | Small | About one week of slice work at most [R4-Q3]. |
+   | **T** | Testable | Its acceptance can be written as Gherkin scenarios that pass or fail. |
+3. Each story becomes a folder `stories/US-012.1-<slug>/` with a `prd.md` started from [`story.md`](../templates/story.md), at `status: Draft` [R9-Q1].
+4. Regenerate `coverage.md`. Extensions no story handles yet stay visible there until a story claims them [R4-Q3].
+
+## 3.4 Step 3: Start exploring
+
+**Who:** a founder picks the PRD explicitly [R6-Q1]; the PRD's driver then works on it.
+
+1. Check the work-in-progress limit: at most **3 PRDs in *Exploring* per driver** [R4-Q6].
+2. Create the design worktree and branch:
+
+   ```bash
+   claude --worktree design-PRD-012.1-book-room
+   ```
+
+   Our `WorktreeCreate` hook turns the name into the branch `design/PRD-012.1-book-room` and sets up a **frontend-only** environment with its own port, running against mocks [R2-Q9, R4-Q5′].
+3. Set `status: Exploring` and commit with the PRD as scope: `docs(PRD-012.1): start exploring`.
+
+## 3.5 Step 4: Iterate on flows, screens and copy
+
+This is the loop that *Exploring* exists for. Repeat until the driver is satisfied; nothing here is reviewed yet.
+
+### Flow
+
+- Draw the flow map and list the screens in [`flows.md`](../templates/flows.md): purpose, key information, key actions, each traced to the story [R2-Q3 (c, e)].
+- Name interactions by **intent** from `doc/design/motion.md` ("confirm success", "reveal details"), never by animation [R3-Q6′].
+- Fill the **state matrix** for every screen: empty, loading, error, partial, success, no permission, stale data [R2-Q3 (d)].
+
+### Prototype
+
+- Build the screens under `src/apps/web/app/(prototypes)/`, which is excluded from production builds [R3-Q1g].
+- **Use only design-system components** [R2-Q3 (g)]. If a needed component doesn't exist, raise an enabler slice with `adds_ds_component: true`; it goes through its own design review [R7-Q2]. Third-party blocks enter the design system only through an enabler slice [R3-Q5′].
+- Mock the data with MSW against the draft API contract [R2-Q9, R3-Q1g].
+- Prototype code needs no tests, but it must pass lint: tokens only, motion presets only, i18n keys only [R4-Q11].
+- Skills that help here: `frontend-design`, `shadcn`, `ui-ux-pro-max`, the Next.js skills [R3-B1].
+
+### Copy
+
+- Write every visible string in [`copy.md`](../templates/copy.md) in the PRD's source language, following `doc/design/voice-and-tone.md` [R2-Q7]. An agent derives the semantic keys (`<feature>.<screen>.<element>`) and writes them to the feature's message catalog [R2-Q6].
+- The prototype reads strings through next-intl from the start, so screens show readable copy and keys exist from the first prototype [R1-Q11, R3-Q4].
+
+### Sketching and annotation
+
+- **Claude Design** may be used as a throwaway sketchpad. It has no version history, so nothing in it counts [R2-Q1].
+- **Figma** is where screens are reviewed and annotated. Push prototype screens to Figma with code-to-canvas through the Figma MCP when a visual review helps. The canonical capture happens at the gate [R2-Q1, R3-Q7].
+
+## 3.6 Step 5: Write the scenarios
+
+1. Turn the draft acceptance criteria into **English Gherkin** in `features/`, using [`feature.feature`](../templates/feature.feature), whatever the PRD's source language [R3-Q1a, R3-C1].
+2. Cover every acceptance criterion and every extension the story handles, including failure paths [R2-Q3 (a, b)].
+3. Tag each scenario with the story and the use-case step or extension: `@US-012.1 @UC-012.3a` [R3-Q1a].
+4. Use the glossary's **English** terms for domain words [R3-C3]. Refer to UI text by **copy key**, and only where the wording matters [R3-C2].
+5. Reuse the wording of existing step definitions where it fits, so existing steps bind [R4-Q8b′].
+6. Regenerate `coverage.md` and check that the story's extensions are covered.
+
+The `.feature` files are the only acceptance criteria. The PRD links to them instead of restating them [R3-C1].
+
+## 3.7 Step 6: Analyse the fit with what exists
+
+**Who:** the **fit-check** skill, reviewed by the SWE persona at the gate [R4-Q8a].
+
+The fit analysis ([`fit.md`](../templates/fit.md)) uses four keys, strongest first [R4-Q8b′]:
+
+| Key | What the agent does | Needs a running service? |
+|---|---|---|
+| 1. Existing specs | Compares each new scenario with the `.feature` files on `main`: duplicate, refines, contradicts or independent. Checks open `design/` branches for overlap, as warnings. | No |
+| 2. API | Diffs the draft contract against the OpenAPI the FastAPI app generates, e.g. with `oasdiff`. | No: the spec can be generated from the app object (inferred) |
+| 3. Behaviour | Binds the new scenarios to the existing business layer with fakes and runs them. Green = exists, red = gap. | No: fakes stand in for adapters |
+| 4. Code | Searches glossary terms in the domain folders, and artifact tags in tests. | No |
+
+Then:
+
+- Write the **draft API contract** (`contract.draft.yaml`) against the analysis, and point the mocks at it [R2-Q3 (l), R4-Q8a].
+- Resolve each misalignment by the rules of R4-Q8c: for anything the user sees, the PRD wins unless other features depend on the old behaviour; then a backward-compatible extension, a breaking change that lists every consumer, or a DCR. An architecture choice becomes an ADR.
+- If a new scenario **contradicts** an earlier PRD's scenario, follow R4-Q8e′: amend a `Done` PRD through `amends:` and edit its `.feature` file in this design PR; raise a DCR on a PRD that isn't built yet; settle overlaps with PRDs in *Exploring* directly with their driver.
+- List technical questions in PRD §14 and open a `Proposed` ADR for each architecture gap [R1-Q13]. A proposed ADR does not block this gate.
+
+## 3.8 Step 7: Define the outcome and how to measure it
+
+1. Write **§3a user benefits**, each with an observable signal [R4-Q4a]. The story's "so that" must trace to one of them.
+2. If `doc/product/settings.yaml` says `metrics_stage: growth`, write **§3b success metrics** with baseline, target and window, referencing `MET-` IDs from the metric catalogue [R4-Q4b, R8-Q3].
+3. Write the **§4 measurement plan**: each event goes in `doc/product/tracking-plan.md` with an `EVT-` ID, a snake_case name, and a privacy class per property (`none`, `pseudonymous`, `personal`) [R4-Q4c, R8-Q4, R9-Q2].
+4. If a metric needs a pipeline, dashboard or BI model that doesn't exist, raise an enabler slice. It doesn't block Dev-ready, but must be done before the outcome review [R4-Q4d].
+
+## 3.9 Step 8: Who, what data, and for whom
+
+- **§10 Who may perform each action:** a role × action table. It becomes the authorisation test matrix [R2-Q3 (j), R4-Q9].
+- **§11 Privacy data inventory:** every personal data item shown, collected, logged or sent to analytics, with purpose, legal basis and retention [R2-Q3 (k)].
+- **§13 Accessibility and responsive:** focus order, keyboard use, labels, contrast through tokens, breakpoints [R2-Q3 (h, i)].
+
+## 3.10 Step 9: Prepare the gate
+
+1. Run the **UX lane's guideline checks** on the prototype: accessibility, web guidelines, UX rules, copy and voice, state matrix. Link their reports in `reviews.md` and fix the blocking findings [R4-Q7d].
+2. Run the **persona reviewers** (PM, UX, Eng) on the PRD and prototype. Record findings and resolutions in `reviews.md` [R1-Q12].
+3. Run the **gate check** locally to catch missing files or fields before opening the PR [R4-Q12].
+4. Empty §15 Open questions as far as possible. Anything left must be gone by Dev-ready [R5-Q1].
+
+## 3.11 Step 10: Pass Design-complete
+
+1. Set `status: Design-complete` and open the **design PR** from `design/PRD-…` into `main` [R4-Q5′].
+2. CI runs the gate check on the status change [R4-Q12].
+3. **Two people sign** in `reviews.md`: the driver plus one other. Add the earlier PRD's driver if the PRD amends its scenarios [R4-Q1, R4-Q8e′].
+4. Merge. From now on:
+   - the `.feature` files are frozen [R3-Q1a];
+   - the prototype's screens are captured into Figma on a frozen `PRD-012.1 / design-complete` page [R3-Q7];
+   - the design worktree can be removed.
+
+## 3.12 From Design-complete to Dev-ready
+
+- Drive each linked ADR to `accepted`. If an ADR's outcome changes the UX, raise a DCR [R1-Q13].
+- Write a TRD where the stack and ADRs don't answer §14 [R5-Q1].
+- Make sure every enabler slice the PRD depends on is done or will merge first.
+- The developer who will take the slice signs Dev-ready [R5-Q1]. Development is in [chapter 4](04-dev-playbook.md).
+
+## 3.13 Changing a design after the gate
+
+Any UX change to a PRD that is past Design-complete, from any source, is a **design change request** [R2-Q4]:
+
+1. Create `dcr/DCR-012.1-01-<slug>.md` from [`dcr.md`](../templates/dcr.md) and add it to the PRD's `open_dcrs:`. The PRD keeps its status [R7-Q3].
+2. List the tickets that must pause until the DCR closes.
+3. Work the change in its own branch and worktree, `design/DCR-012.1-01-<slug>` and `design-DCR-012.1-01-<slug>`, as in steps 4–9 but for the change only. Commits use the DCR as scope, e.g. `docs(DCR-012.1-01): update copy deck` [R10-Q1].
+4. The personas review the change only; two people sign [R2-Q4, R4-Q1]. Set the DCR to `Design-complete`, remove it from `open_dcrs:`, and the paused tickets resume.
+
+To "go back" to Figma, duplicate the PRD's `as-built` page and annotate the duplicate. The annotation is input to a DCR; nothing is merged back automatically [R3-Q7].
+
+## 3.14 Designing in parallel
+
+- Each PRD has its own folder and worktree, so parallel PRDs don't touch the same files [R3-Q1c].
+- Shared layers (tokens, `globals.css`, design-system components, OpenAPI, migrations) change only in their own enabler slice, one at a time [R2-Q9].
+- The fit analysis warns when two PRDs in *Exploring* overlap; their drivers settle it before either reaches the gate [R4-Q8e′].
+- Worktrees, hooks and environments are covered in [chapter 5](05-worktrees-and-parallelism.md).

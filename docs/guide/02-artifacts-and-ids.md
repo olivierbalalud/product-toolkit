@@ -123,7 +123,7 @@ How an ID travels from the spec to the code and back:
 
 | Where | Form | Example | Decision |
 |---|---|---|---|
-| Branch | `<kind>/<ID>-<slug>` | `slice/PRD-012.1-book-room` | R4-Q5′ |
+| Branch | `<kind>/<ID>-<slug>` | `slice/PRD-012.1-book-room`, `design/DCR-012.1-01-new-copy` | R4-Q5′, R10-Q1 |
 | Worktree | branch name with `/` replaced by `-` | `slice-PRD-012.1-book-room` | R4-Q5′ |
 | Commit scope | the artifact ID | `docs(PRD-012.1): add state matrix` | R4-Q5′ |
 | Gherkin | tags on each scenario | `@US-012.1 @UC-012.3a` | R3-Q1a |

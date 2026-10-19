@@ -120,6 +120,7 @@ This is the main design gate. It is passed through the **design PR** from `desig
 | (o) | **Expected outcome and measurement plan:** user benefits with observable signals; numeric targets once `metrics_stage: growth`; events listed in the tracking plan. | R4-Q4a–c |
 | (p) | **Fit analysis** (`fit.md`): each endpoint, use case and data entity classed as reuse, extend, change or new. | R4-Q8a |
 | (q) | **Strongly recommended, not mandatory:** for a PRD that adds a new flow, a light usability test of the prototype with 3–5 real users, findings in `reviews.md`. The gate check reports a missing test as a warning, not a failure. | R11-Q10 |
+| (r) | **AI Act risk category:** a PRD whose §11b says `prohibited` is stopped. One that says `high-risk` (e.g. an Annex III area) needs an ADR, informed by legal advice, deciding whether and how to proceed. The gate check blocks both until resolved. | R14-Q1 |
 
 ### Reviews and sign-off
 
@@ -162,7 +163,8 @@ This gate is passed through the **slice PR** into `main`. There are no personas;
 
 | Requirement | Decision |
 |---|---|
-| All Gherkin scenarios pass: business layer with fakes, and Playwright-BDD on the UI. | R2-Q5, R4-Q8′ |
+| All Gherkin scenarios pass on the business layer with fakes; `@ui` scenarios also pass in Playwright-BDD, in every enabled locale. | R2-Q5, R4-Q8′, R14-Q2 |
+| For AI features: the eval set passes its threshold when prompts or model configuration changed. | R14-Q5 |
 | Technical tests pass, including integration tests against a real Postgres. | R2-Q5, R4-Q8′ |
 | Security and privacy tests pass: authorisation matrix, privacy inventory, relevant OWASP ASVS L1 items, dependency and secret scanning. Slices touching the LLM gateway or AI features are also reviewed against the OWASP Top 10 for LLM Applications. | R4-Q9, R12-Q6b |
 | The OpenAPI diff shows no breaking change the PRD doesn't list. | R4-Q8c |

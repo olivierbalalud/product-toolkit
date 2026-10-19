@@ -104,7 +104,8 @@ See [`copy.md`](copy.md).
 | Data sent to the model (link the rows above) | |
 | Human oversight | <who checks or can override the output> |
 | Transparency notice to users (AI Act Art. 50) | <copy key of the notice> |
-| AI Act risk category | prohibited / high-risk / limited (transparency) / minimal |
+| AI Act risk category | prohibited / high-risk / limited (transparency) / minimal. Prohibited stops the PRD; high-risk needs an ADR with legal advice before Design-complete [R14-Q1]. |
+| Eval set | <path to the eval set>, pass threshold <score> [R14-Q5] |
 | User or third-party content sent to the model? | yes → prompt-injection threat check in the Eng review [R12-Q6c] |
 
 ## 12. Draft API contract

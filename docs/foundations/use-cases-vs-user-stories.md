@@ -2,8 +2,15 @@
 
 Two tools that are often treated as rivals. In this framework they work together: the **use case** finds every way a goal can succeed or fail, and **user stories** cut that goal into pieces that can be designed, built and shipped one at a time. Decision IDs in brackets point to [`../grilling-log.md`](../grilling-log.md).
 
-**Time:** ~17 min of reading (+64 min video, optional).
-**Learn it.** Text: [Use Cases And Stories](https://martinfowler.com/bliki/UseCasesAndStories.html) (Martin Fowler, ~2 min); [Advantages of User Stories over Requirements and Use Cases](https://www.mountaingoatsoftware.com/agile/advantages-of-user-stories-for-requirements) (Mike Cohn, ~9 min); [Unifying user stories, use cases, story maps](https://alistaircockburn.com/Unifying%20us%20uc%20sm.pdf) (Alistair Cockburn, slides, ~6 min). Video: [Use Cases and User Stories: Perfect Partners with Mike Cohn](https://www.youtube.com/watch?v=yT3FLPR8OFU) (Ivar Jacobson International, 1:04:14). Further: the free chapter 0 of Cockburn's [*Unifying User Stories, Use Cases, Story Maps*](https://alistaircockburn.com/UnifyingV2_chapter0.pdf) (2nd ed.).
+- **Time:** ~17 min of reading (+64 min video, optional)
+
+**Learn it**
+
+- Text: [Use Cases And Stories](https://martinfowler.com/bliki/UseCasesAndStories.html) (Martin Fowler, ~2 min)
+- Text: [Advantages of User Stories over Requirements and Use Cases](https://www.mountaingoatsoftware.com/agile/advantages-of-user-stories-for-requirements) (Mike Cohn, ~9 min)
+- Text: [Unifying user stories, use cases, story maps](https://alistaircockburn.com/Unifying%20us%20uc%20sm.pdf) (Alistair Cockburn, slides, ~6 min)
+- Video: [Use Cases and User Stories: Perfect Partners with Mike Cohn](https://www.youtube.com/watch?v=yT3FLPR8OFU) (Ivar Jacobson International, 1:04:14)
+- Further: the free chapter 0 of Cockburn's [*Unifying User Stories, Use Cases, Story Maps*](https://alistaircockburn.com/UnifyingV2_chapter0.pdf) (2nd ed.)
 
 ## 1. Side by side
 

@@ -8,9 +8,9 @@ informed: []
 raised_by: []            # PRDs or ENBs whose gap raised it, e.g. [PRD-012.1] [R1-Q13]
 supersedes: []           # earlier ADRs, or entries of a frozen legacy decision register [R3-A2]
 ---
-<!-- Copied to doc/adr/0007-<slug>.md. MADR format, in English [R3-A2, R1-Q11].
+<!-- Copied to docs/adr/0007-<slug>.md. MADR format, in English [R3-A2, R1-Q11].
      A proposed ADR blocks Dev-ready of the PRDs that raised it, not Design-complete [R1-Q13].
-     Supporting analysis goes in doc/adr/analysis/. -->
+     Supporting analysis goes in docs/adr/analysis/. -->
 
 # ADR-0007: <short title of the problem and solution>
 

@@ -4,7 +4,7 @@ Starting points for every artifact in [chapter 2](../guide/02-artifacts-and-ids.
 
 | Template | Copied to | Used from |
 |---|---|---|
-| [`use-case.md`](use-case.md) | `doc/product/use-cases/UC-012-<slug>/use-case.md` | Use case `Draft` |
+| [`use-case.md`](use-case.md) | `docs/product/use-cases/UC-012-<slug>/use-case.md` | Use case `Draft` |
 | [`story.md`](story.md) | `…/stories/US-012.1-<slug>/prd.md` (its first version) | When stories are cut |
 | [`prd.md`](prd.md) | `…/stories/US-012.1-<slug>/prd.md` | *Exploring* |
 | [`flows.md`](flows.md) | `…/stories/US-012.1-<slug>/flows.md` | *Exploring* |
@@ -13,9 +13,9 @@ Starting points for every artifact in [chapter 2](../guide/02-artifacts-and-ids.
 | [`fit.md`](fit.md) | `…/stories/US-012.1-<slug>/fit.md` | *Exploring*, refreshed at slice start |
 | [`reviews.md`](reviews.md) | `…/stories/US-012.1-<slug>/reviews.md` | Design-complete gate onwards |
 | [`dcr.md`](dcr.md) | `…/stories/US-012.1-<slug>/dcr/DCR-012.1-01-<slug>.md` | After Design-complete |
-| [`enb.md`](enb.md) | `doc/product/enablers/ENB-004-<slug>/enb.md` | Enabler `Draft` |
-| [`adr.md`](adr.md) | `doc/adr/0007-<slug>.md` | When a gap appears |
-| [`trd.md`](trd.md) | `doc/trd/TRD-012.1-<slug>.md` | Before Dev-ready |
-| [`tracking-plan.md`](tracking-plan.md) | `doc/product/tracking-plan.md` | With the first measured PRD |
-| [`settings.yaml`](settings.yaml) | `doc/product/settings.yaml` | Once per product |
+| [`enb.md`](enb.md) | `docs/product/enablers/ENB-004-<slug>/enb.md` | Enabler `Draft` |
+| [`adr.md`](adr.md) | `docs/adr/0007-<slug>.md` | When a gap appears |
+| [`trd.md`](trd.md) | `docs/trd/TRD-012.1-<slug>.md` | Before Dev-ready |
+| [`tracking-plan.md`](tracking-plan.md) | `docs/product/tracking-plan.md` | With the first measured PRD |
+| [`settings.yaml`](settings.yaml) | `docs/product/settings.yaml` | Once per product |
 | [`review-lanes.yaml`](review-lanes.yaml) | in our project plugin (example only) | Review lanes |

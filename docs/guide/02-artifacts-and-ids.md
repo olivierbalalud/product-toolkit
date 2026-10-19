@@ -30,7 +30,7 @@ This chapter lists every artifact the framework uses, its ID format, where its f
 The layout of the product monorepo, as far as specs are concerned [R3-Q1a–h]:
 
 ```
-doc/
+docs/
   product/
     index.md                       GENERATED: every artifact with status, driver, priority
     settings.yaml                  product-wide settings, e.g. metrics_stage [R8-Q2]
@@ -82,10 +82,10 @@ Folders are nested by use case so that PRDs worked on in parallel touch separate
 | Fit analysis | `fit.md` | During *Exploring*, refreshed at slice start [R4-Q8a, R4-Q8′] | Follows its PRD | The SWE persona reviews it |
 | Design change request | `dcr/DCR-…md` | When a UX change is needed after Design-complete [R2-Q4] | `Exploring → Design-complete` [R7-Q3] | The PRD's driver |
 | Ticket | `tickets/NN-slug.md` | At slice start, by `to-tickets` | `status` and `blocked_by` in frontmatter [R6-Q2] | The developer |
-| Enabler slice | `doc/product/enablers/ENB-…/enb.md` [R8-Q1] | When a story or an adoption step needs shared work | `Draft → Dev-ready → In development → Done` [R7-Q2] | A developer |
-| ADR | `doc/adr/NNNN-slug.md` | When a feasibility or architecture gap appears [R1-Q13] | MADR statuses; a `Proposed` ADR blocks Dev-ready | Its author |
-| TRD | `doc/trd/` | When the stack and ADRs don't answer a PRD's technical questions [R5-Q1] | — | A developer |
-| Tracking plan | `doc/product/tracking-plan.md`: events (`EVT-…`) and the metric catalogue (`MET-…`) | With the first PRD that measures something | Living document | The founders |
+| Enabler slice | `docs/product/enablers/ENB-…/enb.md` [R8-Q1] | When a story or an adoption step needs shared work | `Draft → Dev-ready → In development → Done` [R7-Q2] | A developer |
+| ADR | `docs/adr/NNNN-slug.md` | When a feasibility or architecture gap appears [R1-Q13] | MADR statuses; a `Proposed` ADR blocks Dev-ready | Its author |
+| TRD | `docs/trd/` | When the stack and ADRs don't answer a PRD's technical questions [R5-Q1] | — | A developer |
+| Tracking plan | `docs/product/tracking-plan.md`: events (`EVT-…`) and the metric catalogue (`MET-…`) | With the first PRD that measures something | Living document | The founders |
 
 ## 2.4 Frontmatter fields
 
@@ -115,7 +115,7 @@ These are the fields the gate check relies on. Each template in [`../templates/`
 
 ### Product-wide setting
 
-`metrics_stage: discovery | growth` decides whether numeric success targets are mandatory in PRDs. The founders switch it. It lives in `doc/product/settings.yaml`, which the gate check reads [R4-Q4b, R8-Q2].
+`metrics_stage: discovery | growth` decides whether numeric success targets are mandatory in PRDs. The founders switch it. It lives in `docs/product/settings.yaml`, which the gate check reads [R4-Q4b, R8-Q2].
 
 ## 2.5 Traceability
 

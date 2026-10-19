@@ -20,11 +20,11 @@ Skills are named by their role here. Their exact names, sources and pins are in 
 
 **Who:** the use case's driver, with Claude Code.
 
-1. Pick a use case from `doc/product/index.md`. Set `status: Draft` and `driver:`.
-2. Gather the inputs it draws on (personas, journeys, pain points) from `doc/product/inputs/` and cite them by ID [R3-A5]. Existing material is imported as input, not rewritten.
+1. Pick a use case from `docs/product/index.md`. Set `status: Draft` and `driver:`.
+2. Gather the inputs it draws on (personas, journeys, pain points) from `docs/product/inputs/` and cite them by ID [R3-A5]. Existing material is imported as input, not rewritten.
 3. With the **use-case writer** skill, fill in the Cockburn "fully dressed" fields from [`use-case.md`](../templates/use-case.md) [R1-Q6].
 4. Run every main-scenario step through the **failure-category grid**. Every "yes" becomes an extension `UC-012.<step><letter>` with a handling outcome, or is marked `deferred` or `out-of-scope` with a reason [R4-Q2].
-5. Check domain words against `doc/product/glossary.md`. Add new terms in both languages.
+5. Check domain words against `docs/product/glossary.md`. Add new terms in both languages.
 6. Set `status: Ready for review`. The **extension checker** runs and reviewers comment (`Under review`). The driver signs it off as `Complete` [R7-Q1].
 
 Interview-style skills such as `grill-with-docs` and `domain-modeling` help when the use case is still vague [R3-B1].
@@ -82,7 +82,7 @@ This is the loop that *Exploring* exists for. Repeat until the driver is satisfi
 ### Flow
 
 - Draw the flow map and list the screens in [`flows.md`](../templates/flows.md): purpose, key information, key actions, each traced to the story [R2-Q3 (c, e)].
-- Name interactions by **intent** from `doc/design/motion.md` ("confirm success", "reveal details"), never by animation [R3-Q6′].
+- Name interactions by **intent** from `docs/design/motion.md` ("confirm success", "reveal details"), never by animation [R3-Q6′].
 - Fill the **state matrix** for every screen: empty, loading, error, partial, success, no permission, stale data [R2-Q3 (d)].
 
 ### Prototype
@@ -95,7 +95,7 @@ This is the loop that *Exploring* exists for. Repeat until the driver is satisfi
 
 ### Copy
 
-- Write every visible string in [`copy.md`](../templates/copy.md) in the PRD's source language, following `doc/design/voice-and-tone.md` [R2-Q7]. An agent derives the semantic keys (`<feature>.<screen>.<element>`) and writes them to the feature's message catalog [R2-Q6].
+- Write every visible string in [`copy.md`](../templates/copy.md) in the PRD's source language, following `docs/design/voice-and-tone.md` [R2-Q7]. An agent derives the semantic keys (`<feature>.<screen>.<element>`) and writes them to the feature's message catalog [R2-Q6].
 - The prototype reads strings through next-intl from the start, so screens show readable copy and keys exist from the first prototype [R1-Q11, R3-Q4].
 
 ### Sketching and annotation
@@ -137,8 +137,8 @@ Then:
 ## 3.8 Step 7: Define the outcome and how to measure it
 
 1. Write **§3a user benefits**, each with an observable signal [R4-Q4a]. The **"so that" part of the user story** (its benefit, see [§3.3](#what-a-user-story-is)) must trace to one of these benefits: a story whose benefit is not in §3a has no measurable reason to exist.
-2. If `doc/product/settings.yaml` says `metrics_stage: growth`, write **§3b success metrics** with baseline, target and window, referencing `MET-` IDs from the metric catalogue [R4-Q4b, R8-Q3].
-3. Write the **§4 measurement plan**: each event goes in `doc/product/tracking-plan.md` with an `EVT-` ID, a snake_case name, and a privacy class per property (`none`, `pseudonymous`, `personal`) [R4-Q4c, R8-Q4, R9-Q2].
+2. If `docs/product/settings.yaml` says `metrics_stage: growth`, write **§3b success metrics** with baseline, target and window, referencing `MET-` IDs from the metric catalogue [R4-Q4b, R8-Q3].
+3. Write the **§4 measurement plan**: each event goes in `docs/product/tracking-plan.md` with an `EVT-` ID, a snake_case name, and a privacy class per property (`none`, `pseudonymous`, `personal`) [R4-Q4c, R8-Q4, R9-Q2].
 4. If a metric needs a pipeline, dashboard or BI model that doesn't exist, raise an enabler slice. It doesn't block Dev-ready, but must be done before the outcome review [R4-Q4d].
 
 ## 3.9 Step 8: Who, what data, and for whom

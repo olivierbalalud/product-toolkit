@@ -8,7 +8,7 @@ source_locale: en        # en | fr [R1-Q11]
 inputs: []               # IDs of personas, journeys, pain points this use case draws on [R3-A5]
 stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 ---
-<!-- Copied to doc/product/use-cases/UC-012-<slug>/use-case.md. Cockburn "fully dressed" format [R1-Q6]. -->
+<!-- Copied to docs/product/use-cases/UC-012-<slug>/use-case.md. Cockburn "fully dressed" format [R1-Q6]. -->
 
 # UC-012: <title>
 

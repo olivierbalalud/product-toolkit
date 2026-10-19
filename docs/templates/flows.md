@@ -21,7 +21,7 @@ flowchart TB
 ## Screens
 
 <!-- One block per screen. Key information and key actions are traced to the story [R2-Q3 (e)].
-     Interactions name an INTENT from doc/design/motion.md, never an animation [R3-Q6′]. -->
+     Interactions name an INTENT from docs/design/motion.md, never an animation [R3-Q6′]. -->
 
 ### S1 <screen name>
 

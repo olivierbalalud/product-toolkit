@@ -48,7 +48,7 @@ outcome_review_due:      # set at Done: Done date + measurement window [R4-Q4e]
 
 ## 4. Measurement plan
 
-<!-- Each event or log field, entered in doc/product/tracking-plan.md. Every property also goes in §11 [R4-Q4c].
+<!-- Each event or log field, entered in docs/product/tracking-plan.md. Every property also goes in §11 [R4-Q4c].
      A missing pipeline, dashboard or BI model is an ENB, linked in frontmatter [R4-Q4d]. -->
 
 | Event | Feeds | Status |

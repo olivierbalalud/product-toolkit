@@ -8,7 +8,7 @@ blocks: []               # PRDs or other ENBs waiting on it, e.g. [PRD-012.1]
 adds_ds_component: false # true → goes through Exploring and the UX persona review first [R7-Q2]
 adrs: []
 ---
-<!-- Copied to doc/product/enablers/ENB-004-<slug>/enb.md [R8-Q1]. Tickets go in tickets/ beside it.
+<!-- Copied to docs/product/enablers/ENB-004-<slug>/enb.md [R8-Q1]. Tickets go in tickets/ beside it.
      Work no single story owns: CI, the app shell, tokens, a DS component, an i18n layer, a pipeline [R3-A3]. -->
 
 # ENB-004: <title>

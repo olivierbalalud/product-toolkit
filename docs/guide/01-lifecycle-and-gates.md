@@ -32,13 +32,13 @@ flowchart TB
 - **Design** covers everything up to Design-complete. The three personas (PM, UX, Eng) review only here [R1-Q12].
 - **Development** covers Dev-ready to Done. No persona reviews; the review lanes take over [R4-Q7′].
 - **Granularity:** one user story = one PRD = one slice = one slice PR [R1-Q9]. Work that no single story owns is an **enabler slice** (`ENB-…`) [R3-A3].
-- **Status lives in each artifact's frontmatter** (`status:`), and `doc/product/index.md` is generated from it. There is no separate tracker [R3-A4].
+- **Status lives in each artifact's frontmatter** (`status:`), and `docs/product/index.md` is generated from it. There is no separate tracker [R3-A4].
 
 ## 1.2 PRD statuses
 
 | Status | Meaning | Where the work happens |
 |---|---|---|
-| `Draft` | A story exists, with draft acceptance criteria and the use-case extensions it touches. | `doc/product/use-cases/UC-…/stories/US-…/` on `main` |
+| `Draft` | A story exists, with draft acceptance criteria and the use-case extensions it touches. | `docs/product/use-cases/UC-…/stories/US-…/` on `main` |
 | `Exploring` | Flows, screens, copy and prototypes are iterated freely. No reviews. | A `design/PRD-…` branch and worktree [R1-Q10, R4-Q5′] |
 | `Design-complete` | The design is signed off. Its `.feature` files are frozen [R3-Q1a]. The design PR has merged into `main`. | `main` |
 | `Dev-ready` | Everything a developer needs is decided: ADRs accepted, TRDs written, blocking enablers scheduled. | `main` |

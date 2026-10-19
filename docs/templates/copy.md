@@ -5,7 +5,7 @@ feature: bookings          # the catalog file: src/packages/i18n/messages/<local
 ---
 <!-- Copied to …/stories/US-012.1-<slug>/copy.md. The VOICE layer for this PRD [R1-Q4].
      Source text is real, readable copy in the source locale: "Next step", never "screen1.panel2.next.label" [R1-Q4].
-     It follows doc/design/voice-and-tone.md [R2-Q7]. Keys are semantic: <feature>.<screen>.<element> [R2-Q6]. -->
+     It follows docs/design/voice-and-tone.md [R2-Q7]. Keys are semantic: <feature>.<screen>.<element> [R2-Q6]. -->
 
 # Copy deck: PRD-012.1
 

@@ -1,4 +1,4 @@
-<!-- Copied to doc/product/tracking-plan.md, one per product [R4-Q4c]. The analytics or BI tool is chosen
+<!-- Copied to docs/product/tracking-plan.md, one per product [R4-Q4c]. The analytics or BI tool is chosen
      by an ADR, outside the framework [R4-Q4d]. Every event property is also in the PRD's privacy
      inventory; no personal data in analytics by default [R4-Q4c]. -->
 

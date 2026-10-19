@@ -217,3 +217,14 @@ This revisits R2-Q8, which the user rejected as a closed list.
 | R7-Q2 | **Enabler slice lifecycle.** | `Draft → Dev-ready → In development → Done`, skipping design, except an enabler that adds a design-system component: it goes through *Exploring* and the UX persona review. | **Accepted.** |
 | R7-Q3 | **How a DCR is tracked.** R2-Q4 says the PRD "goes back to *Exploring* for the delta only", which would make an in-progress slice lose its status. | The PRD's own `status:` doesn't change. The DCR file carries its own status (`Exploring → Design-complete`), the PRD lists it under `open_dcrs:`, and the tickets it affects pause until it closes. | **Accepted.** |
 | R7-Q4 | **Review lanes on `fix/` PRs.** R4-Q7b covers slice PRs only. | The code and security lanes run on every `fix/` PR; the UX lane only when the diff touches the web app or the UI package. | **Accepted.** |
+
+---
+
+## Round 8: Points found while writing chapter 2 (2026-10-19)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R8-Q1 | **Where enabler slices live.** The R3 layout has no home for `ENB-…` files. | `doc/product/enablers/ENB-004-<slug>/` with `enb.md`, plus `tickets/` like a story folder. | **Accepted.** |
+| R8-Q2 | **Where `metrics_stage` lives.** R4-Q4b says only "in `doc/product/`". | `doc/product/settings.yaml`, read by the gate check; other product-wide settings can go there later. | **Accepted.** |
+| R8-Q3 | **ID for metrics in the catalogue.** | `MET-NNN`, so a PRD's §3b and the tracking plan refer to the same metric definition. | **Accepted.** |
+| R8-Q4 | **Event ID format.** | `EVT-NNN`, plus a separate snake_case event name (e.g. `invoice_uploaded`), since analytics tools key events by name. | **Accepted.** |

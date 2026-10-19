@@ -20,7 +20,7 @@ This chapter lists every artifact the framework uses, its ID format, where its f
 | Enabler slice | `ENB-NNN` | `ENB-004` | — |
 | ADR | `ADR-NNNN` | `ADR-0007` | — |
 | Metric | `MET-NNN` | `MET-003` | Tracking plan (metric catalogue) [R8-Q3] |
-| Analytics event | `EVT-NNN`, plus a snake_case event name | `EVT-014` / `invoice_uploaded` | Tracking plan [R8-Q4] |
+| Analytics event | `EVT-NNN`, plus a snake_case event name | `EVT-014` / `room_booked` | Tracking plan [R8-Q4] |
 | Slice ticket | `NN-slug` (file name, unique within its story) | `03-reject-duplicate.md` | Story [R6-Q2] |
 
 `ENB` stands for **enabler**: work that no single story owns but that stories depend on, such as CI, the app shell, a new design-system component or an infrastructure piece [R3-A3].
@@ -123,8 +123,8 @@ How an ID travels from the spec to the code and back:
 
 | Where | Form | Example | Decision |
 |---|---|---|---|
-| Branch | `<kind>/<ID>-<slug>` | `slice/PRD-012.1-upload-invoice` | R4-Q5′ |
-| Worktree | branch name with `/` replaced by `-` | `slice-PRD-012.1-upload-invoice` | R4-Q5′ |
+| Branch | `<kind>/<ID>-<slug>` | `slice/PRD-012.1-book-room` | R4-Q5′ |
+| Worktree | branch name with `/` replaced by `-` | `slice-PRD-012.1-book-room` | R4-Q5′ |
 | Commit scope | the artifact ID | `docs(PRD-012.1): add state matrix` | R4-Q5′ |
 | Gherkin | tags on each scenario | `@US-012.1 @UC-012.3a` | R3-Q1a |
 | Other tests | a pytest marker or test tag | the extension or story ID | R4-Q8b′ |

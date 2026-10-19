@@ -49,3 +49,4 @@ coverage/
 # Claude Code local (personal) files
 .claude/settings.local.json
 CLAUDE.local.md
+.claude/worktrees/

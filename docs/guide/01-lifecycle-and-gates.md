@@ -7,18 +7,26 @@ Artifacts and their IDs (`UC-012`, `US-012.1`, `PRD-012.1`, `ENB-004`, `DCR-012.
 ## 1.1 The shape of the flow
 
 ```mermaid
-flowchart LR
-  UC[Use case<br/>complete] --> US[Stories cut]
-  US --> D[Draft]
-  D -->|picked by a founder| E[Exploring]
-  E -->|Design-complete gate| DC[Design-complete]
-  DC -->|Dev-ready gate| DR[Dev-ready]
-  DR -->|slice starts| ID[In development]
-  ID -->|Done gate| DN[Done]
-  DN -.->|outcome review date| OR[Outcome reviewed]
-  DC -.->|DCR| E
-  DR -.->|DCR| E
-  ID -.->|DCR| E
+flowchart TB
+  subgraph R1 [Before design]
+    direction LR
+    UC[Use case<br/>complete] --> US[Stories cut] --> D[Draft]
+  end
+  subgraph R2 [Design and development]
+    direction LR
+    E[Exploring] -->|Design-complete gate| DC[Design-complete]
+    DC -->|Dev-ready gate| DR[Dev-ready]
+    DR -->|slice starts| ID[In development]
+    DC -.->|DCR| E
+    DR -.->|DCR| E
+    ID -.->|DCR| E
+  end
+  subgraph R3 [After the slice]
+    direction LR
+    DN[Done] -.->|outcome review date| OR[Outcome reviewed]
+  end
+  R1 -->|picked by a founder| R2
+  R2 -->|Done gate| R3
 ```
 
 - **Design** covers everything up to Design-complete. The three personas (PM, UX, Eng) review only here [R1-Q12].

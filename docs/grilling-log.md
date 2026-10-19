@@ -340,9 +340,9 @@ Facts checked in the Claude Code hooks docs: the `WorktreeCreate` hook fires for
 
 | # | Question | Recommended | Decision |
 |---|----------|-------------|----------|
-| R17-Q1 | **Names between Figma and code.** Figma paths, DTCG tokens and CSS variables need an explicit mapping, or a rename on one side breaks the other (research, pitfall 5). | Figma variable names mirror the DTCG paths exactly (`/` instead of `.`); the DTCG → shadcn CSS variable mapping lives in the Style Dictionary configuration and is generated as a table into `docs/design/design-system.md`. | _pending_ |
-| R17-Q2 | **Keeping Code Connect maps current** (research, pitfall 7). | Maps live beside each component in `src/packages/ui`; a CI check fails when a component is renamed or removed without its map (inferred: the Code Connect CLI can validate maps; verify when building). | _pending_ |
-| R17-Q3 | **How the Figma files are organised.** | One design-system library file (Obra-based: variables and components), and one product file per use case with a page per PRD snapshot (`PRD-012.1 / design-complete`, `PRD-012.1 / as-built`) and a `drafts` page for *Exploring* captures. | _pending_ |
+| R17-Q1 | **Names between Figma and code.** Figma paths, DTCG tokens and CSS variables need an explicit mapping, or a rename on one side breaks the other (research, pitfall 5). | Figma variable names mirror the DTCG paths exactly (`/` instead of `.`); the DTCG → shadcn CSS variable mapping lives in the Style Dictionary configuration and is generated as a table into `docs/design/design-system.md`. | **Accepted.** |
+| R17-Q2 | **Keeping Code Connect maps current** (research, pitfall 7). | Maps live beside each component in `src/packages/ui`; a CI check fails when a component is renamed or removed without its map (inferred: the Code Connect CLI can validate maps; verify when building). | **Accepted.** |
+| R17-Q3 | **How the Figma files are organised.** | One design-system library file (Obra-based: variables and components), and one product file per use case with a page per PRD snapshot (`PRD-012.1 / design-complete`, `PRD-012.1 / as-built`) and a `drafts` page for *Exploring* captures. | **Accepted.** The `drafts` page also holds Claude Design screens pushed to Figma for review (R18). |
 
 ---
 

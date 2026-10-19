@@ -283,3 +283,11 @@ The user pointed out that chapter 3 never explains how a user story is structure
 | R12-Q6 | **AI checks in the framework itself.** (a) PRD §11 gains an "AI use" part: model and provider, data sent, human oversight, the AI Act Art. 50 transparency notice, AI Act risk category. (b) The security lane gains an OWASP Top 10 for LLM Applications reviewer for slices touching the LLM gateway or AI features. (c) The Eng persona's threat check covers prompt injection when a PRD sends user or third-party content to an LLM. | Yes to all three. | **Accepted.** |
 | R12-Q7 | **Rules for the legal one-pagers.** "Not legal advice" notice; official sources only (EUR-Lex, CNIL, European Commission); a "last verified" date, reviewed every 6 months or on a regulation change; owned by the founders until a lawyer or DPO reviews them. | Yes. | **Accepted, amended by the user:** non-official sources are also accepted for **trainings and primers**. The legal facts themselves still cite official sources. |
 | R12-Q8 | **Keep the time cap.** Each role's core path stays within 6 h (R11-Q3); lenses list core material first and mark the rest optional. | Yes. | **Accepted.** |
+
+---
+
+## Round 13: Points found while writing chapter 4 (2026-10-19)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R13-Q0 | **Docs root folder.** The R3-Q1 layout (from the user's counter-proposal) used `doc/`. | — | **Corrected by the user:** the root is **`docs/`** (with an s). Guide and templates updated; earlier rounds keep their original wording. This also matches mattpocock's setup, which writes `docs/agents/` and expects `docs/adr/`, so the proposed question on moving its config to `doc/agents/` is void. |

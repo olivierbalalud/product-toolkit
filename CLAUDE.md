@@ -2,9 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project status
+## What this repo is
 
-This repository has just been created and has no source code, build system, or tests yet. When the stack is chosen, add the build, lint, and test commands here (including how to run a single test), along with a short overview of the architecture. Extend `.gitignore` with the ignore rules for that stack.
+This repo holds **research and documentation only**. It is the documented framework for designing and developing product features: process guide, templates, and a list of recommended Claude Code plugins. It does not contain product code. The product lives in a **separate monorepo**. Do not create or download plugins, skills or agents here. List and describe them in the docs instead.
+
+- `docs/brief.md`: objectives, concerns and context as originally stated.
+- `docs/grilling-log.md`: the decisions taken in each Q&A round. It is authoritative where it refines the brief.
+- `docs/research/`: tooling research with sources.
+
+**The product monorepo is strictly read-only.** Never write to it, and never run git commands that change its state (commit, checkout, pull, fetch, stash, etc.). Inspect only a read-only copy of it.
 
 ## Git commits: Conventional Commits
 

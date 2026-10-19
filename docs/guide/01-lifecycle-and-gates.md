@@ -81,7 +81,7 @@ Stories are only cut from a **complete** use case [R4-Q2]. A use case is complet
 4. Stakeholders and their interests are listed.
 5. The inputs it draws on (personas, journeys) are cited by ID [R3-A5].
 
-Stories are then cut as **vertical paths** that deliver value on their own, pass INVEST, and fit about one week of slice work [R4-Q3]. Extensions that no story handles yet stay visible in the generated `coverage.md`.
+Stories are then cut as **vertical paths** that deliver value on their own, pass INVEST ([explained in chapter 3](03-design-playbook.md#33-step-2-cut-stories)), and fit about one week of slice work [R4-Q3]. Extensions that no story handles yet stay visible in the generated `coverage.md`.
 
 ## 1.4 Draft → Exploring
 

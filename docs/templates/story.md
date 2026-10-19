@@ -21,7 +21,7 @@ extensions: [UC-012.2a, UC-012.3a]   # the extensions this story handles [R2-Q4,
 ## Path through the use case
 
 <!-- A vertical path that delivers value on its own: the main scenario, or a coherent part of it,
-     plus the extensions it must handle [R4-Q3]. INVEST; about one week of slice work at most. -->
+     plus the extensions it must handle [R4-Q3]. INVEST (see guide chapter 3, step 2); about one week of slice work at most. -->
 
 - Main scenario steps: <1–5>
 - Extensions handled: UC-012.2a, UC-012.3a

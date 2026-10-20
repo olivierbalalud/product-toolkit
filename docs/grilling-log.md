@@ -415,3 +415,14 @@ The user asked whether slowly changing dimensions (SCDs) should be tackled at fr
 | R23-Q2 | **A dimension catalogue in the tracking plan.** Each dimension (`DIM-NNN`): name, source entity and attribute, expected change frequency, privacy class, and whether history is needed. Each metric in the catalogue lists its dimensions, each marked **`as-at-event`** or **`as-now`**. | Yes. | **Accepted.** |
 | R23-Q3 | **Capture history from the first slice.** A dimension needed `as-at-event` is captured by the first slice that introduces it: either as a property **snapshot** on the event (only if its privacy class is `none`), or as a **change event** `<object>_changed` / an audit history row with valid-from time in the operational database. The privacy reviewer checks it; the fit analysis lists which applies. | Yes. | **Accepted.** |
 | R23-Q4 | **Volume estimates for sizing.** Each event and each dimension with history carries an expected volume (events per day, changes per month) in the tracking plan, as input to the BI and observability ADRs. | Yes. | **Accepted.** |
+
+---
+
+## Round 24: Points found while writing chapter 11 (2026-10-20)
+
+Facts checked in the Claude Code plugin marketplace and settings references: plugin entries take `github`, `url` or `git-subdir` sources with an optional full-commit `sha`; a fetched plugin without its own `plugin.json` takes the marketplace entry as its manifest; a `directory` marketplace source needs an absolute path; a `github` marketplace source takes `repo`, `ref` and `path`.
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R24-Q1 | **Where the monorepo's marketplace lives, and how our plugin is developed.** | `tools/claude-marketplace/` in the monorepo, registered as a `github` marketplace source (`repo` + `path`), so it works on every clone; our plugin developed locally with `claude --plugin-dir …` before merging (inferred). | **Accepted for now**, pending verification of `--plugin-dir`. Verified the same day in the CLI reference: `--plugin-dir` loads a plugin from a directory or `.zip` archive "for this session only"; the flag can be repeated. |
+| R24-Q2 | **Third-party skills that aren't plugins.** | Wrap each as an entry in our marketplace: `git-subdir` source pinned by `sha`, plus a `skills` field, instead of copying folders into the monorepo. Verify the exact `skills` value with `claude plugin validate` when building. | **Accepted.** |

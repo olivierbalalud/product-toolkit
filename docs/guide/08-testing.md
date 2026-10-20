@@ -41,6 +41,7 @@ What is tested, where the tests live, which tool runs them and when they must pa
 - **Domain words** are the glossary's English terms. A step-vocabulary check flags words that are not in the glossary [R3-C3].
 - **UI text** is referenced by copy-deck key, only where the exact wording matters. Playwright steps resolve keys through the next-intl catalogs, so the same scenarios run in every locale, which also tests the translations [R3-C2].
 - **Reuse** existing step wording where it fits, so existing step definitions bind [R4-Q8b′].
+- **Drafts** written while the use case is completed live in `scenarios.draft.feature`, tagged `@draft`, and are **not run** by either harness until they move into a story [R27-Q1′].
 - **Frozen at Design-complete.** A wording tweak for testability is allowed; any change in meaning needs a DCR or a later PRD's amendment [R3-Q1a, R4-Q8e′].
 
 ### Which scenarios run in which layer

@@ -46,6 +46,7 @@ docs/
       UC-012-<slug>/
         use-case.md
         coverage.md                GENERATED: extension → scenarios [R3-Q1b]
+        scenarios.draft.feature    draft scenario per extension, @draft, not run [R27-Q1′]
         stories/
           US-012.1-<slug>/
             prd.md

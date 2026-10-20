@@ -24,8 +24,9 @@ Skills are named by their role here. Their exact names, sources and pins are in 
 2. Gather the inputs it draws on (personas, journeys, pain points) from `docs/product/inputs/` and cite them by ID [R3-A5]. Existing material is imported as input, not rewritten.
 3. With the **use-case writer** skill, fill in the Cockburn "fully dressed" fields from [`use-case.md`](../templates/use-case.md) [R1-Q6].
 4. Run every main-scenario step through the **failure-category grid**. Every "yes" becomes an extension `UC-012.<step><letter>` with a handling outcome, or is marked `deferred` or `out-of-scope` with a reason [R4-Q2].
-5. Check domain words against `docs/product/glossary.md`. Add new terms in both languages.
-6. Set `status: Ready for review`. The **extension checker** runs and reviewers comment (`Under review`). The driver signs it off as `Complete` [R7-Q1].
+5. With **`write-scenarios`** (`draft` mode), write one concrete draft scenario per extension in `scenarios.draft.feature`, tagged `@UC-…` and `@draft`. An extension you can't illustrate with an example isn't clear yet. Drafts are English Gherkin but are not run [R27-Q1′].
+6. Check domain words against `docs/product/glossary.md`. Add new terms in both languages.
+7. Set `status: Ready for review`. The **extension checker** runs and reviewers comment (`Under review`). The driver signs it off as `Complete` [R7-Q1].
 
 Interview-style skills such as `grill-with-docs` and `domain-modeling` help when the use case is still vague [R3-B1].
 
@@ -59,7 +60,8 @@ Ron Jeffries' **three Cs** (2001) explain what a story is for: the **Card** (the
    | **S** | Small | About one week of slice work at most [R4-Q3]. |
    | **T** | Testable | Its acceptance can be written as Gherkin scenarios that pass or fail. |
 3. Each story becomes a folder `stories/US-012.1-<slug>/` with a `prd.md` started from [`story.md`](../templates/story.md), at `status: Draft` [R9-Q1].
-4. Regenerate `coverage.md`. Extensions no story handles yet stay visible there until a story claims them [R4-Q3].
+4. Each draft scenario **moves** to the `features/` of the story that claims its extension, and gets the story's `@US-…` tag; it is moved, never copied, so it exists in one place only [R27-Q1′].
+5. Regenerate `coverage.md`. Extensions no story handles yet stay visible there, with their drafts, until a story claims them [R4-Q3].
 
 ## 3.4 Step 3: Start exploring
 
@@ -123,7 +125,7 @@ Rules for both:
 
 ## 3.6 Step 5: Write the scenarios
 
-1. Turn the draft acceptance criteria into **English Gherkin** in `features/`, using [`feature.feature`](../templates/feature.feature), whatever the PRD's source language [R3-Q1a, R3-C1].
+1. With **`write-scenarios`** (`story` mode), complete the moved drafts and turn the draft acceptance criteria into **English Gherkin** in `features/`, using [`feature.feature`](../templates/feature.feature), whatever the PRD's source language [R3-Q1a, R3-C1, R27-Q1′].
 2. Cover every acceptance criterion and every extension the story handles, including failure paths [R2-Q3 (a, b)].
 3. Tag each scenario with the story and the use-case step or extension: `@US-012.1 @UC-012.3a` [R3-Q1a].
 4. Use the glossary's **English** terms for domain words [R3-C3]. Refer to UI text by **copy key**, and only where the wording matters [R3-C2].

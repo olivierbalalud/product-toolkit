@@ -67,11 +67,13 @@ Every use case is written at the user-goal level ([§2.2](#22-goal-levels)) in t
 ### 2.2 Goal levels
 
 - **Roles:** PM [core] · UX [core] · SWE [optional]
-- **Time:** ~14 min (+8 min text, optional)
+- **Time:** ~17 min (text + video; +8 min text, optional)
 
 **Definition**
 
 Cockburn sorts goals by altitude. A **user goal** ("sea level", blue, a waves icon) is one the primary actor can finish and then walk away happy: his **coffee-break test** is "After I get done with this, I can take a coffee break", typically one person, one sitting, 2 to 20 minutes. Above it, a **summary** goal (white, a kite or, very high, a cloud) groups several user goals and runs over hours to years. Below it, a **subfunction** (indigo, a fish) is a step that serves a user goal, such as "find a customer"; a goal too low to write at all is a **clam**. Asking "why?" of a goal moves up a level. Larman's **elementary business process** is the same idea.
+
+Cockburn now frames the levels as time: **verbs have durations**. Every goal is a verb, its steps are verbs of shorter duration, and you can keep breaking them down without ever describing the system's inside. A reader is uneasy when one scenario mixes levels: "you don't have a one month process followed by a five minute process step". He calls this the anchor of his latest book.
 
 **Why it matters**
 
@@ -81,14 +83,16 @@ Cockburn sorts goals by altitude. A **user goal** ("sea level", blue, a waves ic
 
 **In this framework**
 
-Every use case is written at the **user-goal** level, and the template fixes its `Level` field to `User goal` [R28-Q1]. "Book a meeting room" passes the coffee-break test; "Manage the office's rooms" is a summary goal, and "Choose a time slot" is a subfunction. A summary goal is kept, if at all, as a short map listing the user-goal use cases it groups: no fields, no failure grid, no stories. A subfunction is written as a step of the user-goal use case that needs it. The use-case writer checks the level first ([chapter 3, §3.2](../guide/03-design-playbook.md#32-step-1-complete-the-use-case)). Departure: Cockburn writes use cases at every level and recommends writing the 2 to 5 outermost summary use cases; we write only user goals, so every use case can be cut into stories the same way.
+Every use case is written at the **user-goal** level, and the template fixes its `Level` field to `User goal` [R28-Q1]. "Book a meeting room" passes the coffee-break test; "Manage the office's rooms" is a summary goal, and "Choose a time slot" is a subfunction. A summary goal is kept, if at all, as a short map listing the user-goal use cases it groups: no fields, no failure grid, no stories. A subfunction is written as a step of the user-goal use case that needs it. The steps of a use case share one level of duration: a step that waits hours or days for someone else or for a deadline ends the use case at a **wait point**, and each system step that isn't instant says how long it takes (`wait`, `long` or `background`), because that decides whether the actor can cancel it or leave [R29-Q1, R29-Q2]. The use-case writer checks the level first ([chapter 3, §3.2](../guide/03-design-playbook.md#32-step-1-complete-the-use-case)). Departure: Cockburn writes use cases at every level and recommends writing the 2 to 5 outermost summary use cases; we write only user goals, so every use case can be cut into stories the same way.
 
 **Learn it**
 
 - Text: [Use Case Levels](https://ttm4115.iik.ntnu.no/unit-4-req/preparation-1.html) (NTNU course notes, ~4 min; Cockburn's own figures are 3 to 9 steps, not 3 to 8)
 - Text: [*Writing Effective Use Cases*, draft, chapter 5 "Three Named Goal Levels"](https://www.ifi.uzh.ch/dam/jcr:00000000-25a0-3d08-0000-00000ce96422/weuc_extract.pdf) (Cockburn, pre-publication draft hosted by the University of Zurich, pages 57 to 62, ~10 min)
 - Text: [*Applying UML and Patterns*, chapter 6](https://courses.cs.duke.edu/cps108/spring04/readings/usecaseslarman.pdf) (Larman, course copy; section 6.8, "Use Cases for Elementary Business Processes", ~8 min, optional)
-- *Note:* No good English video covers goal levels; the [Humanizing Work interview with Cockburn](https://www.youtube.com/watch?v=CRvwbRqi_ss) (41:43) touches on them. No free French resource was found.
+- Video: ["The role of verbs and time"](https://www.youtube.com/watch?v=CRvwbRqi_ss&t=260s), a chapter of the Humanizing Work interview with Cockburn (4:20 to 7:01, ~3 min; the whole interview is 41:43, and 13:00 to 13:45 covers matching levels)
+- Further: [Time and duration in use cases](../research/simplify-explore/time-and-duration.md), the research behind duration classes and wait points
+- *Note:* No free French resource was found.
 
 **Key literature**
 

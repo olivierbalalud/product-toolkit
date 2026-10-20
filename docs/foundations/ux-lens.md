@@ -60,7 +60,7 @@ The flow map and screen list live in [`flows.md`](../templates/flows.md) as a Me
 ### 2.2 Interaction states
 
 - **Roles:** UX [core] · PM [optional] · SWE [optional]
-- **Time:** ~28 min (text + video)
+- **Time:** ~35 min (text + video)
 
 **Definition**
 
@@ -76,9 +76,12 @@ Every screen exists in several states, not only the ideal one: before there is d
 
 Our state matrix has seven columns, two more than Hurff's stack: empty, loading, error, partial, success, **no permission** and **stale data** [R2-Q3 (d)]. It is in [`flows.md`](../templates/flows.md), and a state-matrix checker runs in the UX review lane [R4-Q7a, R4-Q7d].
 
+The **loading** state depends on how long the step behind the screen takes, which the use case states as a duration class [R29-Q1, R29-Q7]. Nielsen's limits set the classes: under 1 s, show the result in place; 1 to 10 s, a spinner or skeleton; over 10 s, determinate progress and a way to cancel; when the user may leave, an acknowledgement, a status to come back to and a notification. The design for each class is in [chapter 3](../guide/03-design-playbook.md#flows-and-screens).
+
 **Learn it**
 
 - Text: [Why your user interface is awkward: you're ignoring the UI stack](https://www.scotthurff.com/posts/why-your-user-interface-is-awkward-youre-ignoring-the-ui-stack/) (Scott Hurff, ~25 min)
+- Text: [Response Times: The 3 Important Limits](https://www.nngroup.com/articles/response-times-3-important-limits/) (Jakob Nielsen, ~7 min)
 - Video: [Empty States in Application Design: 3 Guidelines](https://www.youtube.com/watch?v=MUh3xyvEWDE) (NNgroup, 3:22)
 - *Note:* No video covers all the states.
 

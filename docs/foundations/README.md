@@ -37,13 +37,13 @@ The concepts behind this framework, for onboarding new team members. Each entry 
 
 Each core path fits within **6 hours**, inside the ~16 h training budget [R1-Q14, R11-Q3, R12-Q8]. Times count the text plus any video under 30 minutes; longer videos are optional and shown in each entry. The paths are generated from the **Roles** line of each entry, so an entry is core for a role exactly when its Roles line says so.
 
-### Product manager: ~5 h 36 min
+### Product manager: ~5 h 39 min
 
 | # | Entry | Time |
 |---|---|---|
 | 1 | [Use cases vs user stories](use-cases-vs-user-stories.md) | 17 min |
 | 2 | [Use cases](pm-lens.md#21-use-cases) (PM lens) | 22 min |
-| 3 | [Goal levels](pm-lens.md#22-goal-levels) (PM lens) | 14 min |
+| 3 | [Goal levels](pm-lens.md#22-goal-levels) (PM lens) | 17 min |
 | 4 | [The extension matrix](pm-lens.md#24-the-extension-matrix) (PM lens) | 10 min |
 | 5 | [User stories](pm-lens.md#25-user-stories) (PM lens) | 22 min |
 | 6 | [INVEST](pm-lens.md#26-invest) (PM lens) | 8 min |
@@ -57,21 +57,21 @@ Each core path fits within **6 hours**, inside the ~16 h training budget [R1-Q14
 | 14 | [Responsible AI: oversight and transparency](security-privacy-ai.md#16-responsible-ai-oversight-and-transparency) (Security, privacy and AI) | 15 min |
 | 15 | [GDPR one-pager](gdpr-one-pager.md) | 10 min |
 | 16 | [AI Act one-pager](ai-act-one-pager.md) | 10 min |
-| | **Total** | **~5 h 36 min** |
+| | **Total** | **~5 h 39 min** |
 
 Optional: [Use-Case 2.0 and slices](pm-lens.md#23-use-case-20-and-slices); [Jobs to be done and personas](pm-lens.md#31-jobs-to-be-done-and-personas); [Task flows and wireframes](ux-lens.md#21-task-flows-and-wireframes); [Interaction states](ux-lens.md#22-interaction-states); [Design systems and atomic design](ux-lens.md#23-design-systems-and-atomic-design); [Component inventory](ux-lens.md#24-component-inventory); [Design tokens](ux-lens.md#25-design-tokens); [Modalities and touch points](ux-lens.md#26-modalities-and-touch-points); [Accessibility](ux-lens.md#27-accessibility); [Contract-first APIs](swe-lens.md#21-contract-first-apis); [Spec-driven development](swe-lens.md#23-spec-driven-development); [TDD](swe-lens.md#24-tdd); [Domain modelling and DDD](swe-lens.md#25-domain-modelling-and-ddd); [Hexagonal architecture](swe-lens.md#26-hexagonal-architecture); [Modalities](swe-lens.md#27-modalities); [Repo conventions](swe-lens.md#28-repo-conventions); [Characterisation tests, strangler fig and parallel change](swe-lens.md#29-characterisation-tests-strangler-fig-and-parallel-change); [ADRs](swe-lens.md#210-adrs); [The "-ilities"](swe-lens.md#211-the--ilities); [Feature toggles and expand–contract migrations](swe-lens.md#212-feature-toggles-and-expandcontract-migrations); [OWASP ASVS](security-privacy-ai.md#11-owasp-asvs); [Threat modelling: STRIDE and the four questions](security-privacy-ai.md#12-threat-modelling-stride-and-the-four-questions); [OWASP Top 10 for LLM Applications](security-privacy-ai.md#13-owasp-top-10-for-llm-applications); [OWASP agentic AI and the AI Exchange](security-privacy-ai.md#14-owasp-agentic-ai-and-the-ai-exchange); [AI risk and governance](security-privacy-ai.md#15-ai-risk-and-governance); [Privacy by design](security-privacy-ai.md#17-privacy-by-design); the [PM context section](pm-lens.md#4-context); and the long videos in every entry.
 
-### UX designer: ~4 h 43 min
+### UX designer: ~4 h 53 min
 
 | # | Entry | Time |
 |---|---|---|
 | 1 | [Use cases vs user stories](use-cases-vs-user-stories.md) | 17 min |
 | 2 | [Use cases](pm-lens.md#21-use-cases) (PM lens) | 22 min |
-| 3 | [Goal levels](pm-lens.md#22-goal-levels) (PM lens) | 14 min |
+| 3 | [Goal levels](pm-lens.md#22-goal-levels) (PM lens) | 17 min |
 | 4 | [The extension matrix](pm-lens.md#24-the-extension-matrix) (PM lens) | 10 min |
 | 5 | [User stories](pm-lens.md#25-user-stories) (PM lens) | 22 min |
 | 6 | [Task flows and wireframes](ux-lens.md#21-task-flows-and-wireframes) (UX lens) | 11 min |
-| 7 | [Interaction states](ux-lens.md#22-interaction-states) (UX lens) | 28 min |
+| 7 | [Interaction states](ux-lens.md#22-interaction-states) (UX lens) | 35 min |
 | 8 | [Design systems and atomic design](ux-lens.md#23-design-systems-and-atomic-design) (UX lens) | 21 min |
 | 9 | [Component inventory](ux-lens.md#24-component-inventory) (UX lens) | 5 min |
 | 10 | [Design tokens](ux-lens.md#25-design-tokens) (UX lens) | 16 min |
@@ -82,7 +82,7 @@ Optional: [Use-Case 2.0 and slices](pm-lens.md#23-use-case-20-and-slices); [Jobs
 | 15 | [Responsible AI: oversight and transparency](security-privacy-ai.md#16-responsible-ai-oversight-and-transparency) (Security, privacy and AI) | 15 min |
 | 16 | [GDPR one-pager](gdpr-one-pager.md) | 10 min |
 | 17 | [AI Act one-pager](ai-act-one-pager.md) | 10 min |
-| | **Total** | **~4 h 43 min** |
+| | **Total** | **~4 h 53 min** |
 
 Optional: [Use-Case 2.0 and slices](pm-lens.md#23-use-case-20-and-slices); [INVEST](pm-lens.md#26-invest); [Story mapping](pm-lens.md#27-story-mapping); [Story splitting and vertical slices](pm-lens.md#28-story-splitting-and-vertical-slices); [Shape Up](pm-lens.md#29-shape-up); [Measurable outcomes and product metrics](pm-lens.md#210-measurable-outcomes-and-product-metrics); [Jobs to be done and personas](pm-lens.md#31-jobs-to-be-done-and-personas); [Contract-first APIs](swe-lens.md#21-contract-first-apis); [BDD, specification by example and Gherkin](swe-lens.md#22-bdd-specification-by-example-and-gherkin); [Spec-driven development](swe-lens.md#23-spec-driven-development); [TDD](swe-lens.md#24-tdd); [Domain modelling and DDD](swe-lens.md#25-domain-modelling-and-ddd); [Hexagonal architecture](swe-lens.md#26-hexagonal-architecture); [Modalities](swe-lens.md#27-modalities); [Repo conventions](swe-lens.md#28-repo-conventions); [Characterisation tests, strangler fig and parallel change](swe-lens.md#29-characterisation-tests-strangler-fig-and-parallel-change); [ADRs](swe-lens.md#210-adrs); [The "-ilities"](swe-lens.md#211-the--ilities); [Feature toggles and expand–contract migrations](swe-lens.md#212-feature-toggles-and-expandcontract-migrations); [OWASP ASVS](security-privacy-ai.md#11-owasp-asvs); [Threat modelling: STRIDE and the four questions](security-privacy-ai.md#12-threat-modelling-stride-and-the-four-questions); [OWASP Top 10 for LLM Applications](security-privacy-ai.md#13-owasp-top-10-for-llm-applications); [OWASP agentic AI and the AI Exchange](security-privacy-ai.md#14-owasp-agentic-ai-and-the-ai-exchange); [AI risk and governance](security-privacy-ai.md#15-ai-risk-and-governance); [Privacy by design](security-privacy-ai.md#17-privacy-by-design); the [PM context section](pm-lens.md#4-context); and the long videos in every entry.
 

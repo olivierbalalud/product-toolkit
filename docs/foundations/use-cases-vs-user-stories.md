@@ -42,12 +42,12 @@ A generic feature: a **member** adds a **document** to a **folder** in a shared 
 
 **Why this is a user goal.** It passes Cockburn's coffee-break test ([goal levels](pm-lens.md#22-goal-levels)): one member, in one sitting, leaves with the document in the folder. "Manage the team's documents" would be a summary goal, a map of several use cases like this one; "choose a file" would be a subfunction, which is step 3 here, not a use case of its own [R28-Q1].
 
-**Main success scenario**, each step marked by kind and written as intent, not screens [R28-Q6, R28-Q7]:
+**Main success scenario**, each step marked by kind, and by duration when a system step isn't instant, and written as intent, not screens [R28-Q6, R28-Q7, R29-Q1]:
 
 1. (actor) The member asks to add a document to a folder.
 2. (system) The system states the accepted formats and the maximum size.
 3. (actor) The member provides a file.
-4. (system) The system checks the file and transfers it, reporting progress.
+4. (system, long) The system checks the file and transfers it, reporting progress.
 5. (system) The system stores the document in the folder and confirms.
 
 **Extensions**, found by running each step through the categories of its kind ([chapter 3, §3.2](../guide/03-design-playbook.md#32-step-1-complete-the-use-case)), each with a concrete example [R28-Q3]:
@@ -60,7 +60,7 @@ A generic feature: a **member** adds a **document** to a **folder** in a shared 
   *Example:* Sam uploads "budget.xlsx" to a folder that already holds one; he keeps both, and his becomes "budget (2).xlsx".
 - **UC-021.4b** *External system down*: storage is unavailable or the connection drops. Nothing is stored; the system asks the member to try again. Back to step 3.
   *Example:* the connection drops at 60 %; nothing appears in the folder and Sam is asked to try again.
-- **UC-021.4c** *Cancel*: the member cancels while the file transfers (step 4). Nothing is stored. The use case ends.
+- **UC-021.4c** *Cancel*: the member cancels while the file transfers. Step 4 is `long`, since a large file takes more than ten seconds, so it is checked for cancel like an actor step [R29-Q4]. Nothing is stored. The use case ends.
   *Example:* Sam stops the transfer at 30 %; the folder is unchanged.
 - **UC-021.4d** *Quota reached*: the workspace has no storage left. The system explains and says who can raise the limit. The use case ends.
   *Example:* the workspace has used its 10 GB; Sam is told that an administrator can raise the limit.

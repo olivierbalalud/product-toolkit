@@ -30,7 +30,7 @@ Nothing was installed. Every fetched file was treated as untrusted data: it was 
 
 ### Framework applied
 
-skill-scout (`/home/obalalud/src/skill-scout`, read-only): `CLAUDE.md` and `framework/*.md` as of 2026-10-18/19.
+skill-scout (`../skill-scout`, read-only): `CLAUDE.md` and `framework/*.md` as of 2026-10-18/19.
 
 | Parameter | Value used | Origin |
 |---|---|---|

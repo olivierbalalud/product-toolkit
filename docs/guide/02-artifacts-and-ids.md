@@ -20,6 +20,7 @@ This chapter lists every artifact the framework uses, its ID format, where its f
 | Enabler slice | `ENB-NNN` | `ENB-004` | — |
 | ADR | `ADR-NNNN` | `ADR-0007` | — |
 | Metric | `MET-NNN` | `MET-003` | Tracking plan (metric catalogue) [R8-Q3] |
+| Dimension | `DIM-NNN` | `DIM-001` | Tracking plan (dimension catalogue) [R23-Q2] |
 | Analytics event | `EVT-NNN`, plus a snake_case event name | `EVT-014` / `room_booked` | Tracking plan [R8-Q4] |
 | Slice ticket | `NN-slug` (file name, unique within its story) | `03-reject-duplicate.md` | Story [R6-Q2] |
 

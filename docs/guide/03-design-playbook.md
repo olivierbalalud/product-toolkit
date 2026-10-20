@@ -183,7 +183,7 @@ The fit analysis ([`fit.md`](../templates/fit.md)) uses four keys, strongest fir
 
 Then:
 
-- With `touches: api`, write the **draft API contract** (`contract.draft.yaml`) against the analysis, and point the mocks at it [R2-Q3 (l), R4-Q8a]. A `long` or `background` step becomes a **long-running operation**: `202 Accepted` with `Location` pointing to a status resource, a closed set of states, cancel where the use case allows it, and an idempotency key on the request. This shape can't change after Design-complete without a DCR [R29-Q8].
+- With `touches: api`, write the **draft API contract** (`contract.draft.yaml`) against the analysis, and point the mocks at it [R2-Q3 (l), R4-Q8a]. A `long` or `background` step becomes a **long-running operation**: `202 Accepted` with `Location` pointing to a status resource, a closed set of states, cancel where the use case allows it, and an idempotency key on the request. This shape can't change after Design-complete without a DCR. An upload is the exception: its time goes into sending the data, so the client reports progress and cancels by aborting the transfer [R29-Q8].
 - Resolve each misalignment by the rules of R4-Q8c: for anything the user sees, the PRD wins unless other features depend on the old behaviour; then a backward-compatible extension, a breaking change that lists every consumer, or a DCR. An architecture choice becomes an ADR.
 - If a new scenario **contradicts** an earlier PRD's scenario, follow [chapter 1, §1.10](01-lifecycle-and-gates.md#110-changing-something-after-a-gate) [R4-Q8e′].
 - List technical questions in PRD §14 and open a `Proposed` ADR for each architecture gap [R1-Q13]. A proposed ADR does not block this gate.

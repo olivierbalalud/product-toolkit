@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <founder>
 serves: use case gate (Draft → Complete)
-decisions: [R1-Q6, R1-Q7, R4-Q2, R28-Q1, R28-Q3, R28-Q6, R28-Q7, R28-Q11, R28-Q19′, R29-Q1, R29-Q2, R29-Q3, R29-Q4, R29-Q5, R3-A5, R3-C3, R1-Q11]
+decisions: [R1-Q6, R1-Q7, R4-Q2, R28-Q1, R28-Q3, R28-Q6, R28-Q7, R28-Q11, R28-Q19′, R29-Q1, R29-Q2, R29-Q3, R29-Q4, R29-Q5, R30-Q1, R30-Q3, R30-Q11, R30-Q13, R3-A5, R3-C3, R1-Q11]
 plugin_version:
 ---
 
@@ -43,7 +43,7 @@ Expected failures without the skill (replace with observed ones before building)
 ## 4. Inputs
 
 - The use case file, if any; [`use-case.md`](../templates/use-case.md).
-- `docs/product/inputs/` (personas, journeys, pain points), cited by ID [R3-A5].
+- `docs/product/inputs/`: personas (`PER-`), journeys (`JRN-`), pain points (`PP-`), blockers (`BLK-`), objections (`OBJ-`), hypotheses (`HYP-`), cited by typed ID [R3-A5, R30-Q1, R30-Q3]; and the informal use case being rewritten, if any.
 - `docs/product/glossary.md` [R3-C3].
 - The driver's answers in the interview.
 - For `renumber`: every `.feature` file, PRD and story that references the use case's IDs, with their statuses.
@@ -53,7 +53,7 @@ Expected failures without the skill (replace with observed ones before building)
 
 - `docs/product/use-cases/UC-NNN-<slug>/use-case.md`, in the document's `source_locale` [R1-Q11].
 - New glossary terms proposed as a diff to `glossary.md`, in both languages.
-- A short report: level doubts, grid gaps, extensions without outcome or example, UI words in steps, uncited inputs.
+- A short report: level doubts, grid gaps, extensions without outcome or example, UI words in steps, uncited inputs, cited IDs that no input defines.
 - `renumber`: the use case and every reference rewritten in one change, or a refusal naming the frozen PRD.
 - Idempotent: re-running on a complete use case changes nothing.
 
@@ -78,7 +78,7 @@ Copy this checklist and tick it off:
 
 ## 7. Scripts vs judgement
 
-- `scripts/check_grid.py`: parses the steps, grid and extensions; fails on a step without `(actor)` or `(system)`, an empty cell, a `yes` without an extension, an extension ID that doesn't match a step, an extension without handling or a `deferred`/`out-of-scope` reason, a handled extension without `*Example:*`, a missing privacy-request line, or a `Level` other than `User goal`. Also fails on a duration class other than `wait`, `long` or `background`, an empty or `n/a` cancel cell on a `long` or `background` step, a cancel answer on an `instant` or `wait` step, and a `background` step that is the last step or is followed by an actor step [R29-Q1, R29-Q4, R29-Q5]. Warns, without failing, on UI words in steps (click, button, screen, modal, tap, field) [R28-Q7], and on words that suggest a wait point inside the scenario (hours, days, tomorrow, overnight, waits for, approves) [R29-Q2]. CLI contract as in the template; JSON report.
+- `scripts/check_grid.py`: parses the steps, grid and extensions; fails on a step without `(actor)` or `(system)`, an empty cell, a `yes` without an extension, an extension ID that doesn't match a step, an extension without handling or a `deferred`/`out-of-scope` reason, a handled extension without `*Example:*`, a missing privacy-request line, or a `Level` other than `User goal`, or an `inputs:` ID that matches no heading in `docs/product/inputs/` [R30-Q3]. Also fails on a duration class other than `wait`, `long` or `background`, an empty or `n/a` cancel cell on a `long` or `background` step, a cancel answer on an `instant` or `wait` step, and a `background` step that is the last step or is followed by an actor step [R29-Q1, R29-Q4, R29-Q5]. Warns, without failing, on UI words in steps (click, button, screen, modal, tap, field) [R28-Q7], and on words that suggest a wait point inside the scenario (hours, days, tomorrow, overnight, waits for, approves) [R29-Q2]. CLI contract as in the template; JSON report.
 - `scripts/renumber.py`: computes the new IDs and rewrites the use case, `extensions:` lists, `@UC-…` tags and PRD mentions; exits non-zero, naming the PRD, when a referencing PRD is frozen.
 - `scripts/check_terms.py`: lists words in the use case that look like domain terms but are not in the glossary (heuristic; advisory).
 - **Judged by the model:** whether the goal passes the coffee-break test and where a wait point ends it; each system step's duration class; which categories genuinely apply to a step; whether a handling outcome and its example are sensible; the wording of the scenario.
@@ -111,7 +111,7 @@ Portable core; composition written as "use the `grill-with-docs` skill if availa
 
 ## 12. Headless and CI
 
-Interactive by nature (interview). The grid check runs headless in CI through `check-gate`; `renumber.py` can run headless.
+Interactive by nature (interview). The grid check runs headless in CI through `check-gate`; until CI exists, a local `check_grid.py` run plus the PR review is the use case gate's mechanical check [R30-Q11]; `renumber.py` can run headless.
 
 ## 13. Security and privacy
 
@@ -126,12 +126,13 @@ Writes only under `docs/product/`. No network. Use cases and their examples must
 - A category marked `out-of-scope` still needs a reason, or reviewers can't tell a decision from an omission.
 - A full erasure or export flow is often its own use case; the privacy-request line then points to it.
 - A step that both takes input and stores it is two steps: one `(actor)`, one `(system)`.
+- An informal use case being rewritten often hides several: two actors with a wait between them (split at the wait point), one version per technical option (write it once with the options as variations; the option is an ADR), or a login or setup flow that is a subfunction [R30-Q13].
 - "Page" or "field" can be domain words; the UI-word warning is a prompt to check, not an error.
 
 ## 15. Evaluation plan
 
 - **Triggering:** 20 prompts, 60/40 split.
-- **Output cases:** a vague goal ("book a room") → a user-goal use case whose grid passes, with at least one extension for *conflict* and *no permission*, each with an example; a summary goal ("manage the office") → flagged and turned into a map; "request a room, the manager approves" → ended at the wait point, with the approval proposed as its own use case; an upload step → marked `long`, with a cancel extension; an existing use case with two empty grid cells → both filled; a step mentioning a button → warned; a use case using a non-glossary term → flagged; `renumber` with a Design-complete PRD referencing it → refused, naming the PRD. Graders: `regex`, `file_exists`, `llm` for sensible outcomes. With and without the skill; threshold 0.8.
+- **Output cases:** a vague goal ("book a room") → a user-goal use case whose grid passes, with at least one extension for *conflict* and *no permission*, each with an example; a summary goal ("manage the office") → flagged and turned into a map; "request a room, the manager approves" → ended at the wait point, with the approval proposed as its own use case; an upload step → marked `long`, with a cancel extension; an existing use case with two empty grid cells → both filled; a step mentioning a button → warned; a use case using a non-glossary term → flagged; `renumber` with a Design-complete PRD referencing it → refused, naming the PRD; an informal use case written once per technical option → one use case with the options as variations and an ADR proposed; an `inputs:` ID no input defines → flagged. Graders: `regex`, `file_exists`, `llm` for sensible outcomes. With and without the skill; threshold 0.8.
 
 ## 16. Definition of done
 

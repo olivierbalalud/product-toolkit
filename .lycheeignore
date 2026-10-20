@@ -1,0 +1,8 @@
+# Sites that block automated requests (seen during research, 2026-10-19). Check these by hand.
+^https?://eur-lex\.europa\.eu/
+^https?://(www\.)?ivarjacobson\.com/
+^https?://(www\.)?iso\.org/
+^https?://queue\.acm\.org/
+# Placeholders in the templates and examples
+^https?://svn\.example\.com/
+^https?://gitlab\.example\.com/

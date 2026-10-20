@@ -392,3 +392,26 @@ The user asked for the lens layout (contents, numbering, line breaks) to be appl
 | # | Question | Recommended | Decision |
 |---|----------|-------------|----------|
 | R21-Q1 | **Analytics trackers need consent unless exempt.** Trackers on a user's device fall under Art. 82 of the French *loi Informatique et Libertés* (ePrivacy), not only the GDPR. The CNIL exempts audience measurement from consent only if it measures audience for the publisher alone, produces anonymous statistics only, isn't cross-referenced or passed on, and doesn't track people across sites (CNIL page of 4 July 2025). Added to the GDPR one-pager as §6. | Each event in the tracking plan declares `consent: exempt \| required`. `exempt` is allowed only for events that meet all the CNIL conditions; the privacy reviewer checks it, and events marked `required` are sent only after consent. | **Accepted.** |
+
+---
+
+## Round 22: Points found while writing chapter 10 (2026-10-20)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R22-Q1 | **Default measurement window.** §3a signals and discovery-stage PRDs have no window, so `outcome_review_due` can't be computed. | A default of 4 weeks after Done in `docs/product/settings.yaml`; a PRD may override it. | **Accepted.** |
+| R22-Q2 | **Event naming.** | `object_action` in the past tense (`room_booked`, `booking_cancelled`), English, snake_case, checked by the gate check against the tracking plan. | **Accepted.** |
+| R22-Q3 | **Changing an event.** | An event's meaning never changes under the same name. Adding an optional property is allowed; removing or retyping one, or changing the trigger, creates a new event and marks the old one `deprecated`. | **Accepted.** |
+
+---
+
+## Round 23: Slowly changing dimensions (2026-10-20)
+
+The user asked whether slowly changing dimensions (SCDs) should be tackled at framework level, arguing yes because they affect volume sizing, the observability data model, and possibly the observability stack (plugins or probes, emit and ingest signals and patterns), and asked to be challenged. Challenge given: SCD *modelling* (Kimball types, warehouse tables, CDC tooling) belongs to the BI stack, chosen by ADR (R4-Q4d), and observability signals (logs, metrics, traces) don't use SCDs; but two things can't wait for that ADR and belong in the framework: each metric's **temporal meaning** of its dimensions ("as at the event" or "as now"), and **capturing history** from the first slice, because history not captured is lost.
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R23-Q1 | **Scope.** The framework records which dimensions metrics slice by and what time they mean, and makes slices capture history. SCD types, warehouse modelling, CDC tooling and ingest patterns are decided in the BI ADR, informed by these records. Observability stays a separate stack, outside the framework. | Yes. | **Accepted.** |
+| R23-Q2 | **A dimension catalogue in the tracking plan.** Each dimension (`DIM-NNN`): name, source entity and attribute, expected change frequency, privacy class, and whether history is needed. Each metric in the catalogue lists its dimensions, each marked **`as-at-event`** or **`as-now`**. | Yes. | **Accepted.** |
+| R23-Q3 | **Capture history from the first slice.** A dimension needed `as-at-event` is captured by the first slice that introduces it: either as a property **snapshot** on the event (only if its privacy class is `none`), or as a **change event** `<object>_changed` / an audit history row with valid-from time in the operational database. The privacy reviewer checks it; the fit analysis lists which applies. | Yes. | **Accepted.** |
+| R23-Q4 | **Volume estimates for sizing.** Each event and each dimension with history carries an expected volume (events per day, changes per month) in the tracking plan, as input to the BI and observability ADRs. | Yes. | **Accepted.** |

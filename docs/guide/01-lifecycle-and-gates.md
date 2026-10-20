@@ -59,13 +59,24 @@ A use case moves from `Draft` (being written or clarified) to `Complete` (signed
 Stories are only cut from a **complete** use case [R4-Q2]. A use case is complete when:
 
 1. It is at the **user-goal level**: one primary actor, in one sitting, leaves with the goal reached (Cockburn's coffee-break test). A summary goal is only an optional map of the user-goal use cases it groups; a subfunction is a step, not a use case [R28-Q1]. See [goal levels](../foundations/pm-lens.md#22-goal-levels).
+
+   The steps share one level of duration. A step that waits hours or days for another person, an outside party or a deadline is a **wait point**: the use case ends there, its success guarantee says what is pending and how the actor will hear, and the continuation is another use case, started by the other actor or by time [R29-Q2]. A use case may be **triggered by time**; its primary actor is then the stakeholder who cares that it runs [R29-Q3].
 2. Every field of the Cockburn "fully dressed" format is filled [R1-Q6]. Steps state intent, not screens or clicks [R28-Q7].
-3. Every main-scenario step is marked `(actor)` or `(system)` and has been run through the **failure categories of its kind** [R4-Q2, R28-Q6]:
+3. Every main-scenario step is marked `(actor)` or `(system)`, every system step that isn't instant has a **duration class**, and every step has been run through the **failure categories of its kind** [R4-Q2, R28-Q6, R29-Q1]:
 
    | Step kind | Categories |
    |---|---|
    | **Actor** step: the actor provides or chooses something | invalid input · duplicate · no permission · cancel or abandon |
    | **System** step: the system looks up, stores or calls something | not found · conflict or concurrent edit · timeout or external system down · partial failure · quota or limit reached · stale data |
+
+   | Duration class of a system step | Takes | The actor | Adds |
+   |---|---|---|---|
+   | `instant` (default, not written) | under 1 s | doesn't wait | — |
+   | `wait` | 1 to 10 s | waits on the screen | — |
+   | `long` | over 10 s | watches, may give up | cancel or abandon [R29-Q4] |
+   | `background` | minutes or more | may leave | cancel or abandon, and a next step that tells the actor the outcome [R29-Q4, R29-Q5] |
+
+   The class is what the actor experiences in normal use, not a performance target [R12-Q5]. Cancel on a `long` or `background` step is answered `yes`, or `out-of-scope` with a reason such as "past the point of no return".
 
    **Privacy request** is asked once per use case: can the actor ask to export or erase the personal data it handles?
 4. Each resulting extension has a handling outcome and a one-line **example** with a concrete instance, or is marked `deferred` or `out-of-scope` with a reason [R1-Q7, R28-Q3].

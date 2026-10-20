@@ -22,10 +22,10 @@ Skills are named by their role here. Their exact names, sources and pins are in 
 **Who:** the use case's driver, with Claude Code. **What it must meet:** [chapter 1, §1.3](01-lifecycle-and-gates.md#13-before-a-prd-exists-the-use-case-gate).
 
 1. Pick a use case from `docs/product/index.md`. Create the branch `uc/UC-012-<slug>`; set `status: Draft` and `driver:` [R28-Q20].
-2. Check the **goal level** with the coffee-break test: one actor, one sitting, goal reached. Turn a summary goal into a short map of user-goal use cases, and a subfunction into a step of the use case that needs it ([goal levels](../foundations/pm-lens.md#22-goal-levels)) [R28-Q1].
+2. Check the **goal level** with the coffee-break test: one actor, one sitting, goal reached. Turn a summary goal into a short map of user-goal use cases, and a subfunction into a step of the use case that needs it ([goal levels](../foundations/pm-lens.md#22-goal-levels)) [R28-Q1]. If a step waits hours or days ("the manager approves the request"), end the use case at that wait point and make the continuation its own use case; a use case may also be triggered by time, such as "release rooms not checked into 15 minutes after the start" [R29-Q2, R29-Q3].
 3. Gather the inputs it draws on (personas, journeys, pain points) from `docs/product/inputs/` and cite them by ID [R3-A5]. Existing material is imported as input, not rewritten.
-4. With the **use-case writer** skill, fill in the fields from [`use-case.md`](../templates/use-case.md). Write steps as intent ("the employee chooses a room"), never as screens or clicks, and mark each `(actor)` or `(system)` [R28-Q6, R28-Q7].
-5. Run each step through the failure categories of its kind, and answer the privacy-request line once. Every "yes" becomes an extension `UC-012.<step><letter>` with a handling outcome and a one-line **example** ("Ana books room 3 for 10:00, but Ben booked it a second earlier"), or is marked `deferred` or `out-of-scope` with a reason [R4-Q2, R28-Q3]. An extension you can't give an example for isn't clear yet.
+4. With the **use-case writer** skill, fill in the fields from [`use-case.md`](../templates/use-case.md). Write steps as intent ("the employee chooses a room"), never as screens or clicks, and mark each `(actor)` or `(system)` [R28-Q6, R28-Q7]. Give each system step that isn't instant its **duration class**, `wait`, `long` or `background`, as in [chapter 1, §1.3](01-lifecycle-and-gates.md#13-before-a-prd-exists-the-use-case-gate); a `background` step is followed by one that tells the actor the outcome [R29-Q1, R29-Q5].
+5. Run each step through the failure categories of its kind, adding *cancel or abandon* for `long` and `background` system steps, and answer the privacy-request line once [R29-Q4]. Every "yes" becomes an extension `UC-012.<step><letter>` with a handling outcome and a one-line **example** ("Ana books room 3 for 10:00, but Ben booked it a second earlier"), or is marked `deferred` or `out-of-scope` with a reason [R4-Q2, R28-Q3]. An extension you can't give an example for isn't clear yet.
 6. Check domain words against `docs/product/glossary.md`. Add new terms in both languages.
 7. Open the PR. Reviewers comment on it, the gate check runs, and the driver sets `status: Complete` [R28-Q11]. Stories may be cut in the same PR (step 2).
 
@@ -50,7 +50,7 @@ Ron Jeffries' **three Cs** (2001) explain what a story is for: the **Card** (the
 ### Cutting stories
 
 1. With the **story writer**, cut the use case into **vertical paths** by value, not by step ranges [R4-Q3, R28-Q8]:
-   - the **first story** is the thinnest path through the *whole* main scenario, with the simplest variation and only the extensions it can't ship without;
+   - the **first story** is the thinnest path through the *whole* main scenario, with the simplest variation and only the extensions it can't ship without. It keeps each step's duration class: a `long` or `background` step stays asynchronous from the first story, even if cancelling it or notifying the actor comes later [R29-Q6];
    - each **later story** adds extensions, or one item from the use case's "Technology and data variations" (for example, weekly recurring bookings).
 2. Check each story against **INVEST** (Bill Wake, 2003), read for this framework as follows. Split any story that would take more than about one week of slice work.
 
@@ -114,6 +114,16 @@ If the PRD changes screens that already exist, start from **what is built**: the
 - Draw the flow map and list the screens in [`flows.md`](../templates/flows.md): purpose, key information, key actions, each traced to the story [R2-Q3 (c, e)].
 - Name interactions by **intent** from `docs/design/motion.md` ("confirm success", "reveal details"), never by animation [R3-Q6′].
 - Fill the **state matrix** for every screen: empty, loading, error, partial, success, no permission, stale data [R2-Q3 (d)].
+- Design **loading** from the duration class of the step the screen shows [R29-Q7]:
+
+  | Class | Loading state |
+  |---|---|
+  | `instant` | the result in place, no indicator |
+  | `wait` | a spinner or skeleton that says what is loading; the rest of the screen stays usable |
+  | `long` | determinate progress with an estimate, and cancel unless the use case rules it out; the actor may leave the screen |
+  | `background` | an immediate acknowledgement, a visible status the actor can come back to, and a notification on success or failure |
+
+  A screen where the use case ends at a wait point says what happens next and when ("Your manager has been asked; you'll get an email when they answer").
 
 ### Prototype
 
@@ -151,9 +161,10 @@ Rules for both:
 2. Name the **rules** first: each a plain-English sentence such as "A room can't be booked twice for overlapping times", written as a Gherkin `Rule:`. Under each rule, write its scenarios, starting from the examples of the extensions the story claims [R28-A, R28-Q16].
 3. Cover the story's main-scenario steps and every extension it claims, including failure paths [R2-Q3 (a, b)].
 4. Tag each scenario with the story and the use-case step or extension: `@US-012.1 @UC-012.3a` [R3-Q1a]. Add `@ui` to scenarios that show a screen, at least one per screen in `flows.md` [R14-Q2].
-5. Use the glossary's **English** terms for domain words [R3-C3]. Describe what the user sees in domain words ("I am told the room is no longer free"), never by copy key; the `@ui` step definitions map the wording to keys [R28-Q10].
-6. Reuse the wording of existing step definitions where it fits, so existing steps bind [R4-Q8b′].
-7. Regenerate `coverage.md` and check that the story's extensions are covered.
+5. Where time matters, set "now" in a `Given` and write time passing as a `When` ("When 24 hours pass without approval"); give a deadline rule examples on both sides of the deadline. Never wait in a scenario, and never assert a response time ([chapter 8, §8.3](08-testing.md#83-gherkin-rules)) [R29-Q9].
+6. Use the glossary's **English** terms for domain words [R3-C3]. Describe what the user sees in domain words ("I am told the room is no longer free"), never by copy key; the `@ui` step definitions map the wording to keys [R28-Q10].
+7. Reuse the wording of existing step definitions where it fits, so existing steps bind [R4-Q8b′].
+8. Regenerate `coverage.md` and check that the story's extensions are covered.
 
 The `.feature` files are the only acceptance criteria. The PRD links to them instead of restating them [R3-C1].
 
@@ -172,7 +183,7 @@ The fit analysis ([`fit.md`](../templates/fit.md)) uses four keys, strongest fir
 
 Then:
 
-- With `touches: api`, write the **draft API contract** (`contract.draft.yaml`) against the analysis, and point the mocks at it [R2-Q3 (l), R4-Q8a].
+- With `touches: api`, write the **draft API contract** (`contract.draft.yaml`) against the analysis, and point the mocks at it [R2-Q3 (l), R4-Q8a]. A `long` or `background` step becomes a **long-running operation**: `202 Accepted` with `Location` pointing to a status resource, a closed set of states, cancel where the use case allows it, and an idempotency key on the request. This shape can't change after Design-complete without a DCR [R29-Q8].
 - Resolve each misalignment by the rules of R4-Q8c: for anything the user sees, the PRD wins unless other features depend on the old behaviour; then a backward-compatible extension, a breaking change that lists every consumer, or a DCR. An architecture choice becomes an ADR.
 - If a new scenario **contradicts** an earlier PRD's scenario, follow [chapter 1, §1.10](01-lifecycle-and-gates.md#110-changing-something-after-a-gate) [R4-Q8e′].
 - List technical questions in PRD §14 and open a `Proposed` ADR for each architecture gap [R1-Q13]. A proposed ADR does not block this gate.

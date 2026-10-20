@@ -426,3 +426,41 @@ Facts checked in the Claude Code plugin marketplace and settings references: plu
 |---|----------|-------------|----------|
 | R24-Q1 | **Where the monorepo's marketplace lives, and how our plugin is developed.** | `tools/claude-marketplace/` in the monorepo, registered as a `github` marketplace source (`repo` + `path`), so it works on every clone; our plugin developed locally with `claude --plugin-dir …` before merging (inferred). | **Accepted for now**, pending verification of `--plugin-dir`. Verified the same day in the CLI reference: `--plugin-dir` loads a plugin from a directory or `.zip` archive "for this session only"; the flag can be repeated. |
 | R24-Q2 | **Third-party skills that aren't plugins.** | Wrap each as an entry in our marketplace: `git-subdir` source pinned by `sha`, plus a `skills` field, instead of copying folders into the monorepo. Verify the exact `skills` value with `claude plugin validate` when building. | **Accepted.** |
+
+---
+
+## Round 25: The skill inventory for chapter 12 (2026-10-20)
+
+Decisions since R5-Q4 change the list of our own skills: persona reviewers are needed at the first design gate (R2-Q3 (n)), review lanes and their reviewers were defined (R4-Q7a, R12-Q6b), the worktree environment became scripts (R16-Q0), and naming was fixed (R5-Q4d).
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R25-Q1 | **Persona reviewers move to P0.** The first Design-complete gate needs the PM, UX and Eng reviews (item (n)). | `review-design`: one skill that runs the three persona reviewers as parallel subagents on the PRD and prototype, including the STRIDE and prompt-injection check in the Eng review (R11-Q12, R12-Q6c). P0. | **Accepted.** |
+| R25-Q2 | **The worktree environment leaves the skill list.** R16-Q0 made it scripts (`make design`, `make slice`, `make dcr`, `make enb`, `make env-up`, `make env-prune`). | Built as an enabler slice (chapter 13), not a skill. | **Accepted.** |
+| R25-Q3 | **The inventory, names and priorities.** **P0** (first PRD): `check-gate` (with the `coverage.md` and `index.md` generators), `write-use-case` (with the failure-category grid check), `write-stories` (stories, Gherkin, coverage), `check-fit`, `review-design`. **P1** (first slice): `review-slice` and the lane skills `review-code`, `review-security`, `review-ux`; reviewers `review-privacy`, `review-llm-security`, `check-copy` (voice, French typography), `check-state-matrix`, `check-flow-conformance`, `check-bdd-conventions`, `check-i18n-conventions`, `check-web-guidelines` (pinned Vercel copy); `translate-copy`; `sync-tokens` (DTCG, Style Dictionary, Figma variables diff → PR); `check-setup` (the collision "doctor", R3-B7). **P2**: `refresh-guidelines`, `review-outcome`. | Yes. | **Accepted.** |
+| R25-Q4 | **How much to specify now.** Best practice is to start each skill from failures observed without it (skill authoring research §2). | Full specs (all 19 sections) for the five P0 skills now. P1 and P2 get **outline specs** now (header, problem, scope, invocation, composition, open questions), completed just before each is built, once baseline failures can be observed. | **Accepted.** |
+| R25-Q5 | **Spec template.** | `docs/templates/skill-spec.md`, the R5-Q4′ format, used by every `docs/skills/<name>.md`. | **Accepted.** |
+
+---
+
+## Round 26: Points found while writing chapter 13 (2026-10-20)
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R26-Q1 | **ADRs before the first enabler.** | Before enabler 1, the monorepo settles by ADR each place where its current direction differs from the target stack (front end, services, runtime, deployment, website, repo layout), as listed in `docs/context/monorepo-fit.md` (R3-A1). | **Accepted.** |
+| R26-Q2 | **Where the P0 skills fit in adoption.** | `check-gate`'s scripts in enabler 1; the other P0 skills in a seventh enabler, in parallel with enablers 3–6, done before the first PRD leaves *Exploring*. | **Accepted.** |
+| R26-Q3 | **First-PRD retrospective.** | After the first PRD reaches Done, a short retrospective; what the framework got wrong becomes a new round in this repo's decision log, then a guide update. Repeated after the third PRD. | **Accepted.** |
+
+---
+
+## Round 27: Design choices from the skill specs (2026-10-20)
+
+Most open questions in the specs' §18 are build-time checks, closed just before each skill is built (R25-Q4). These four are design choices:
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R27-Q1 | **`write-stories`: one skill or two?** Cutting stories happens after the use case gate; writing Gherkin happens during *Exploring*. | One skill with two modes, `cut` and `scenarios`. | User asked whether `write-stories` is a mattpocock skill or ours, and whether Gherkin could also be drafted earlier, while the use case is still being worked on. → R27-Q1′. |
+| R27-Q2 | **`check-web-guidelines`: one skill or two?** | One skill, with the web and writing guidelines as two references plus the shared `overrides.md` (R3-D6). | **Accepted.** |
+| R27-Q3 | **`review-privacy`: pinned CNIL copy or links?** | Links only, each with its "last checked" date. | **Accepted.** |
+| R27-Q4 | **`review-llm-security` and agent features.** | When a slice adds an agent feature (an LLM that calls tools or takes actions), also check the OWASP Top 10 for Agentic Applications. | **Accepted.** |
+| R27-Q1′ | **Gherkin from the use case onwards, as its own skill.** `write-stories` is ours (R3-B3 gap: no published story + Gherkin skill; mattpocock has `to-spec` and `to-tickets`, not a story writer). Split it: `write-stories` cuts stories (vertical paths, INVEST, Connextra statement, coverage); a new **`write-scenarios`** writes English Gherkin at any stage. **During the use case:** one draft scenario per extension, in `use-cases/UC-…/scenarios.draft.feature`, tagged `@UC-…` and `@draft`, not run by the test harnesses; writing a concrete example is a test of whether the extension is clear (example mapping). **When stories are cut:** each draft scenario **moves** (not copies) to the `features/` of the story that claims its extension and gains its `@US-…` tag; drafts left behind are the extensions no story claims yet, matching `coverage.md`. **During *Exploring*:** scenarios are refined and completed; they freeze at Design-complete as before. | Yes. | **Accepted.** `write-scenarios` joins P0. |

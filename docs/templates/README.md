@@ -19,3 +19,4 @@ Starting points for every artifact in [chapter 2](../guide/02-artifacts-and-ids.
 | [`tracking-plan.md`](tracking-plan.md) | `docs/product/tracking-plan.md` | With the first measured PRD |
 | [`settings.yaml`](settings.yaml) | `docs/product/settings.yaml` | Once per product |
 | [`review-lanes.yaml`](review-lanes.yaml) | in our project plugin (example only) | Review lanes |
+| [`skill-spec.md`](skill-spec.md) | `docs/skills/<name>.md` in this repository | Specifying one of our skills |

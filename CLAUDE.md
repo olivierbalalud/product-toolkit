@@ -7,8 +7,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This repo holds **research and documentation only**. It is the documented framework for designing and developing product features: process guide, templates, and a list of recommended Claude Code plugins. It does not contain product code. The product lives in a **separate monorepo**. Do not create or download plugins, skills or agents here. List and describe them in the docs instead.
 
 - `docs/brief.md`: objectives, concerns and context as originally stated.
-- `docs/grilling-log.md`: the decisions taken in each Q&A round. It is authoritative where it refines the brief.
+- `docs/grilling-log.md`: the decisions taken in each Q&A round. It is authoritative where it refines the brief. A change to the framework starts as a new round here, then the guide is updated.
+- `docs/guide/`: the process guide, chapters `00-overview` to `13-adoption`. Rules cite decision IDs in brackets, e.g. `[R4-Q8′]`.
+- `docs/templates/`: templates for every artifact, copied into the monorepo.
+- `docs/skills/`: specs of the skills the monorepo will build (`docs/templates/skill-spec.md` format).
+- `docs/foundations/`: onboarding concepts per role, and the GDPR and AI Act one-pagers.
 - `docs/research/`: tooling research with sources.
+- `docs/context/monorepo-fit.md`: structural facts about the product monorepo. Everything else stays generic: no product concepts or internal names.
+
+Write the docs in English. Use the neutral example domain (meeting room booking) in examples.
 
 **The product monorepo is strictly read-only.** Never write to it, and never run git commands that change its state (commit, checkout, pull, fetch, stash, etc.). Inspect only a read-only copy of it.
 

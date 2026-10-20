@@ -4,3 +4,6 @@
 # growth:    PRD §3b numeric targets with baselines are mandatory.
 # The founders switch it, e.g. after the first paying customers [R4-Q4b].
 metrics_stage: discovery
+
+# Default measurement window for the outcome review when a PRD's §3b gives none [R22-Q1].
+outcome_review_after: 4w

@@ -24,6 +24,7 @@ This chapter lists every artifact the framework uses, its ID format, where its f
 | Dimension | `DIM-NNN` | `DIM-001` | Tracking plan (dimension catalogue) [R23-Q2] |
 | Analytics event | `EVT-NNN`, plus a snake_case event name | `EVT-014` / `room_booked` | Tracking plan [R8-Q4] |
 | Slice ticket | `NN-slug` (file name, unique within its story) | `03-reject-duplicate.md` | Story [R6-Q2] |
+| Input [R30-Q1] | `PER-NNN` persona, `JRN-NNN` journey, `PP-NNN` pain point, `BLK-NNN` blocker, `OBJ-NNN` objection, `HYP-NNN` hypothesis | `BLK-003` | — |
 
 `ENB` stands for **enabler**: work that no single story owns but that stories depend on, such as CI, the app shell, a new design-system component or an infrastructure piece [R3-A3].
 
@@ -38,7 +39,9 @@ docs/
     settings.yaml                  product-wide settings, e.g. metrics_stage [R8-Q2]
     glossary.md                    bilingual domain glossary [R3-A5]
     tracking-plan.md               events and metric catalogue [R4-Q4c]
-    inputs/                        personas, journeys, pain points, objections [R3-Q1d]
+    inputs/                        one file per kind: personas.md, journeys.md, pain-points.md,
+                                   blockers.md, objections.md, hypotheses.md [R3-Q1d, R30-Q3]
+      id-map.md                    old → new IDs of imported material [R30-Q2]
     enablers/
       ENB-004-<slug>/
         enb.md
@@ -88,6 +91,7 @@ Folders are nested by use case so that PRDs worked on in parallel touch separate
 | Enabler slice | `docs/product/enablers/ENB-…/enb.md` [R8-Q1] | When a story or an adoption step needs shared work | `Draft → Dev-ready → In development → Done` [R7-Q2] | A developer |
 | ADR | `docs/adr/NNNN-slug.md` | When a feasibility or architecture gap appears [R1-Q13] | MADR statuses; a `Proposed` ADR blocks Dev-ready | Its author |
 | TRD | `docs/trd/` | When the stack and ADRs don't answer a PRD's technical questions [R5-Q1] | — | A developer |
+| Inputs | `docs/product/inputs/`, one heading per item, starting with its ID [R30-Q3] | When existing material is imported [R3-A5], or when research adds an item | Blockers only: `open`, `resolved` or `accepted` [R30-Q16]; the others have no status | The founders |
 | Tracking plan | `docs/product/tracking-plan.md`: events (`EVT-…`) and the metric catalogue (`MET-…`) | With the first PRD that measures something | Living document | The founders |
 
 ## 2.4 Frontmatter fields
@@ -118,6 +122,18 @@ These are the fields the gate check relies on. Each template in [`../templates/`
 | `open_dcrs` | Design change requests not yet closed. | R7-Q3 |
 | `outcome_review_due` | Date of the outcome review: Done plus the measurement window. | R4-Q4e |
 | `design_tool` | `figma` or `claude-design`; fixed once *Exploring* starts. | R18-Q4 |
+
+### Blockers
+
+A blocker is a condition, seen from a customer's or user's side, that stops them buying or adopting the product. `blockers.md` has a *Buying* and an *Adoption* section, and each blocker sits in the earliest stage where it bites. Its text says who is blocked, where in the journey, and each cause, named `product-gap`, `external-limit` or `legal-or-business`, with its evidence [R30-Q4′, R30-Q5′, R30-Q6, R30-Q15′]. Three fields follow its heading ([template](../templates/blockers.md)) [R30-Q21′]:
+
+| Field | Meaning | Decision |
+|---|---|---|
+| `status` | `open`, `resolved` (the condition no longer holds) or `accepted` (we live with it: a segment excluded or a risk taken). The founders change it in a PR. | R30-Q16 |
+| `review_by` | Only when `accepted`: when to look at it again. The gate check warns once it has passed. | R30-Q16, R30-Q20 |
+| `evidence` | Only when `resolved`: a link, or one statement of what was done, who confirmed it, when, and where the proof is kept. | R30-Q18′, R30-Q20 |
+
+Blockers never block a gate [R30-Q19]. Responses cite them, never the reverse: a use case in `inputs:`, an ADR or an enabler in `raised_by:`; `index.md` lists each blocker's responses [R30-Q17].
 
 ### Product-wide setting
 

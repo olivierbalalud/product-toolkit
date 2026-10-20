@@ -1,6 +1,6 @@
 # 10. Outcomes and Measurement
 
-How a PRD states what it should achieve, how that is measured, and how the result is checked after the slice ships. Decision IDs in brackets point to [`../grilling-log.md`](../grilling-log.md). Concepts are in the [PM lens](../foundations/pm-lens.md#29-measurable-outcomes-and-product-metrics).
+How a PRD states what it should achieve, how that is measured, and how the result is checked after the slice ships. Decision IDs in brackets point to [`../grilling-log.md`](../grilling-log.md). Concepts are in the [PM lens](../foundations/pm-lens.md#210-measurable-outcomes-and-product-metrics).
 
 ## 10.1 Principles
 

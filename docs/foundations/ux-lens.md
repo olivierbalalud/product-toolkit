@@ -45,7 +45,7 @@ A task flow (or user flow) is the sequence of steps and decisions a user goes th
 
 **In this framework**
 
-The flow map and screen list live in [`flows.md`](../templates/flows.md) as a Mermaid diagram plus one block per screen, with key information and key actions traced to the story [R2-Q3 (c, e)]. We skip separate wireframes: the "wireframe" is the coded prototype under `(prototypes)/`, built from real components [R1-Q5]. See [design playbook, step 4](../guide/03-design-playbook.md#35-step-4-explore).
+The flow map and screen list live in [`flows.md`](../templates/flows.md) as a Mermaid diagram plus one block per screen, with key information and key actions traced to the story [R2-Q3 (c, e)]. We skip separate wireframes: the "wireframe" is the coded prototype under `(prototypes)/`, built from real components [R1-Q5]. A task flow usually matches one **user-goal** use case ([goal levels](pm-lens.md#22-goal-levels)): it starts where the user takes up the goal and ends where they can walk away with it done, the coffee-break test [R28-Q1]. A flow that spans several sittings is a summary goal, split into several use cases; one that covers a single field or choice is a subfunction, a step inside a flow. See [design playbook, step 4](../guide/03-design-playbook.md#35-step-4-explore).
 
 **Learn it**
 

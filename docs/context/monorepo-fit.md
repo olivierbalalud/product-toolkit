@@ -25,7 +25,7 @@ The monorepo's in-progress architecture audit (`docs/arch-audit/`) and its decis
 - **Personas and journeys:** role-based proto-personas with evidence tags and jobs-to-be-done, journeys as Mermaid diagrams, plus pain points, buying blockers, hypotheses and customer objections. All are numbered. These are natural *inputs* to use cases.
 - **Tracker:** a local markdown "wayfinder": a `map.md` plus `tickets/NN-slug.md` with frontmatter (`type`, `mode` AFK/HITL, `status`, `blocked_by`). Grilling, research and prototype tickets call the matching skills.
 - **Glossary:** `CONTEXT.md`, a French→English glossary (term, definition, examples, terms to avoid).
-- **ID collisions:** bare-letter prefixes are reused across artifact types. `T` is both a task and a technical verdict. `P` is a persona, a decision round and a debt. `H1` is both a horizon and a hypothesis. → The framework needs typed, unambiguous ID prefixes.
+- **ID collisions:** bare-letter prefixes are reused across artifact types. `T` is both a task and a technical verdict. `P` is a persona, a decision round and a debt. `H1` is both a horizon and a hypothesis. → Settled in Round 30: imported inputs take typed IDs (`PER-`, `JRN-`, `PP-`, `BLK-`, `OBJ-`, `HYP-`), with a table of the old IDs [R30-Q1, R30-Q2]. The monorepo's buying blockers become blockers, which also cover adoption [R30-Q4′].
 
 ## Language and git conventions
 

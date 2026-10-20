@@ -355,7 +355,7 @@ PRD §3a lists **user benefits**, each with an observable signal, from the first
 
 **In this framework**
 
-Personas, journeys and pain points are produced **outside** the framework and arrive as inputs in `docs/product/inputs/`; use cases cite them by ID [R3-A5, R11-Q11]. They are not the PM, UX and Eng persona reviewers.
+Personas, journeys, pain points and blockers are produced **outside** the framework and arrive as inputs in `docs/product/inputs/`; use cases cite them by typed ID, such as `PER-001` [R3-A5, R11-Q11, R30-Q1]. They are not the PM, UX and Eng persona reviewers.
 
 **Learn it**
 

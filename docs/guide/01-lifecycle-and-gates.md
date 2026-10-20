@@ -81,7 +81,7 @@ Stories are only cut from a **complete** use case [R4-Q2]. A use case is complet
    **Privacy request** is asked once per use case: can the actor ask to export or erase the personal data it handles?
 4. Each resulting extension has a handling outcome and a one-line **example** with a concrete instance, or is marked `deferred` or `out-of-scope` with a reason [R1-Q7, R28-Q3].
 5. Stakeholders and their interests are listed.
-6. The inputs it draws on (personas, journeys) are cited by ID [R3-A5].
+6. The inputs it draws on (personas, journeys, pain points, blockers) are cited by typed ID, and each ID exists in `docs/product/inputs/` [R3-A5, R30-Q1, R30-Q3].
 
 Stories are then cut as **vertical paths** that deliver value on their own: the first is the thinnest path through the whole main scenario, and each later one adds extensions or one variation [R28-Q8]. Each passes INVEST ([explained in chapter 3](03-design-playbook.md#cutting-stories)) and fits about one week of slice work [R4-Q3]. Several stories may claim the same extension [R28-Q9]. Extensions that no story claims yet stay visible in the generated `coverage.md`.
 

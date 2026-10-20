@@ -16,6 +16,7 @@ Starting points for every artifact in [chapter 2](../guide/02-artifacts-and-ids.
 | [`enb.md`](enb.md) | `docs/product/enablers/ENB-004-<slug>/enb.md` | Enabler `Draft` |
 | [`adr.md`](adr.md) | `docs/adr/0007-<slug>.md` | When a gap appears |
 | [`trd.md`](trd.md) | `docs/trd/TRD-012.1-<slug>.md` | Before Dev-ready |
+| [`blockers.md`](blockers.md) | `docs/product/inputs/blockers.md` | When inputs are imported, and whenever a blocker is found |
 | [`tracking-plan.md`](tracking-plan.md) | `docs/product/tracking-plan.md` | With the first measured PRD |
 | [`settings.yaml`](settings.yaml) | `docs/product/settings.yaml` | Once per product |
 | [`review-lanes.yaml`](review-lanes.yaml) | in our project plugin (example only) | Review lanes |

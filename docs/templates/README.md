@@ -7,8 +7,8 @@ Starting points for every artifact in [chapter 2](../guide/02-artifacts-and-ids.
 | [`use-case.md`](use-case.md) | `docs/product/use-cases/UC-012-<slug>/use-case.md` | Use case `Draft` |
 | [`story.md`](story.md) | `…/stories/US-012.1-<slug>/prd.md` (its first version) | When stories are cut |
 | [`prd.md`](prd.md) | `…/stories/US-012.1-<slug>/prd.md` | *Exploring* |
-| [`flows.md`](flows.md) | `…/stories/US-012.1-<slug>/flows.md` | *Exploring* |
-| [`copy.md`](copy.md) | `…/stories/US-012.1-<slug>/copy.md` | *Exploring* |
+| [`flows.md`](flows.md) | `…/stories/US-012.1-<slug>/flows.md` | *Exploring*, when `touches` includes `ui` |
+| [`copy.md`](copy.md) | `…/stories/US-012.1-<slug>/copy.md` | *Exploring*, when `touches` includes `ui` |
 | [`feature.feature`](feature.feature) | `…/stories/US-012.1-<slug>/features/<name>.feature` | *Exploring* |
 | [`fit.md`](fit.md) | `…/stories/US-012.1-<slug>/fit.md` | *Exploring*, refreshed at slice start |
 | [`reviews.md`](reviews.md) | `…/stories/US-012.1-<slug>/reviews.md` | Design-complete gate onwards |

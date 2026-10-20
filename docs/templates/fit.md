@@ -21,7 +21,8 @@ refreshed_at_slice_start: <commit SHA or empty>   # [R4-Q8′ step 0]
 
 ## 2. API
 
-<!-- Key 2: OpenAPI diff of contract.draft.yaml against the generated spec (e.g. oasdiff). -->
+<!-- Key 2: OpenAPI diff of contract.draft.yaml against the generated spec (e.g. oasdiff).
+     Only when touches includes api; otherwise write "n/a: no API change" [R28-Q5]. -->
 
 | Path and method / schema | Diff | Class | Consumers |
 |---|---|---|---|

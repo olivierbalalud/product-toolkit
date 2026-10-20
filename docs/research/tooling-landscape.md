@@ -394,7 +394,7 @@ Dev Mode is not on Starter ([Dev Mode](https://help.figma.com/hc/en-us/articles/
 **Lingui** (6.10.0; v6 released 2026-04-22)
 - v6 is ESM only, needs Node 22.19+, moved macros to `@lingui/react/macro`, and changed ID hashing ([migration](https://lingui.dev/releases/migration-6)).
 - React Native: RN 0.76+ or Expo 52+ on Hermes, with Intl polyfills ([RN](https://lingui.dev/tutorials/react-native)).
-- Next.js: needs the experimental `@lingui/swc-plugin`, pinned to match `swc_core` ([swc](https://lingui.js.org/ref/swc-plugin)).
+- Next.js: needs the experimental `@lingui/swc-plugin`, pinned to match `swc_core` ([swc](https://lingui.dev/ref/swc-plugin)).
 - The only option here covering web and RN with one ICU/PO format.
 
 **i18next / react-i18next** (26.5.2 / 17.1.0)

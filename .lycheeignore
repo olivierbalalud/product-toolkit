@@ -6,3 +6,11 @@
 # Placeholders in the templates and examples
 ^https?://svn\.example\.com/
 ^https?://gitlab\.example\.com/
+# Sites that return 403 to GitHub's runners but open in a browser (checked 2026-10-20)
+^https?://[a-z0-9-]+\.substack\.com/
+^https?://(www\.)?beyondtrust\.com/
+^https?://uxplanet\.org/
+^https?://(www\.)?medium\.com/
+# The PRD template links to files that exist only once it is copied into a story folder
+templates/contract\.draft\.yaml$
+templates/features/?$

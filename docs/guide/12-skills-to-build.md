@@ -44,9 +44,9 @@ Specs are in [`../skills/`](../skills/), written from [`skill-spec.md`](../templ
 | Skill | Serves | Does | Spec |
 |---|---|---|---|
 | `check-gate` | Every gate (CI and local) | Checks a status change against its gate; generates `coverage.md` and `docs/product/index.md` | [full](../skills/check-gate.md) |
-| `write-use-case` | Use case → Complete | Writes a Cockburn fully dressed use case and checks the failure-category grid | [full](../skills/write-use-case.md) |
-| `write-stories` | Stories cut | Cuts vertical stories, checks INVEST, writes Draft PRDs, regenerates coverage | [full](../skills/write-stories.md) |
-| `write-scenarios` | Use case, story cut, *Exploring* | English Gherkin: drafts per extension, moved into stories, completed per story [R27-Q1′] | [full](../skills/write-scenarios.md) |
+| `write-use-case` | Use case → Complete | Writes a user-goal, fully dressed use case; checks the actor and system grid and an example per extension; renumbers safely | [full](../skills/write-use-case.md) |
+| `write-stories` | Stories cut | Cuts value-based vertical stories, checks INVEST, writes Draft PRDs with `extensions:` and `touches:`, regenerates coverage | [full](../skills/write-stories.md) |
+| `write-scenarios` | *Exploring* | A story's English Gherkin, grouped under `Rule:` blocks, starting from its extensions' examples [R27-Q1′, R28-A] | [full](../skills/write-scenarios.md) |
 | `check-fit` | Exploring, slice start | Writes `fit.md` from the four keys: specs, API, behaviour, code | [full](../skills/check-fit.md) |
 | `review-design` | Design-complete, DCRs | Runs the PM, UX and Eng persona reviewers in parallel, including the threat check | [full](../skills/review-design.md) |
 
@@ -82,7 +82,7 @@ Specs are in [`../skills/`](../skills/), written from [`skill-spec.md`](../templ
 ## 12.4 Build order
 
 1. **`check-gate`'s scripts first**, with the `coverage.md` and `index.md` generators. They are plain scripts, run in CI without an agent, and every other step relies on them.
-2. **`write-use-case`, `write-scenarios` and `write-stories`**, so the first use case, its draft scenarios and its stories can be written.
+2. **`write-use-case`, `write-stories` and `write-scenarios`**, so the first use case, its stories and their scenarios can be written.
 3. **`check-fit` and `review-design`**, so the first PRD can reach Design-complete.
 4. **P1 lanes** before the first slice PR: `review-code` and `review-security` first, `review-ux` with its reviewers next.
 5. **P2** when the first outcome review is due, or the Vercel guidelines change.

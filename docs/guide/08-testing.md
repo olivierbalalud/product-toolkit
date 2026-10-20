@@ -39,9 +39,10 @@ What is tested, where the tests live, which tool runs them and when they must pa
 - **English only**, whatever the PRD's source language, so steps never turn into French identifiers [R3-Q1a].
 - **Tags** on every scenario: the story and the use-case step or extension, e.g. `@US-012.1 @UC-012.3a` [R3-Q1a].
 - **Domain words** are the glossary's English terms. A step-vocabulary check flags words that are not in the glossary [R3-C3].
-- **UI text** is referenced by copy-deck key, only where the exact wording matters. Playwright steps resolve keys through the next-intl catalogs, so the same scenarios run in every locale, which also tests the translations [R3-C2].
+- **Rules above examples.** Scenarios are grouped under Gherkin `Rule:` blocks, each a plain-English business rule with its examples beneath; optional when a feature has one rule. pytest-bdd supports `Rule:` from version 8 [R28-Q16].
+- **UI text** is described in domain words, never by copy key. The `@ui` step definitions map the wording to copy keys and resolve them through the next-intl catalogs, so the same scenarios run in every locale, which also tests the translations [R28-Q10].
 - **Reuse** existing step wording where it fits, so existing step definitions bind [R4-Q8b′].
-- **Drafts** written while the use case is completed live in `scenarios.draft.feature`, tagged `@draft`, and are **not run** by either harness until they move into a story [R27-Q1′].
+- **Written during *Exploring*, in the story.** The use case gives one prose example per extension; the scenarios start from those examples. No Gherkin is written at the use-case stage [R28-A].
 - **Frozen at Design-complete.** A wording tweak for testability is allowed; any change in meaning needs a DCR or a later PRD's amendment [R3-Q1a, R4-Q8e′].
 
 ### Which scenarios run in which layer
@@ -49,7 +50,7 @@ What is tested, where the tests live, which tool runs them and when they must pa
 Every scenario runs on the **business layer**. Scenarios tagged **`@ui`** also run in **playwright-bdd**, following the test pyramid: many fast tests, few slow ones [R14-Q2].
 
 - The scenario's author adds `@ui` during *Exploring*; the Eng persona checks the tags.
-- The gate check enforces two rules: any scenario that references a copy key is `@ui`, and every screen in `flows.md` has at least one `@ui` scenario.
+- The gate check enforces two rules: no scenario contains a copy key, and every screen in `flows.md` has at least one `@ui` scenario [R28-Q10].
 - `@ui` scenarios run in every enabled locale on the slice PR, while there are two locales. Revisit when a third arrives.
 
 ## 8.4 Fakes and ports

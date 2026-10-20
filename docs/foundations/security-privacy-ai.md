@@ -71,7 +71,7 @@ Threat modelling is a structured look at a design to find what can go wrong befo
 
 **In this framework**
 
-For a PRD that adds an endpoint, a data store or a third party, the Eng persona review includes a short STRIDE-style threat check before Design-complete [R11-Q12]. When a PRD sends user or third-party content to an LLM, the check covers **prompt injection** [R12-Q6c] (see [the next entry](#13-owasp-top-10-for-llm-applications)). See [chapter 1, §1.5](../guide/01-lifecycle-and-gates.md#15-exploring--design-complete) and [chapter 3, §3.10](../guide/03-design-playbook.md#310-step-9-prepare-the-gate).
+For a PRD that adds an endpoint, a data store or a third party, the Eng persona review includes a short STRIDE-style threat check before Design-complete [R11-Q12]. When a PRD sends user or third-party content to an LLM, the check covers **prompt injection** [R12-Q6c] (see [the next entry](#13-owasp-top-10-for-llm-applications)). See [chapter 1, §1.5](../guide/01-lifecycle-and-gates.md#15-exploring--design-complete) and [chapter 3, §3.6](../guide/03-design-playbook.md#36-step-5-prepare-the-gate).
 
 **Learn it**
 

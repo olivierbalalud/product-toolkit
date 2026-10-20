@@ -6,13 +6,14 @@ This chapter lists every artifact the framework uses, its ID format, where its f
 
 - **Every ID has a typed prefix.** No bare one-letter prefixes, which collide across artifact types [R3-A3].
 - **IDs are never reused**, even when an artifact is rejected or deleted. The rule an existing decision register may already have carries over [R3-A2].
+- **Step and extension IDs may be renumbered only before they freeze.** `write-use-case renumber` rewrites every reference while every PRD that references the use case is `Draft` or *Exploring*. After that, an inserted step takes a decimal number (`3.1`, extension `UC-012.3.1a`) and a removed step or extension is marked `retired` [R28-Q19′].
 - **Child IDs embed their parent's number**, so the parent can be read from the ID alone.
 - **IDs appear in file and folder names, branch names, commit scopes, Gherkin tags and test markers.** They do not appear in production code, where they would go stale [R4-Q8b′].
 
 | Artifact | ID format | Example | Parent |
 |---|---|---|---|
 | Use case | `UC-NNN` | `UC-012` | — |
-| Use-case extension | `UC-NNN.<step><letter>` | `UC-012.3a` (step 3, first extension) | Use case |
+| Use-case extension | `UC-NNN.<step><letter>` | `UC-012.3a` (step 3, first extension); `UC-012.3.1a` after an inserted step [R28-Q19′] | Use case |
 | User story | `US-NNN.N` | `US-012.1` | Use case |
 | PRD | `PRD-NNN.N` | `PRD-012.1` (same number as its story, 1:1) | Story |
 | TRD | `TRD-NNN.N` | `TRD-012.1` | PRD |
@@ -45,15 +46,14 @@ docs/
     use-cases/
       UC-012-<slug>/
         use-case.md
-        coverage.md                GENERATED: extension → scenarios [R3-Q1b]
-        scenarios.draft.feature    draft scenario per extension, @draft, not run [R27-Q1′]
+        coverage.md                GENERATED: extension → claiming stories → scenarios [R3-Q1b]
         stories/
           US-012.1-<slug>/
             prd.md
-            flows.md               flow map, screens, key info and actions, state matrix
-            copy.md                copy deck
+            flows.md               flow map, screens, key info and actions, state matrix (touches: ui)
+            copy.md                copy deck (touches: ui)
             fit.md                 fit analysis [R4-Q8a]
-            contract.draft.yaml    draft API contract
+            contract.draft.yaml    draft API contract (touches: api) [R28-Q5]
             features/*.feature     English Gherkin [R3-Q1a]
             reviews.md             persona reviews and sign-offs
             design-export/         final Claude Design export, if design_tool is claude-design [R18-Q6]
@@ -78,7 +78,7 @@ Folders are nested by use case so that PRDs worked on in parallel touch separate
 
 | Artifact | File | Created | Lifecycle | Owner |
 |---|---|---|---|---|
-| Use case | `use-case.md` | When a use case is picked for clarification | `Draft → Ready for review → Under review → Complete` [R7-Q1] | Its driver |
+| Use case | `use-case.md`, at the user-goal level [R28-Q1] | When a use case is picked for clarification, on a `uc/` branch [R28-Q20] | `Draft → Complete` [R28-Q11] | Its driver |
 | Story | the story folder, with its PRD | When stories are cut from a complete use case [R4-Q3] | Follows its PRD | The PRD's driver |
 | PRD | `prd.md` and its sibling files | With its story | `Draft → … → Done` [R1-Q8] | Its driver |
 | Feature files | `features/*.feature` | During *Exploring* | Frozen at Design-complete; changed later only by a DCR or an amendment [R3-Q1a, R4-Q8e′] | The PRD's driver |
@@ -109,6 +109,8 @@ These are the fields the gate check relies on. Each template in [`../templates/`
 | Field | Meaning | Decision |
 |---|---|---|
 | `use_case`, `story` | Links to the parent use case and story. | R4-Q4 |
+| `extensions` | The use-case extensions the story handles; the only list of them. Several stories may claim the same one. | R4-Q3, R28-Q4, R28-Q9 |
+| `touches` | `ui`, `api` or both: decides which companion files the gate requires (`flows.md`, `copy.md` with `ui`; `contract.draft.yaml` with `api`). Free to change until Design-complete, then through a DCR. | R28-Q5, R28-Q18 |
 | `adrs`, `trds` | Linked ADRs and TRDs. | R4-Q4 |
 | `enablers` | Enabler slices this PRD depends on. | R4-Q4d, R5-Q1 |
 | `amends` | Scenarios of earlier PRDs this PRD changes. | R4-Q8e′ |
@@ -127,15 +129,15 @@ How an ID travels from the spec to the code and back:
 
 | Where | Form | Example | Decision |
 |---|---|---|---|
-| Branch | `<kind>/<ID>-<slug>` | `slice/PRD-012.1-book-room`, `design/DCR-012.1-01-new-copy` | R4-Q5′, R10-Q1 |
-| Worktree | branch name with `/` replaced by `-` | `slice-PRD-012.1-book-room` | R4-Q5′ |
+| Branch | `<kind>/<ID>-<slug>` | `uc/UC-012-book-room`, `slice/PRD-012.1-book-room`, `design/DCR-012.1-01-new-copy` | R4-Q5′, R10-Q1, R28-Q20 |
+| Worktree | branch name with `/` replaced by `-` (none for `uc/` branches) | `slice-PRD-012.1-book-room` | R4-Q5′ |
 | Commit scope | the artifact ID | `docs(PRD-012.1): add state matrix` | R4-Q5′ |
 | Gherkin | tags on each scenario | `@US-012.1 @UC-012.3a` | R3-Q1a |
 | Other tests | a pytest marker or test tag | the extension or story ID | R4-Q8b′ |
-| UI text in steps | copy-deck key, only where wording matters | `"checkout.payment.submit"` | R3-C2 |
+| UI text in steps | domain wording, never a copy key; `@ui` step definitions map it to the key | `I am told the room is no longer free` | R28-Q10 |
 | Domain words in steps | the glossary's English term | — | R3-C3 |
 
-From these tags, a script generates `coverage.md` (extension → scenarios, committed) and CI produces the traceability report (extension → scenario → result per test layer, as a CI artifact) [R3-Q1b].
+From these tags and the stories' `extensions:`, a script generates `coverage.md` (extension → claiming stories → scenarios, committed) and CI produces the traceability report (extension → scenario → result per test layer, as a CI artifact) [R3-Q1b].
 
 ## 2.6 Language of each artifact
 

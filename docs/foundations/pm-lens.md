@@ -282,7 +282,7 @@ An **outcome** is a change in what users do, not the feature that was shipped (J
 
 **In this framework**
 
-PRD §3a lists **user benefits**, each with an observable signal, from the first PRD. §3b adds numeric targets once `metrics_stage: growth` [R4-Q4a, R4-Q4b]. Metrics are defined once in the tracking plan's catalogue with `MET-` IDs; customer retention rate is the template's `MET-001` [R8-Q3]. Events (`EVT-`) feed them, and an outcome review closes the loop after `Done` [R4-Q4c, R4-Q4e]. See [chapter 3, §3.8](../guide/03-design-playbook.md#38-step-7-define-the-outcome-and-how-to-measure-it), [chapter 10](../guide/10-outcomes-and-measurement.md), [`tracking-plan.md`](../templates/tracking-plan.md) and [`settings.yaml`](../templates/settings.yaml).
+PRD §3a lists **user benefits**, each with an observable signal, from the first PRD. §3b adds numeric targets once `metrics_stage: growth` [R4-Q4a, R4-Q4b]. Metrics are defined once in the tracking plan's catalogue with `MET-` IDs; customer retention rate is the template's `MET-001` [R8-Q3]. Events (`EVT-`) feed them, and an outcome review closes the loop after `Done` [R4-Q4c, R4-Q4e]. See [chapter 3, §3.5](../guide/03-design-playbook.md#outcome-and-measurement), [chapter 10](../guide/10-outcomes-and-measurement.md), [`tracking-plan.md`](../templates/tracking-plan.md) and [`settings.yaml`](../templates/settings.yaml).
 
 **Learn it**
 

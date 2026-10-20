@@ -33,7 +33,11 @@ flowchart TB
 
 ## State matrix
 
-<!-- Every screen × every state [R2-Q3 (d)]. Describe what the user sees, or "n/a" with a reason. -->
+<!-- Every screen × every state [R2-Q3 (d)]. Describe what the user sees, or "n/a" with a reason.
+     Loading follows the duration class of the use-case step the screen shows [R29-Q7]:
+     wait → a labelled spinner or skeleton; long → determinate progress, an estimate and cancel;
+     background → an immediate acknowledgement, a visible status and a notification.
+     A screen that ends at a wait point says what happens next and when. -->
 
 | Screen | Empty | Loading | Error | Partial | Success | No permission | Stale data |
 |---|---|---|---|---|---|---|---|

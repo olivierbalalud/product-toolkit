@@ -5,6 +5,9 @@
 # Group scenarios under a Rule: one plain-English business rule, its examples beneath. Optional with one rule [R28-Q16].
 # Start from the examples of the use-case extensions this story handles [R28-A, R28-Q3].
 # Tag every scenario with the story and the use-case step or extension it covers [R3-Q1a].
+# Time: set "now" in a Given ("Given it is Monday 09:00"), write time passing as a When ("When 24 hours pass
+# without approval"), and give a deadline rule examples on both sides of the deadline. Never wait or sleep,
+# and never assert a response time [R29-Q9, R12-Q5].
 # Frozen at Design-complete: changed later only by a DCR or an amendment [R3-Q1a, R4-Q8e′].
 
 @US-012.1

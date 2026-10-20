@@ -17,13 +17,13 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 
 | Field | Value |
 |---|---|
-| **Primary actor** | <role> |
+| **Primary actor** | <role> <!-- for a time-triggered use case, the stakeholder who cares that it runs, never "the clock" [R29-Q3] --> |
 | **Scope** | <the system under design> |
-| **Level** | User goal <!-- always: one actor, one sitting, goal reached (coffee-break test) [R28-Q1] --> |
-| **Trigger** | <what starts it> |
+| **Level** | User goal <!-- always: one actor, one sitting, goal reached (coffee-break test) [R28-Q1]. A step that waits hours or days for someone else or for a deadline ends the use case there [R29-Q2] --> |
+| **Trigger** | <what starts it: the actor's request, or a time event such as "24 hours after a request with no approval" [R29-Q3]> |
 | **Preconditions** | <what must be true before it starts> |
 | **Minimal guarantees** | <what is true however it ends, e.g. nothing is half-saved, the attempt is logged> |
-| **Success guarantees** | <what is true when the main scenario succeeds> |
+| **Success guarantees** | <what is true when the main scenario succeeds; if it ends at a wait point, what is pending and how the actor will hear [R29-Q2]> |
 
 ## Stakeholders and interests
 
@@ -33,16 +33,22 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 
 ## Main success scenario
 
-<!-- Intent, not interface: no screens, buttons or clicks [R28-Q7]. Mark each step (actor) or (system) [R28-Q6]. -->
+<!-- Intent, not interface: no screens, buttons or clicks [R28-Q7]. Mark each step (actor) or (system) [R28-Q6].
+     Add a system step's duration class when it isn't instant (under 1 s) [R29-Q1]:
+     wait = 1 to 10 s; long = over 10 s, the actor stays; background = minutes or more, the actor may leave.
+     A background step is followed by a system step that tells the actor the outcome [R29-Q5]. -->
 
 1. (actor) <Actor> <provides or chooses something>.
 2. (system) The system <looks up, stores or calls something>.
-3. …
+3. (system, long) The system <does something that takes over 10 seconds, reporting progress>.
+4. …
 
 ## Failure-category check
 
 <!-- Run each step through the categories of its kind [R4-Q2, R28-Q6]. Each "yes" becomes an extension below.
-     "n/a" needs no reason; "out-of-scope" does. -->
+     "n/a" needs no reason; "out-of-scope" does. Cancel / abandon on a system step is answered only for long and
+     background steps, and is never "n/a" there: "out-of-scope" needs a reason such as "past the point of no return";
+     it is "n/a" for instant and wait steps [R29-Q4]. -->
 
 **Actor steps**
 
@@ -52,9 +58,10 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 
 **System steps**
 
-| Step | Not found | Conflict / concurrent edit | Timeout / external down | Partial failure | Quota / limit | Stale data |
-|---|---|---|---|---|---|---|
-| 2 | | | | | | |
+| Step | Not found | Conflict / concurrent edit | Timeout / external down | Partial failure | Quota / limit | Stale data | Cancel / abandon |
+|---|---|---|---|---|---|---|---|
+| 2 | | | | | | | n/a |
+| 3 | | | | | | | |
 
 **Privacy request:** <yes / no>: <can the actor ask to export or erase the personal data this use case handles? If yes, the extension that handles it, or `deferred` with a reason>
 

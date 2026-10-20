@@ -5,6 +5,7 @@ status: Draft            # Draft | Dev-ready | In development | Done [R7-Q2]
 driver: <name>
 priority: <number or label>
 blocks: []               # PRDs or other ENBs waiting on it, e.g. [PRD-012.1]
+raised_by: []            # blockers it answers, e.g. [BLK-003] [R30-Q17]
 adds_ds_component: false # true → goes through Exploring and the UX persona review first [R7-Q2]
 adrs: []
 ---

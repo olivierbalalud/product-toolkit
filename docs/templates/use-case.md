@@ -5,7 +5,7 @@ status: Draft            # Draft | Complete [R28-Q11]
 driver: <name>
 priority: <number or label>   # informs the pick, never makes it [R6-Q1]
 source_locale: en        # en | fr [R1-Q11]
-inputs: []               # IDs of personas, journeys, pain points this use case draws on [R3-A5]
+inputs: []               # input IDs it draws on: PER-, JRN-, PP-, BLK-, OBJ-, HYP-, e.g. [PER-001, BLK-003] [R3-A5, R30-Q1]
 stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 ---
 <!-- Copied to docs/product/use-cases/UC-012-<slug>/use-case.md. Cockburn "fully dressed" format [R1-Q6],

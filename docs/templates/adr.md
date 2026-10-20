@@ -5,7 +5,7 @@ date: YYYY-MM-DD
 decision-makers: []
 consulted: []
 informed: []
-raised_by: []            # PRDs or ENBs whose gap raised it, e.g. [PRD-012.1] [R1-Q13]
+raised_by: []            # PRDs, ENBs or blockers that raised it, e.g. [PRD-012.1, BLK-003] [R1-Q13, R30-Q17]
 supersedes: []           # earlier ADRs, or entries of a frozen legacy decision register [R3-A2]
 ---
 <!-- Copied to docs/adr/0007-<slug>.md. MADR format, in English [R3-A2, R1-Q11].

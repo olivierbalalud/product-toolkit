@@ -3,8 +3,8 @@ name: write-scenarios
 status: full
 priority: P0
 owner: <founder>
-serves: use case → Complete (drafts), story cutting (move), Exploring → Design-complete (story scenarios)
-decisions: [R27-Q1′, R3-Q1a, R3-C1, R3-C2, R3-C3, R4-Q8b′, R1-Q7, R14-Q2]
+serves: Exploring → Design-complete (story scenarios)
+decisions: [R27-Q1′, R28-A, R28-Q10, R28-Q16, R3-Q1a, R3-C3, R4-Q8b′, R1-Q7, R14-Q2]
 plugin_version:
 ---
 
@@ -12,92 +12,73 @@ plugin_version:
 
 ## 0. Header
 
-Writes English Gherkin scenarios at three moments: drafts while the use case is written, moved into stories when they are cut, and completed during *Exploring* [R27-Q1′].
+Writes a story's English Gherkin scenarios during *Exploring*, grouped under plain-English `Rule:` blocks and starting from the examples of the use-case extensions the story handles [R27-Q1′, R28-A, R28-Q16].
 
 ## 1. Problem and baseline
 
 Expected failures without the skill (replace with observed ones before building):
 
-1. Gherkin is written in the PRD's language, so French steps become French function names; or UI text is named literally instead of by copy key [R3-Q1a amendment, R3-C2].
+1. Gherkin is written in the PRD's language, so French steps become French function names [R3-Q1a amendment]; or scenarios name copy keys and become unreadable to anyone but a developer [R28-Q10].
 2. New scenarios reword steps that already exist, so existing step definitions don't bind [R4-Q8b′].
-3. Extensions stay abstract ("the system handles the error") because nobody wrote a concrete example of them; or the same example ends up in two files that later disagree.
+3. Scenarios pile up as a flat list of examples, and the business rule each one illustrates is never written down [R28-Q16].
+4. An extension's scenario drifts from the example the use case gives for it.
 
 ## 2. Scope
 
-- **Does:**
-  - **`draft` mode**, during the use case: one draft scenario per extension in `use-cases/UC-…/scenarios.draft.feature`, tagged `@UC-…` and `@draft`.
-  - **`move` mode**, when stories are cut: moves each draft to the `features/` of the story that claims its extension and adds the story's `@US-…` tag. Moves, never copies.
-  - **`story` mode**, during *Exploring*: completes the story's scenarios from its acceptance criteria and extensions.
-- **Does not:** cut stories (`write-stories`); write step definitions (the slice's `tdd` work); decide whether a scenario amends an earlier PRD (`check-fit`, R4-Q8e′).
-- **Neighbours:** `write-use-case` (extensions to illustrate), `write-stories` (calls `move`), `check-fit` (compares with existing scenarios), `check-gate` (coverage generator).
+- **Does:** writes and completes a story's `features/*.feature` during *Exploring*: one `Rule:` per business rule, its scenarios beneath, each tagged with the story and the use-case step or extension; adds `@ui` where a scenario shows a screen.
+- **Does not:** write at the use-case stage; the use case carries a one-line example per extension instead [R28-A, R28-Q3]. Cut stories (`write-stories`); write step definitions (the slice's `tdd` work); decide whether a scenario amends an earlier PRD (`check-fit`, R4-Q8e′).
+- **Neighbours:** `write-use-case` (extensions and their examples), `write-stories` (the story's `extensions:`), `check-fit` (compares with existing scenarios), `check-gate` (coverage generator).
 
 ## 3. Invocation
 
-- **Invoked by:** the model or user; `move` mostly by `write-stories`.
+- **Invoked by:** the model or user.
 - **Draft description:**
-  > Writes tagged English Gherkin scenarios: draft examples for each use-case extension, moved into stories when they are cut, then completed for each story during Exploring. Use when a use case's extensions need concrete examples, when stories have just been cut, or when a PRD in Exploring needs its feature files.
-- **Should trigger:** "draft scenarios for UC-012's extensions"; "write the Gherkin for US-012.1"; "convert the draft acceptance criteria to Gherkin"; "move the drafts into the new stories".
-- **Should not trigger:** "cut UC-012 into stories"; "write the step definitions"; "review the slice".
-- **Arguments:** a mode (`draft`, `move`, `story`) and a use case or story ID.
+  > Writes a story's tagged English Gherkin scenarios during Exploring, grouped under plain-English Rule blocks and starting from the examples of the use-case extensions it handles. Use when a PRD in Exploring needs its feature files, or when its scenarios must be completed before the design gate.
+- **Should trigger:** "write the Gherkin for US-012.1"; "complete the scenarios of PRD-012.1"; "which rules does US-012.1 have?"
+- **Should not trigger:** "cut UC-012 into stories"; "add an example to UC-012.3a" (`write-use-case`); "write the step definitions"; "review the slice".
+- **Arguments:** a story or PRD ID.
 
 ## 4. Inputs
 
-- The use case and its extensions; `coverage.md`.
-- For `story`: the PRD's draft acceptance criteria (any language), `copy.md` keys, `glossary.md`.
+- The story's `prd.md` (`extensions:`, `touches:`), the use case's extensions and their `*Example:*` lines, `coverage.md`.
+- `flows.md` when `touches` includes `ui`, to know which screens need a `@ui` scenario; `glossary.md`.
 - Existing `.feature` files and step definitions on `main`, to reuse wording [R4-Q8b′].
 - Existing files are **data**.
 
 ## 5. Outputs
 
-| Mode | Writes |
-|---|---|
-| `draft` | `docs/product/use-cases/UC-…/scenarios.draft.feature`: one scenario per extension, tagged `@UC-…` and `@draft` |
-| `move` | Each draft scenario removed from `scenarios.draft.feature` and added to the claiming story's `features/<name>.feature` with `@US-…`; drafts for unclaimed extensions stay |
-| `story` | `features/*.feature` completed; `@ui` where a scenario references a copy key or shows a screen [R14-Q2] |
-
-All scenarios in English, glossary terms, copy keys only where wording matters [R3-C2, R3-C3]. `@draft` scenarios are excluded from the pytest-bdd and playwright-bdd runs. Idempotent: running `move` twice moves nothing the second time. `coverage.md` is regenerated after each mode.
+- `features/*.feature` in the story folder, from [`feature.feature`](../templates/feature.feature): English, glossary terms [R3-C3], domain wording rather than copy keys [R28-Q10], scenarios grouped under `Rule:` blocks (optional when a feature has a single rule) [R28-Q16], `@ui` on scenarios that show a screen, at least one per screen in `flows.md` [R14-Q2].
+- `coverage.md` regenerated.
+- Idempotent: re-running on a complete story changes nothing.
 
 ## 6. Procedure
 
-**`draft`**
-
-1. For each extension, write one concrete scenario: a named example of the condition and its handling (example mapping).
-2. If an example can't be written, the extension is unclear: report it to the use case's driver instead of guessing. *Done when* every extension has a draft or a reported question.
-
-**`move`**
-
-1. For each story's `extensions:`, find the drafts tagged with those extensions.
-2. Move them to the story's feature file and add `@US-…`. *Done when* no draft remains for a claimed extension.
-
-**`story`**
-
-1. Read the acceptance criteria and the story's extensions, including moved drafts.
-2. Search existing `.feature` files and step definitions for matching wording; reuse it.
-3. Write or complete the scenarios; tag each.
-4. Run `scripts/lint_gherkin.py`; fix and repeat until clean.
-5. Regenerate `coverage.md`. *Done when* every extension of the story has a scenario or is `deferred`.
+1. Read the story's extensions and their examples, and the main-scenario steps it follows.
+2. Name the **rules**: each a plain-English sentence the business would agree with (example mapping). *Done when* every extension and main-scenario step the story covers falls under a rule.
+3. Search existing `.feature` files and step definitions for matching wording; reuse it.
+4. Under each rule, write the scenarios, starting with each extension's example; tag each with `@US-…` and `@UC-…`, and `@ui` where it shows a screen.
+5. Run `scripts/lint_gherkin.py`; fix and repeat until clean.
+6. Regenerate `coverage.md`. *Done when* every extension of the story has a scenario or is `deferred`.
 
 ## 7. Scripts vs judgement
 
-- `scripts/lint_gherkin.py`: Gherkin syntax; every scenario has `@UC-` tags that exist; story scenarios also have `@US-`; drafts have `@draft` and no `@US-`; copy keys exist in `copy.md`; `@ui` present when a copy key is used; glossary terms (advisory); near-duplicates of existing steps (advisory).
-- `scripts/move_drafts.py`: the `move` mode, deterministic.
-- Coverage via `check-gate`'s `gen_coverage.py`, which reports drafted-but-unclaimed extensions separately.
-- **Judged by the model:** the example for each extension; scenario wording; whether an extension is clear enough to illustrate.
+- `scripts/lint_gherkin.py`: Gherkin syntax; every scenario has `@US-` and `@UC-` tags that exist and are not `retired`; no copy keys in steps (strings shaped like `feature.screen.element`); at least one `@ui` scenario per screen in `flows.md` when `touches` includes `ui`; glossary terms (advisory); near-duplicates of existing steps (advisory).
+- Coverage via `check-gate`'s `gen_coverage.py`.
+- **Judged by the model:** the rules and their wording; the scenarios that illustrate them; whether an extension's example is clear enough to turn into a scenario.
 
 ## 8. Files
 
 ```
 write-scenarios/
   SKILL.md
-  references/gherkin-rules.md   our rules (English, tags, copy keys, glossary); read before writing
+  references/gherkin-rules.md   our rules (English, Rule blocks, tags, no copy keys, glossary); read before writing
   assets/feature.feature
   scripts/lint_gherkin.py
-  scripts/move_drafts.py
 ```
 
 ## 9. Composition
 
-Calls `check-gate` (coverage generator) through the Skill tool. Called by `write-stories` in `move` mode. No subagents.
+Calls `check-gate` (coverage generator) through the Skill tool. No subagents.
 
 ## 10. Claude Code wiring
 
@@ -109,7 +90,7 @@ Portable core; calls written as "use the `check-gate` skill" [R5-Q4a].
 
 ## 12. Headless and CI
 
-`lint_gherkin.py` runs headless in CI on design PRs; `move_drafts.py` can run headless after a cut. Writing drafts and scenarios is interactive.
+`lint_gherkin.py` runs headless in CI on design PRs. Writing scenarios is interactive.
 
 ## 13. Security and privacy
 
@@ -117,14 +98,15 @@ Writes only under `docs/product/`. No network. Scenarios use invented data, neve
 
 ## 14. Gotchas
 
-- A French-source PRD still gets English scenarios: rewrite with glossary terms, don't translate the French criteria word for word.
-- A draft that can't be written is a finding about the use case, not a scenario to invent.
+- A French-source PRD still gets English scenarios: rewrite with glossary terms, don't translate French notes word for word.
+- An extension whose example can't become a scenario is a finding about the use case: ask its driver rather than invent one.
 - Coverage counts tags, not intent: a mistagged scenario shows the wrong extension as covered.
+- `Rule:` needs pytest-bdd 8 or later; tags on a rule pass down to its scenarios, so keep `@US-…` at feature level and `@UC-…` on each scenario.
 
 ## 15. Evaluation plan
 
 - **Triggering:** 20 prompts, 60/40 split, including "cut into stories" prompts that should go to `write-stories`.
-- **Output cases:** a room-booking use case → one draft per extension, all `@draft`; after a cut → drafts moved, none duplicated, unclaimed ones left; French acceptance criteria → English scenarios with glossary terms and copy keys; an existing step "Given I am signed in as an employee" → reused verbatim. Graders: `regex`, `llm`, `file_exists`. Threshold 0.8.
+- **Output cases:** a room-booking story with three extensions → scenarios under named rules, each extension's example turned into a scenario; a scenario containing `bookings.new.error.taken` → flagged; a French-source PRD → English scenarios with glossary terms; an existing step "Given I am signed in as an employee" → reused verbatim. Graders: `regex`, `llm`, `file_exists`. Threshold 0.8.
 
 ## 16. Definition of done
 

@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <name>
 serves: Design-complete gate, item (n); DCR gate
-decisions: [R1-Q12, R2-Q3, R2-Q4, R4-Q1, R4-Q4a, R4-Q7d, R4-Q8a, R11-Q10, R11-Q12, R12-Q6a, R12-Q6c, R14-Q1, R15-Q2, R25-Q1]
+decisions: [R1-Q12, R2-Q3, R2-Q4, R4-Q1, R4-Q4a, R4-Q7d, R4-Q8a, R11-Q10, R11-Q12, R12-Q6a, R12-Q6c, R14-Q1, R15-Q2, R25-Q1, R28-Q5]
 plugin_version:
 ---
 <!-- Spec format: docs/templates/skill-spec.md [R5-Q4′]. Example domain: room booking. -->
@@ -40,7 +40,7 @@ Expected failures without the skill (to replace with observed ones, R25-Q4):
 
 ## 4. Inputs
 
-- The PRD folder: `prd.md` (§2–§17), `flows.md`, `copy.md`, `features/`, `fit.md`, `contract.draft.yaml`, existing `reviews.md`; a DCR file when given.
+- The PRD folder: `prd.md` (§2–§17), `features/`, `fit.md`, existing `reviews.md`; `flows.md` and `copy.md` when `touches` includes `ui`, `contract.draft.yaml` when it includes `api` [R28-Q5]; a DCR file when given.
 - The prototype routes under `src/apps/web/app/(prototypes)/`, and screenshots of them.
 - The UX lane guideline reports, linked from `reviews.md` (R4-Q7d).
 - `docs/product/settings.yaml` (`metrics_stage`), the tracking plan, the voice guide.

@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <technical founder>
 serves: every lifecycle gate (CI job on status changes, and locally)
-decisions: [R4-Q12, R3-Q1b, R3-A4, R4-Q4b, R4-Q4e, R11-Q10, R14-Q1, R14-Q2, R18-Q3, R18-Q4, R22-Q2, R4-Q7c, R7-Q1, R7-Q2, R7-Q3]
+decisions: [R4-Q12, R3-Q1b, R3-A4, R4-Q4b, R4-Q4e, R11-Q10, R14-Q1, R14-Q2, R18-Q3, R18-Q4, R22-Q2, R4-Q7c, R7-Q2, R7-Q3, R28-Q5, R28-Q10, R28-Q11, R28-Q12, R28-Q19′]
 plugin_version:
 ---
 
@@ -19,7 +19,7 @@ Checks that an artifact meets the requirements of the status it is moving to, an
 Expected failures without the skill (to replace with observed ones before building, R25-Q4):
 
 1. Claude marks a PRD `Design-complete` with a missing state-matrix column or an unsigned `reviews.md`, because nothing reads the checklist mechanically.
-2. Hand-edited `coverage.md` drifts from the Gherkin tags: an extension shows "covered" after its scenario was deleted [R3-Q1b].
+2. Hand-edited `coverage.md` drifts from the Gherkin tags: an extension shows "covered" after its scenario was deleted [R3-Q1b]; or a tag still names `UC-012.3a` after the step was renumbered.
 3. A PRD reaches Design-complete at `metrics_stage: growth` with no §3b, or with an event named `bookRoom` that isn't in the tracking plan [R4-Q4b, R22-Q2].
 
 ## 2. Scope
@@ -42,7 +42,8 @@ Expected failures without the skill (to replace with observed ones before buildi
 - Artifact frontmatter and files under `docs/product/` ([chapter 2](../guide/02-artifacts-and-ids.md)).
 - `docs/product/settings.yaml` (`metrics_stage`, `outcome_review_after`) [R8-Q2, R22-Q1].
 - `docs/product/tracking-plan.md` (events, metrics, dimensions) [R4-Q4c, R23-Q2].
-- `.feature` files and their tags [R3-Q1a].
+- `.feature` files and their tags [R3-Q1a]; stories' `extensions:` and `touches:` [R28-Q5].
+- Open `design/PRD-…` branches and the PRD frontmatter on each, for the index and the *Exploring* limit [R28-Q12].
 - `reviews.md` sign-off table; ADR frontmatter in `docs/adr/`.
 - For `Done`: the lane summary artifacts of the PR [R4-Q7c].
 - `docs/design/design-system.md` mirror sync record [R18-Q3].
@@ -66,19 +67,20 @@ Checks by target status (from [chapter 1](../guide/01-lifecycle-and-gates.md)):
 
 | Target | Fails on | Warns on |
 |---|---|---|
-| Use case `Complete` [R7-Q1] | Empty Cockburn field; grid cell unanswered; extension without outcome or `deferred`/`out-of-scope` reason; input not cited by ID | — |
-| PRD `Exploring` | No `driver`, `source_locale`, `design_tool`, `extensions` [R18-Q4] | — |
-| PRD `Design-complete` | Checklist (a)–(p), (r): missing files (`flows.md`, `copy.md`, `fit.md`, `contract.draft.yaml`, `features/`, `reviews.md`); state-matrix gaps; coverage gaps; two sign-offs missing [R4-Q1]; earlier driver missing when `amends:` set [R4-Q8e′]; §3b missing at `growth` [R4-Q4b]; event not in tracking plan or badly named [R22-Q2]; scenario with a copy key not `@ui`, or a screen with no `@ui` scenario [R14-Q2]; §11b `prohibited`, or `high-risk` without an accepted ADR [R14-Q1]; `design_tool` changed since Exploring [R18-Q4]; Claude Design PRD without `design-export/` [R18-Q6] | (q) no usability test for a new flow [R11-Q10]; tool mirror older than the last design-system change [R18-Q3] |
+| Use case `Complete` [R28-Q11] | `Level` not `User goal` [R28-Q1]; empty Cockburn field; step not marked `(actor)` or `(system)`; grid cell unanswered; privacy-request line missing [R28-Q6]; extension without outcome or `deferred`/`out-of-scope` reason; handled extension without `*Example:*` [R28-Q3]; input not cited by ID. If the same PR cuts stories, `check_cut.py` after the use case passes [R28-Q20] | UI words in steps [R28-Q7] |
+| PRD `Exploring` | No story statement, `driver`, `source_locale`, `design_tool`, `extensions` or `touches` [R18-Q4, R28-Q4]; driver already has 3 open `design/` branches [R4-Q6, R28-Q12] | — |
+| PRD `Design-complete` | Checklist (a)–(p), (r): missing files: always `fit.md`, `features/`, `reviews.md`; with `touches: ui` also `flows.md`, `copy.md`; with `touches: api` also `contract.draft.yaml` [R28-Q5]; state-matrix gaps (with `ui`); coverage gaps; two sign-offs missing [R4-Q1]; earlier driver missing when `amends:` set [R4-Q8e′]; §3b missing at `growth` [R4-Q4b]; event not in tracking plan or badly named [R22-Q2]; a copy key in a scenario [R28-Q10], or a screen with no `@ui` scenario [R14-Q2]; §11b `prohibited`, or `high-risk` without an accepted ADR [R14-Q1]; `design_tool` changed since Exploring [R18-Q4]; Claude Design PRD without `design-export/` [R18-Q6] | (q) no usability test for a new flow [R11-Q10]; tool mirror older than the last design-system change [R18-Q3] |
 | PRD `Dev-ready` [R5-Q1] | Linked ADR not `accepted`; open questions in §15 | — |
 | PRD `Done` | Open blocking lane finding [R4-Q7c]; prototype route left [R4-Q11]; event status not `emitted` | — |
+| Any target | A `UC-…` ID in tags, `extensions:` or PRD text that points nowhere or to a `retired` ID [R28-Q19′] | — |
 | DCR `Design-complete` [R7-Q3] | Two sign-offs missing; DCR still in the PRD's `open_dcrs` | — |
 | Enabler `Dev-ready` [R7-Q2] | `adds_ds_component: true` without a UX persona review | — |
 
 ## 7. Scripts vs judgement
 
 - `scripts/check.py`: parses frontmatter, tables and Gherkin; runs every row above that a parser can decide. CLI: `--help`, `--changed`, `--target`, `--json`, `--dry-run`; JSON on stdout, diagnostics on stderr; exit codes as §5; idempotent. Dependencies inline (PEP 723, `uv run`). Unit-tested on fixture folders.
-- `scripts/gen_coverage.py`: builds `coverage.md` from `@UC-…` tags across all `.feature` files [R3-Q1b]. Scenarios tagged `@draft` (in `scenarios.draft.feature`) never count as coverage; they are listed in their own column, so an extension shows as *drafted, not claimed* until a story claims it [R27-Q1′].
-- `scripts/gen_index.py`: builds `index.md`: every artifact with status, driver, priority, and overdue outcome reviews (`outcome_review_due` past and §17 empty) [R4-Q4e, R6-Q1].
+- `scripts/gen_coverage.py`: builds `coverage.md` per extension: the stories that claim it (`extensions:`) and the scenarios that cover it (`@UC-…` tags across all `.feature` files) [R3-Q1b]. An extension shows as *unclaimed*, *claimed, no scenario yet* or *covered*.
+- `scripts/gen_index.py`: builds `index.md`: every artifact with status, driver, priority, and overdue outcome reviews (`outcome_review_due` past and §17 empty) [R4-Q4e, R6-Q1]. A PRD with an open `design/PRD-…` branch is listed as *Exploring*, with the driver from that branch's frontmatter, and each driver's count against the limit [R28-Q12]. `make design` uses the same count [R28-Q17].
 - **Judged by the model** (marked `needs-judgement` by the script): whether each screen's key information and actions really trace to the story (e); whether "Open questions" text is a real open question or a resolved note. A script can see that the fields exist, not that they make sense.
 
 ## 8. Files
@@ -121,12 +123,13 @@ Read-only on the repository except two generated files. No network. Reads PRD pr
 - A PRD's frontmatter `status:` may change in a PR that also edits checklist files: check the PR's head, not the base.
 - `reviews.md` sign-offs on a DCR are separate from the PRD's own.
 - Generated files must be regenerated after a rebase, or CI fails on a stale copy.
+- The index and the *Exploring* limit read remote `design/` branches: CI must fetch them (`git fetch origin 'refs/heads/design/*:refs/remotes/origin/design/*'`), or every driver looks idle.
 
 ## 15. Evaluation plan
 
 - **Script:** unit tests on fixture folders, one per row of the check table (pass and fail).
 - **Triggering:** 20 prompts (10 should, 10 near-miss), 60/40 split [R5-Q4c].
-- **Output cases** (`claude plugin eval`): a complete PRD (expect pass); a PRD missing `fit.md` (expect fail naming the file); a `growth` PRD without §3b; a PRD with a Claude Design tool and no export. Graders: `regex` on the summary, `file_exists` for generated files. Threshold 0.8.
+- **Output cases** (`claude plugin eval`): a complete PRD (expect pass); a PRD missing `fit.md` (expect fail naming the file); a PRD with `touches: [api]` and no `flows.md` (expect pass); a tag pointing at a renumbered extension (expect fail); a `growth` PRD without §3b; a PRD with a Claude Design tool and no export. Graders: `regex` on the summary, `file_exists` for generated files. Threshold 0.8.
 
 ## 16. Definition of done
 

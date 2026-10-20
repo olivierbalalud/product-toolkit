@@ -4,7 +4,7 @@ status: outline
 priority: P1
 owner: <name>
 serves: Code lane; design gate
-decisions: [R3-Q1a, R3-C1, R3-C2, R3-C3, R14-Q2]
+decisions: [R3-Q1a, R3-C1, R3-C3, R14-Q2, R28-Q10, R28-Q16]
 plugin_version:
 ---
 
@@ -19,20 +19,20 @@ Checks Gherkin and pytest-bdd step definitions against the framework's conventio
 *Expected, to be observed* before building [R25-Q4]:
 
 - Accepts French Gherkin or French step names.
-- Misses a scenario without `@US`/`@UC` tags, or a copy key without `@ui`.
+- Misses a scenario without `@US`/`@UC` tags, a copy key in a step, or a screen with no `@ui` scenario.
 - Accepts domain words not in the glossary.
 
 ## 2. Scope
 
-- **Does:** checks `.feature` files (English only, tags, glossary terms, copy keys only where wording matters, `@ui` rules) and step definitions (reuse of existing wording, fakes at the business layer) [R3-Q1a, R3-C2, R3-C3, R14-Q2].
-- **Does not:** write scenarios (`write-stories`) or run tests.
-- **Neighbouring skills:** `write-stories` writes; this checks. In the code lane and before the design gate.
+- **Does:** checks `.feature` files (English only, tags, glossary terms, no copy keys, scenarios grouped under `Rule:` blocks, `@ui` rules) and step definitions (reuse of existing wording, fakes at the business layer, `@ui` steps mapping domain wording to copy keys) [R3-Q1a, R3-C3, R14-Q2, R28-Q10, R28-Q16].
+- **Does not:** write scenarios (`write-scenarios`) or run tests.
+- **Neighbouring skills:** `write-scenarios` writes; this checks. In the code lane and before the design gate.
 
 ## 3. Invocation
 
 - **Invoked by:** the model, as a reviewer in its lane, or the user directly.
 - **Draft description:**
-  > Checks Gherkin feature files and pytest-bdd step definitions against the project's BDD conventions: English only, tags, glossary terms, copy keys, @ui rules. Use when feature files or step definitions change.
+  > Checks Gherkin feature files and pytest-bdd step definitions against the project's BDD conventions: English only, tags, Rule blocks, glossary terms, no copy keys, @ui rules. Use when feature files or step definitions change.
 - **Should trigger:**
   - "check my feature files"
   - "are these Gherkin scenarios tagged right"

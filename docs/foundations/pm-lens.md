@@ -7,14 +7,15 @@ What a product manager needs to think and do in this framework, with the concept
 - [1. Key behaviours](#1-key-behaviours)
 - [2. Core concepts](#2-core-concepts)
   - [2.1 Use cases](#21-use-cases)
-  - [2.2 Use-Case 2.0 and slices](#22-use-case-20-and-slices)
-  - [2.3 The extension matrix](#23-the-extension-matrix)
-  - [2.4 User stories](#24-user-stories)
-  - [2.5 INVEST](#25-invest)
-  - [2.6 Story mapping](#26-story-mapping)
-  - [2.7 Story splitting and vertical slices](#27-story-splitting-and-vertical-slices)
-  - [2.8 Shape Up](#28-shape-up)
-  - [2.9 Measurable outcomes and product metrics](#29-measurable-outcomes-and-product-metrics)
+  - [2.2 Goal levels](#22-goal-levels)
+  - [2.3 Use-Case 2.0 and slices](#23-use-case-20-and-slices)
+  - [2.4 The extension matrix](#24-the-extension-matrix)
+  - [2.5 User stories](#25-user-stories)
+  - [2.6 INVEST](#26-invest)
+  - [2.7 Story mapping](#27-story-mapping)
+  - [2.8 Story splitting and vertical slices](#28-story-splitting-and-vertical-slices)
+  - [2.9 Shape Up](#29-shape-up)
+  - [2.10 Measurable outcomes and product metrics](#210-measurable-outcomes-and-product-metrics)
 - [3. Optional concepts](#3-optional-concepts)
   - [3.1 Jobs to be done and personas](#31-jobs-to-be-done-and-personas)
 - [4. Context](#4-context)
@@ -49,7 +50,7 @@ A use case describes how an actor reaches a goal with a system: a numbered main 
 
 **In this framework**
 
-Every use case uses the fully dressed format [R1-Q6] and moves through `Draft → Ready for review → Under review → Complete` [R7-Q1]. Stories are cut only from a complete use case ([chapter 1, §1.3](../guide/01-lifecycle-and-gates.md#13-before-a-prd-exists-the-use-case-gate)). Departure from the literature: Cockburn also allows casual, brief formats; we don't. Template: [`use-case.md`](../templates/use-case.md).
+Every use case is written at the user-goal level ([§2.2](#22-goal-levels)) in the fully dressed format [R1-Q6, R28-Q1] and moves from `Draft` to `Complete` [R28-Q11]. Stories are cut only from a complete use case ([chapter 1, §1.3](../guide/01-lifecycle-and-gates.md#13-before-a-prd-exists-the-use-case-gate)). Departure from the literature: Cockburn also allows casual, brief formats; we don't. Template: [`use-case.md`](../templates/use-case.md).
 
 **Learn it**
 
@@ -63,7 +64,43 @@ Every use case uses the fully dressed format [R1-Q6] and moves through `Draft �
 - Ivar Jacobson et al., *Object-Oriented Software Engineering: A Use Case Driven Approach* (1992)
 - Alistair Cockburn, *Writing Effective Use Cases* (2000)
 
-### 2.2 Use-Case 2.0 and slices
+### 2.2 Goal levels
+
+- **Roles:** PM [core] · UX [core] · SWE [optional]
+- **Time:** ~17 min (text + video; +8 min text, optional)
+
+**Definition**
+
+Cockburn sorts goals by altitude. A **user goal** ("sea level", blue, a waves icon) is one the primary actor can finish and then walk away happy: his **coffee-break test** is "After I get done with this, I can take a coffee break", typically one person, one sitting, 2 to 20 minutes. Above it, a **summary** goal (white, a kite or, very high, a cloud) groups several user goals and runs over hours to years. Below it, a **subfunction** (indigo, a fish) is a step that serves a user goal, such as "find a customer"; a goal too low to write at all is a **clam**. Asking "why?" of a goal moves up a level. Larman's **elementary business process** is the same idea.
+
+Cockburn now frames the levels as time: **verbs have durations**. Every goal is a verb, its steps are verbs of shorter duration, and you can keep breaking them down without ever describing the system's inside. A reader is uneasy when one scenario mixes levels: "you don't have a one month process followed by a five minute process step". He calls this the anchor of his latest book.
+
+**Why it matters**
+
+- **PM:** the level decides the size of everything downstream. A summary goal ("manage the office") yields stories too big to slice; a subfunction ("enter a date") yields stories with no value of their own.
+- **UX:** one user goal is usually one task flow, from entry to the moment the user is done.
+- **SWE:** a user goal is usually one business use case in the domain layer (`business/usecases`).
+
+**In this framework**
+
+Every use case is written at the **user-goal** level, and the template fixes its `Level` field to `User goal` [R28-Q1]. "Book a meeting room" passes the coffee-break test; "Manage the office's rooms" is a summary goal, and "Choose a time slot" is a subfunction. A summary goal is kept, if at all, as a short map listing the user-goal use cases it groups: no fields, no failure grid, no stories. A subfunction is written as a step of the user-goal use case that needs it. The steps of a use case share one level of duration: a step that waits hours or days for someone else or for a deadline ends the use case at a **wait point**, and each system step that isn't instant says how long it takes (`wait`, `long` or `background`), because that decides whether the actor can cancel it or leave [R29-Q1, R29-Q2]. The use-case writer checks the level first ([chapter 3, §3.2](../guide/03-design-playbook.md#32-step-1-complete-the-use-case)). Departure: Cockburn writes use cases at every level and recommends writing the 2 to 5 outermost summary use cases; we write only user goals, so every use case can be cut into stories the same way.
+
+**Learn it**
+
+- Text: [Use Case Levels](https://ttm4115.iik.ntnu.no/unit-4-req/preparation-1.html) (NTNU course notes, ~4 min; Cockburn's own figures are 3 to 9 steps, not 3 to 8)
+- Text: [*Writing Effective Use Cases*, draft, chapter 5 "Three Named Goal Levels"](https://www.ifi.uzh.ch/dam/jcr:00000000-25a0-3d08-0000-00000ce96422/weuc_extract.pdf) (Cockburn, pre-publication draft hosted by the University of Zurich, pages 57 to 62, ~10 min)
+- Text: [*Applying UML and Patterns*, chapter 6](https://courses.cs.duke.edu/cps108/spring04/readings/usecaseslarman.pdf) (Larman, course copy; section 6.8, "Use Cases for Elementary Business Processes", ~8 min, optional)
+- Video: ["The role of verbs and time"](https://www.youtube.com/watch?v=CRvwbRqi_ss&t=260s), a chapter of the Humanizing Work interview with Cockburn (4:20 to 7:01, ~3 min; the whole interview is 41:43, and 13:00 to 13:45 covers matching levels)
+- Further: [Time and duration in use cases](../research/simplify-explore/time-and-duration.md), the research behind duration classes and wait points
+- *Note:* No free French resource was found.
+
+**Key literature**
+
+- Alistair Cockburn, "Structuring Use Cases with Goals", *Journal of Object-Oriented Programming* (1997)
+- Alistair Cockburn, *Writing Effective Use Cases* (2000), chapter 5; in French, *Rédiger des cas d'utilisation efficaces* (2001)
+- Craig Larman, *Applying UML and Patterns*, chapter 6 (2nd ed., 2002)
+
+### 2.3 Use-Case 2.0 and slices
 
 - **Roles:** PM [optional] · UX [optional] · SWE [optional]
 - **Time:** ~33 min (+59 min video, optional)
@@ -91,14 +128,14 @@ Our user story is exactly a slice: a vertical path through the use case plus the
 
 - Ivar Jacobson, Ian Spence, Kurt Bittner, *Use-Case 2.0: The Guide to Succeeding with Use Cases* (2011)
 
-### 2.3 The extension matrix
+### 2.4 The extension matrix
 
 - **Roles:** PM [core] · UX [core] · SWE [optional]
 - **Time:** ~10 min
 
 **Definition**
 
-A grid with one row per main-scenario step and one column per failure category: invalid input, not found, duplicate, no permission, conflict or concurrent edit, timeout or external system down, partial failure, quota or limit, stale data, cancel or abandon, privacy request. Every cell is either "n/a", an extension, or `out-of-scope` with a reason.
+A grid that runs each main-scenario step through the failure categories of its kind. **Actor steps** (the actor provides or chooses something) are checked for invalid input, duplicate, no permission, and cancel or abandon. **System steps** (the system looks up, stores or calls something) are checked for not found, conflict or concurrent edit, timeout or external system down, partial failure, quota or limit, and stale data. *Privacy request* is asked once for the whole use case. Every cell is either "n/a", an extension, or `out-of-scope` with a reason.
 
 **Why it matters**
 
@@ -108,7 +145,7 @@ A grid with one row per main-scenario step and one column per failure category: 
 
 **In this framework**
 
-This grid is our own addition to Cockburn's format [R4-Q2]. A use case can't be `Complete` until every step has been through it, and every extension must later be claimed by a story or marked `deferred` [R1-Q7]. Grid: [`use-case.md`](../templates/use-case.md#failure-category-check); how to run it: [chapter 3, §3.2](../guide/03-design-playbook.md#32-step-1-complete-the-use-case).
+This grid is our own addition to Cockburn's format [R4-Q2]. Splitting it by step kind keeps it short: an 8-step use case needs about 40 answers rather than 88 [R28-Q6]. A use case can't be `Complete` until every step has been through it; each handled extension gets a one-line concrete example, which later becomes its first Gherkin scenario [R28-Q3]; and every extension must later be claimed by a story or marked `deferred` [R1-Q7]. Grid: [`use-case.md`](../templates/use-case.md#failure-category-check); how to run it: [chapter 3, §3.2](../guide/03-design-playbook.md#32-step-1-complete-the-use-case).
 
 **Learn it**
 
@@ -120,7 +157,7 @@ This grid is our own addition to Cockburn's format [R4-Q2]. A use case can't be 
 
 - Alistair Cockburn, *Writing Effective Use Cases* (2000), on finding extension conditions
 
-### 2.4 User stories
+### 2.5 User stories
 
 - **Roles:** PM [core] · UX [core] · SWE [optional]
 - **Time:** ~22 min (+52 min video, optional)
@@ -152,7 +189,7 @@ A story is always a path through a use case, never a free-standing wish [R4-Q3].
 - Kent Beck, *Extreme Programming Explained* (1999)
 - Mike Cohn, *User Stories Applied* (2004)
 
-### 2.5 INVEST
+### 2.6 INVEST
 
 - **Roles:** PM [core] · UX [optional] · SWE [optional]
 - **Time:** ~8 min (+40 min video, optional)
@@ -168,7 +205,7 @@ Six qualities of a good story, from Bill Wake: **I**ndependent, **N**egotiable, 
 
 **In this framework**
 
-*Small* means about one week of slice work [R4-Q3]; *Independent* is reached by moving shared work into enabler slices; *Testable* means its acceptance can be written as Gherkin. Each letter is read for this framework in [chapter 3, §3.3](../guide/03-design-playbook.md#33-step-2-cut-stories).
+*Small* means about one week of slice work [R4-Q3]; *Independent* is reached by moving shared work into enabler slices, and means independent of every story except the first of its use case, which the later ones build on [R28-Q8]; *Testable* means its acceptance can be written as Gherkin. Each letter is read for this framework in [chapter 3, §3.3](../guide/03-design-playbook.md#33-step-2-cut-stories).
 
 **Learn it**
 
@@ -181,7 +218,7 @@ Six qualities of a good story, from Bill Wake: **I**ndependent, **N**egotiable, 
 
 - Bill Wake, "INVEST in Good Stories, and SMART Tasks" (2003)
 
-### 2.6 Story mapping
+### 2.7 Story mapping
 
 - **Roles:** PM [core] · UX [optional] · SWE [optional]
 - **Time:** ~16 min (+56 min video, optional)
@@ -208,7 +245,7 @@ An optional technique, with no template. For one use case, the backbone is the m
 
 - Jeff Patton, *User Story Mapping* (2014)
 
-### 2.7 Story splitting and vertical slices
+### 2.8 Story splitting and vertical slices
 
 - **Roles:** PM [core] · UX [optional] · SWE [optional]
 - **Time:** ~45 min
@@ -224,7 +261,7 @@ Splitting turns a story that is too big into smaller ones that each still delive
 
 **In this framework**
 
-Stories are vertical paths through a use case [R4-Q3], and `to-tickets` cuts a slice into tracer-bullet tickets ([chapter 4, §4.5](../guide/04-dev-playbook.md#45-step-4-cut-the-tickets)) [R4-Q7′].
+Stories are vertical paths through a use case [R4-Q3]. The first story of a use case is its tracer bullet: the thinnest path through the whole main scenario. Each later story adds extensions or one variation, which is the splitting-by-variation pattern of the Humanizing Work guide below [R28-Q8]. `to-tickets` then cuts a slice into tracer-bullet tickets ([chapter 4, §4.5](../guide/04-dev-playbook.md#45-step-4-cut-the-tickets)) [R4-Q7′].
 
 **Learn it**
 
@@ -237,7 +274,7 @@ Stories are vertical paths through a use case [R4-Q3], and `to-tickets` cuts a s
 
 - Andrew Hunt & David Thomas, *The Pragmatic Programmer* (1999; 20th-anniversary edition 2019)
 
-### 2.8 Shape Up
+### 2.9 Shape Up
 
 - **Roles:** PM [core] · UX [optional] · SWE [optional]
 - **Time:** ~49 min
@@ -266,7 +303,7 @@ We borrow ideas, not the method. The one-week cap per story is our appetite [R4-
 
 - Ryan Singer, [*Shape Up: Stop Running in Circles and Ship Work that Matters*](https://basecamp.com/shapeup) (2019, free online)
 
-### 2.9 Measurable outcomes and product metrics
+### 2.10 Measurable outcomes and product metrics
 
 - **Roles:** PM [core] · UX [optional] · SWE [optional]
 - **Time:** ~38 min (+58 min video, optional)
@@ -282,7 +319,7 @@ An **outcome** is a change in what users do, not the feature that was shipped (J
 
 **In this framework**
 
-PRD §3a lists **user benefits**, each with an observable signal, from the first PRD. §3b adds numeric targets once `metrics_stage: growth` [R4-Q4a, R4-Q4b]. Metrics are defined once in the tracking plan's catalogue with `MET-` IDs; customer retention rate is the template's `MET-001` [R8-Q3]. Events (`EVT-`) feed them, and an outcome review closes the loop after `Done` [R4-Q4c, R4-Q4e]. See [chapter 3, §3.8](../guide/03-design-playbook.md#38-step-7-define-the-outcome-and-how-to-measure-it), [chapter 10](../guide/10-outcomes-and-measurement.md), [`tracking-plan.md`](../templates/tracking-plan.md) and [`settings.yaml`](../templates/settings.yaml).
+PRD §3a lists **user benefits**, each with an observable signal, from the first PRD. §3b adds numeric targets once `metrics_stage: growth` [R4-Q4a, R4-Q4b]. Metrics are defined once in the tracking plan's catalogue with `MET-` IDs; customer retention rate is the template's `MET-001` [R8-Q3]. Events (`EVT-`) feed them, and an outcome review closes the loop after `Done` [R4-Q4c, R4-Q4e]. See [chapter 3, §3.5](../guide/03-design-playbook.md#outcome-and-measurement), [chapter 10](../guide/10-outcomes-and-measurement.md), [`tracking-plan.md`](../templates/tracking-plan.md) and [`settings.yaml`](../templates/settings.yaml).
 
 **Learn it**
 

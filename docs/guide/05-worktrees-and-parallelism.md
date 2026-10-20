@@ -44,7 +44,7 @@ Add `.claude/worktrees/` to `.gitignore`.
 
 | Command | Does | Then launches |
 |---|---|---|
-| `make design PRD=PRD-012.1 SLUG=book-room` | Creates or opens `design/PRD-012.1-book-room` in `.claude/worktrees/design-PRD-012.1-book-room`; starts the web app alone, on its own port, against MSW mocks | `claude --worktree design-PRD-012.1-book-room` |
+| `make design PRD=PRD-012.1 SLUG=book-room TOOL=figma\|claude-design` | Refuses a driver's fourth open `design/` branch; creates or opens `design/PRD-012.1-book-room` in `.claude/worktrees/design-PRD-012.1-book-room`; starts the web app alone, on its own port, against MSW mocks; on first run writes `design_tool:` and `status: Exploring`, warns if the tool's design-system copy is stale, and commits `docs(PRD-012.1): start exploring` (`TOOL` needed only then) [R28-Q17] | `claude --worktree design-PRD-012.1-book-room` |
 | `make dcr DCR=DCR-012.1-01 SLUG=new-copy` | The same for a design change request | `claude --worktree design-DCR-012.1-01-new-copy` |
 | `make slice PRD=PRD-012.1 SLUG=book-room` | Creates or opens `slice/PRD-012.1-book-room`; runs `make env-up` in it | `claude --worktree slice-PRD-012.1-book-room` |
 | `make enb ENB=ENB-004 SLUG=ci` | The same for an enabler slice | `claude --worktree enb-ENB-004-ci` |
@@ -56,6 +56,8 @@ Each script:
 3. copies the files listed in `.worktreeinclude`, since this worktree is created by `git` and not by Claude Code;
 4. sets up the environment for its kind (§5.5);
 5. launches Claude Code on that folder.
+
+A use case's `uc/UC-…` branch has no script and no worktree: it holds markdown only, so a plain `git switch -c uc/UC-012-<slug>` is enough [R28-Q20].
 
 Run the scripts from the main checkout. Exiting Claude Code leaves the worktree in place; it was created by the script, so Claude Code's sweep never removes it.
 
@@ -102,6 +104,6 @@ From the Claude Code docs:
 
 ## 5.8 Limits and queueing
 
-- At most **3 PRDs in *Exploring* per driver** and **2 slices in development per developer** [R4-Q6].
+- At most **3 PRDs in *Exploring* per driver** and **2 slices in development per developer** [R4-Q6]. *Exploring* is counted from open `design/PRD-…` branches, since that status lives only on the branch until the design PR merges; `make design` and the generated index use the same count [R28-Q12].
 - **Enabler slices that block feature slices go first** [R4-Q6].
 - With two founders, both sign every design gate, so up to six design reviews can queue. Unblock enablers first, then finish reviews, then start new work.

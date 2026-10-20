@@ -9,6 +9,7 @@ priority: <number or label>
 source_locale: en        # en | fr [R1-Q11]
 design_tool: figma       # figma | claude-design; fixed once Exploring starts [R18-Q4]
 extensions: [UC-012.2a, UC-012.3a]
+touches: [ui, api]       # decides which companion files the gate requires; DCR to change after Design-complete [R28-Q5, R28-Q18]
 adrs: []                 # e.g. [ADR-0007]; a Proposed ADR blocks Dev-ready [R1-Q13]
 trds: []                 # e.g. [TRD-012.1]
 enablers: []             # e.g. [ENB-004] [R4-Q4d, R5-Q1]
@@ -67,9 +68,13 @@ outcome_review_due:      # set at Done: Done date + measurement window [R4-Q4e]
 
 ## 7. Flows
 
+<!-- Only when touches includes ui; otherwise write "n/a: no UI" [R28-Q5]. -->
+
 See [`flows.md`](flows.md): flow map, screens, key information and actions, state matrix.
 
 ## 8. Copy deck
+
+<!-- Only when touches includes ui [R28-Q5]. -->
 
 See [`copy.md`](copy.md).
 
@@ -111,9 +116,13 @@ See [`copy.md`](copy.md).
 
 ## 12. Draft API contract
 
+<!-- Only when touches includes api; otherwise write "n/a: no API change" [R28-Q5]. -->
+
 See [`contract.draft.yaml`](contract.draft.yaml). It is written against the fit analysis, [`fit.md`](fit.md) [R4-Q8a]; the prototype mocks against it.
 
 ## 13. Accessibility and responsive behaviour
+
+<!-- Only when touches includes ui [R28-Q5]. -->
 
 - **Focus order and keyboard use:** …
 - **Labels and announcements:** …

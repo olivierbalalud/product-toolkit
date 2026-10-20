@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <name>
 serves: Design-complete gate, item (p); slice start (step 0)
-decisions: [R4-Q8a, R4-Q8b′, R4-Q8c, R4-Q8d, R4-Q8e′, R4-Q8′, R23-Q3, R25-Q3]
+decisions: [R4-Q8a, R4-Q8b′, R4-Q8c, R4-Q8d, R4-Q8e′, R4-Q8′, R23-Q3, R25-Q3, R28-Q5]
 plugin_version:
 ---
 <!-- Spec format: docs/templates/skill-spec.md [R5-Q4′]. Example domain: room booking. -->
@@ -27,7 +27,7 @@ Expected failures without the skill (to replace with observed ones before buildi
 
 - **Does:** the four matching keys of R4-Q8b′, in order; classification of every endpoint, use case and data entity as reuse / extend / change / new; misalignments with a proposed resolution under R4-Q8c; contradictions with earlier PRDs under R4-Q8e′; legacy-structure notes under R4-Q8d; the history-capture choice for `as-at-event` dimensions (R23-Q3); writing `fit.md` from [`fit.md`](../templates/fit.md).
 - **Does not:** write the draft contract (the driver does, *against* `fit.md`); decide misalignments (it proposes, the SWE persona and the driver decide); change code or older `.feature` files.
-- **Neighbours:** `write-stories` produces the scenarios it reads; `review-design` (Eng persona) reviews its output (R4-Q8a); `check-gate` only checks that `fit.md` exists and is complete.
+- **Neighbours:** `write-scenarios` produces the scenarios it reads; `review-design` (Eng persona) reviews its output (R4-Q8a); `check-gate` only checks that `fit.md` exists and is complete.
 
 ## 3. Invocation
 
@@ -35,12 +35,12 @@ Expected failures without the skill (to replace with observed ones before buildi
 - **Draft description:**
   > Analyses how a PRD fits the existing product: compares its scenarios with the feature files on main, diffs its draft API contract against the OpenAPI the app generates, runs the new scenarios against the existing business layer, and searches the code by glossary terms. Writes fit.md. Use while exploring a PRD, before writing its draft contract, or at the start of a slice to refresh the analysis.
 - **Should trigger:** "check what already exists for PRD-012.1"; "refresh the fit analysis before I start the slice"; "does this PRD clash with anything shipped?"; "write fit.md".
-- **Should not trigger:** "review this PR" (review lanes); "write the Gherkin for US-012.1" (`write-stories`); "is PRD-012.1 ready for Design-complete?" (`check-gate`).
+- **Should not trigger:** "review this PR" (review lanes); "write the Gherkin for US-012.1" (`write-scenarios`); "is PRD-012.1 ready for Design-complete?" (`check-gate`).
 - **Arguments:** a PRD ID (`PRD-012.1`); optional `--refresh` at slice start.
 
 ## 4. Inputs
 
-- The PRD folder: `prd.md`, `features/*.feature`, `contract.draft.yaml` (may be absent on a first run), `flows.md`.
+- The PRD folder: `prd.md` (with `touches:`), `features/*.feature`, `contract.draft.yaml` when `touches` includes `api` (may be absent on a first run), `flows.md` when it includes `ui` [R28-Q5].
 - On `main`: every `.feature` file and its PRD's `status` (Done = implemented, Dev-ready / In development = committed, not built) (R4-Q8b′); `docs/product/glossary.md`; `docs/product/tracking-plan.md`; the domains under `src/domains/`.
 - Open `design/` branches, read-only, for overlap warnings.
 - The OpenAPI spec **generated from the FastAPI app object**, without starting a server (inferred).
@@ -57,7 +57,7 @@ Expected failures without the skill (to replace with observed ones before buildi
 
 1. **Preconditions** — the PRD exists, has `features/`, and the worktree is clean. Fail here, not later. *Done when:* inputs resolved.
 2. **Key 1, existing specs** — run `scripts/match_scenarios.py`: for each new scenario, candidate matches from `main` by tags, step text and glossary terms. Claude then classes each pair: **duplicate**, **refines**, **contradicts**, **independent**, and proposes the action (reuse / amend under R4-Q8e′ / new). Overlaps with open `design/` branches are listed as **warnings only**. *Done when:* every new scenario has a class.
-3. **Key 2, API** — generate the current OpenAPI, run `oasdiff` against `contract.draft.yaml`; classify each path and schema: unchanged, added, changed, breaking; list consumers. *Done when:* table filled, or "no draft yet".
+3. **Key 2, API** — only when `touches` includes `api`, otherwise write "n/a: no API change" [R28-Q5]. Generate the current OpenAPI, run `oasdiff` against `contract.draft.yaml`; classify each path and schema: unchanged, added, changed, breaking; list consumers. *Done when:* table filled, "n/a", or "no draft yet".
 4. **Key 3, behaviour** — bind the new scenarios to the existing business layer with fakes and run them (`scripts/run_behaviour.py`); green = exists, red = gap. Unbound steps are reported as gaps, not failures. *Done when:* each scenario green, red or unbound.
 5. **Key 4, code** — search glossary terms within `business/usecases`, `ports`, `adapters`, plus test tags (`@UC-…`, pytest markers). Production code carries no IDs (R4-Q8b′). Note code that doesn't follow the target structure (R4-Q8d). *Done when:* each concept has a location or "new".
 6. **Dimensions** — for each metric dimension marked `as-at-event` in the tracking plan that this PRD introduces, state how history is captured: snapshot property (privacy class `none` only) or change event / history row (R23-Q3). *Done when:* every such dimension has a choice.

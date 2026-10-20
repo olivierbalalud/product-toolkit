@@ -7,7 +7,9 @@ status: Draft            # becomes the PRD; see prd.md for the full template
 driver: <name>
 priority: <number or label>
 source_locale: en
-extensions: [UC-012.2a, UC-012.3a]   # the extensions this story handles [R2-Q4, R4-Q3]
+extensions: [UC-012.2a, UC-012.3a]   # the only list of the extensions this story handles [R4-Q3, R28-Q4]
+touches: [ui, api]       # ui, api, or both; decides which companion files the gate requires.
+                         # Free to change until Design-complete, then through a DCR [R28-Q5, R28-Q18]
 ---
 <!-- A story and its PRD are 1:1 and share one file; there is no separate story.md in the monorepo [R1-Q9, R9-Q1]. This is the Draft-stage start of
      …/stories/US-012.1-<slug>/prd.md. When the PRD enters Exploring, extend it with prd.md. -->
@@ -20,15 +22,10 @@ extensions: [UC-012.2a, UC-012.3a]   # the extensions this story handles [R2-Q4,
 
 ## Path through the use case
 
-<!-- A vertical path that delivers value on its own: the main scenario, or a coherent part of it,
-     plus the extensions it must handle [R4-Q3]. INVEST (see guide chapter 3, step 2); about one week of slice work at most. -->
+<!-- The first story of a use case is the thinnest path through the whole main scenario; each later story adds
+     extensions or one variation [R28-Q8]. INVEST (see guide chapter 3); about one week of slice work at most.
+     No acceptance criteria here: the Gherkin scenarios are written during Exploring, starting from the
+     extensions' examples in the use case [R28-Q4]. -->
 
 - Main scenario steps: <1–5>
-- Extensions handled: UC-012.2a, UC-012.3a
-- Extensions left to other stories: <listed in coverage.md>
-
-## Draft acceptance criteria
-
-<!-- May be in the source locale during Exploring; converted to English Gherkin before Design-complete [R3-C1]. -->
-
-- <criterion>
+- Variation: <the "Technology and data variations" item this story adds, if any>

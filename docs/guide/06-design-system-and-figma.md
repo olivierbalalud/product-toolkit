@@ -100,7 +100,7 @@ PRD flows name only the **intent**; feature code uses presets only, and lint for
 
 Snapshots are captured **from code** with code-to-canvas, whichever tool explored the PRD, so Figma holds the visual history of every PRD [R18-Q5]. Code-to-canvas produces **flat layers**, not linked components, with matching variables bound. It is a snapshot, not a sync. Snapshots are **never merged back** into code automatically [R3-Q7]. A PRD explored in Claude Design also keeps its final export in `design-export/` [R18-Q6].
 
-**Going back to design:** duplicate the PRD's `as-built` page, change or annotate the duplicate, and raise a DCR. The DCR is worked in code, in a `design/DCR-…` worktree ([chapter 3, §3.13](03-design-playbook.md#313-changing-a-design-after-the-gate)) [R3-Q7, R10-Q1]. ### How the Figma files are organised
+**Going back to design:** duplicate the PRD's `as-built` page, change or annotate the duplicate, and raise a DCR. The DCR is worked in code, in a `design/DCR-…` worktree ([chapter 3, §3.9](03-design-playbook.md#39-changing-a-design-after-the-gate)) [R3-Q7, R10-Q1]. ### How the Figma files are organised
 
 [R17-Q3]
 

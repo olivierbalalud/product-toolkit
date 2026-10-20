@@ -4,7 +4,7 @@ status: outline
 priority: P1
 owner: <name>
 serves: UX lane; design gate item (d)
-decisions: [R2-Q3, R4-Q7a, R4-Q7d]
+decisions: [R2-Q3, R4-Q7a, R4-Q7d, R29-Q7]
 plugin_version:
 ---
 
@@ -24,7 +24,7 @@ Checks that every screen covers the seven states of the state matrix, in the spe
 
 ## 2. Scope
 
-- **Does:** checks `flows.md`'s state matrix (empty, loading, error, partial, success, no permission, stale data) for completeness, then checks each state exists in the prototype or slice [R2-Q3 (d)].
+- **Does:** checks `flows.md`'s state matrix (empty, loading, error, partial, success, no permission, stale data) for completeness, then checks each state exists in the prototype or slice [R2-Q3 (d)]. Advisory: a *Loading* cell marked `n/a` for a screen tied to a `wait`, `long` or `background` use-case step, and a *Loading* cell that doesn't match the step's class (progress and cancel for `long`; acknowledgement, status and notification for `background`) [R29-Q7].
 - **Does not:** design the missing states.
 - **Neighbouring skills:** Runs in the UX lane and before the design gate; `check-flow-conformance` checks the rest of `flows.md`.
 

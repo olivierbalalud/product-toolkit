@@ -34,7 +34,7 @@ In this order [R5-Q3, R16-Q0, R26-Q2]:
 | 2 | **Worktree start scripts and environments**: `make design`, `make slice`, `make dcr`, `make enb`, `make env-up` (shared PostgreSQL with pgvector, a cloned database per worktree, offset ports), `make env-prune` | Parallel design and slices |
 | 3 | **App shell and design system**: the Next.js app, `src/packages/tokens`, `src/packages/ui`, Storybook, and the two design-system mirrors (the Figma library and the Claude Design design system) | Prototypes, design-system work |
 | 4 | **i18n layer**: next-intl, `src/packages/i18n` with catalogs, status sidecars and `locales.ts` | Copy decks, translations |
-| 5 | **Test harnesses**: pytest-bdd per domain, playwright-bdd for `@ui` scenarios | Slices |
+| 5 | **Test harnesses**: pytest-bdd per domain (version 8 or later, for Gherkin `Rule:` blocks [R28-Q16]), playwright-bdd for `@ui` scenarios | Slices |
 | 6 | **Analytics port with its fake** | Measurement plans |
 | 7 | **The other P0 skills**: `write-use-case`, `write-scenarios`, `write-stories`, `check-fit`, `review-design` ([chapter 12](12-skills-to-build.md)). Built in parallel with 3–6; done before the first PRD leaves *Exploring* | The first design gate |
 

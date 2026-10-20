@@ -50,8 +50,8 @@ src/packages/i18n/locales.ts                         which locale is enabled in 
 
 ## 7.5 Copy in specs and tests
 
-- **Gherkin refers to UI text by copy-deck key**, and only where the exact wording matters: `Then the "bookings.new.success" message is shown` [R3-C2].
-- **Playwright steps resolve keys through the catalogs**, so `@ui` scenarios run in every enabled locale and double as i18n tests [R3-C2, R14-Q2].
+- **Gherkin describes UI text in domain words, never by copy key**: `Then I am told the booking succeeded` [R28-Q10].
+- **Playwright step definitions map that wording to copy keys and resolve them through the catalogs**, so `@ui` scenarios run in every enabled locale and double as i18n tests [R14-Q2, R28-Q10].
 - **Domain words in steps** use the glossary's English term [R3-C3].
 - A French-source PRD links to its English `.feature` files; an agent can render a French reading view on demand, never authoritative [R3-C1].
 

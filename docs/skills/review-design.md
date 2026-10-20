@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <name>
 serves: Design-complete gate, item (n); DCR gate
-decisions: [R1-Q12, R2-Q3, R2-Q4, R4-Q1, R4-Q4a, R4-Q7d, R4-Q8a, R11-Q10, R11-Q12, R12-Q6a, R12-Q6c, R14-Q1, R15-Q2, R25-Q1]
+decisions: [R1-Q12, R2-Q3, R2-Q4, R4-Q1, R4-Q4a, R4-Q7d, R4-Q8a, R11-Q10, R11-Q12, R12-Q6a, R12-Q6c, R14-Q1, R15-Q2, R25-Q1, R28-Q5, R29-Q8]
 plugin_version:
 ---
 <!-- Spec format: docs/templates/skill-spec.md [R5-Q4′]. Example domain: room booking. -->
@@ -40,7 +40,7 @@ Expected failures without the skill (to replace with observed ones, R25-Q4):
 
 ## 4. Inputs
 
-- The PRD folder: `prd.md` (§2–§17), `flows.md`, `copy.md`, `features/`, `fit.md`, `contract.draft.yaml`, existing `reviews.md`; a DCR file when given.
+- The PRD folder: `prd.md` (§2–§17), `features/`, `fit.md`, existing `reviews.md`; `flows.md` and `copy.md` when `touches` includes `ui`, `contract.draft.yaml` when it includes `api` [R28-Q5]; a DCR file when given.
 - The prototype routes under `src/apps/web/app/(prototypes)/`, and screenshots of them.
 - The UX lane guideline reports, linked from `reviews.md` (R4-Q7d).
 - `docs/product/settings.yaml` (`metrics_stage`), the tracking plan, the voice guide.
@@ -59,7 +59,7 @@ Expected failures without the skill (to replace with observed ones, R25-Q4):
 3. **Launch three reviewer subagents in one turn**, each a leaf with its checklist and the inputs it needs pasted or pointed to (pattern: fan-out reviewers):
    - **PM:** problem and scope; §3a benefits with signals and the story's "so that" traced to one (R4-Q4a); §3b required if `metrics_stage: growth` (R4-Q4b); §4 events in the tracking plan with consent and privacy class (R4-Q4c, R21-Q1); INVEST and the one-week size (R4-Q3); extensions coverage (R2-Q3 (a)).
    - **UX:** flow map, state matrix, key information and actions (R2-Q3 (c)–(e)); copy deck and voice (R2-Q3 (f)); design-system components only (g); accessibility and responsive (h, i); the UX lane reports' open findings (R4-Q7d); usability-test evidence for a new flow, **advisory** if missing (R11-Q10).
-   - **Eng:** the fit analysis and its resolutions (R4-Q8a); draft contract; authorisation table and privacy inventory (j, k); technical questions and ADRs (m); a **STRIDE-style threat check** when the PRD adds an endpoint, a data store or a third party (R11-Q12), covering **prompt injection** when user or third-party content reaches an LLM (R12-Q6c); §11b AI use and its AI Act category, `prohibited` or `high-risk` being blocking until resolved (R12-Q6a, R14-Q1).
+   - **Eng:** the fit analysis and its resolutions (R4-Q8a); draft contract, where a `long` or `background` use-case step must be a long-running operation (202, status resource, cancel where allowed, idempotency key), unless its time goes into an upload [R29-Q8]; authorisation table and privacy inventory (j, k); technical questions and ADRs (m); a **STRIDE-style threat check** when the PRD adds an endpoint, a data store or a third party (R11-Q12), covering **prompt injection** when user or third-party content reaches an LLM (R12-Q6c); §11b AI use and its AI Act category, `prohibited` or `high-risk` being blocking until resolved (R12-Q6a, R14-Q1).
 4. **Aggregate** — present the three reports under their own headings, verbatim or lightly cleaned; **no merging, no cross-persona ranking**. *Done when:* every finding has a severity.
 5. **Write `reviews.md`**.
 

@@ -11,6 +11,8 @@
 ^https?://(www\.)?beyondtrust\.com/
 ^https?://uxplanet\.org/
 ^https?://(www\.)?medium\.com/
+# Times out from GitHub's runners but opens in a browser (checked 2026-10-20)
+^https?://(www\.)?eyrolles\.com/
 # The PRD template links to files that exist only once it is copied into a story folder
 templates/contract\.draft\.yaml$
 templates/features/?$

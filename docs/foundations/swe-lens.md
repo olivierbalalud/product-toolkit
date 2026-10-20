@@ -75,7 +75,7 @@ Behaviour-driven development (Dan North, 2006) describes a feature through concr
 
 **In this framework**
 
-The `.feature` files **are** the acceptance criteria [R3-C1]. They are **English only**, whatever the PRD's language, so steps never turn into French identifiers [R3-Q1a]; domain words come from the glossary [R3-C3]; UI text is referenced by copy key [R3-C2]; scenarios are tagged with story and extension IDs and frozen at Design-complete [R3-Q1a]. pytest-bdd runs them on the business layer with fakes, playwright-bdd on the UI [R1-Q15]. Unlike classic BDD, the scenarios are drafted by the PRD's driver with agents during *Exploring* rather than in a workshop; **example mapping** is a good way to run that conversation. Template: [`feature.feature`](../templates/feature.feature); see chapter [8](../guide/08-testing.md).
+The `.feature` files **are** the acceptance criteria [R3-C1]. They are **English only**, whatever the PRD's language, so steps never turn into French identifiers [R3-Q1a]; domain words come from the glossary [R3-C3]; UI text is described in domain words, never by copy key, and scenarios are grouped under plain-English `Rule:` blocks [R28-Q10, R28-Q16]; scenarios are tagged with story and extension IDs and frozen at Design-complete [R3-Q1a]. pytest-bdd runs them on the business layer with fakes, playwright-bdd on the UI [R1-Q15]. Time is set in a `Given` and moved on in a `When` through a fake clock, never waited for [R29-Q9]. Unlike classic BDD, the scenarios are drafted by the PRD's driver with agents during *Exploring* rather than in a workshop; **example mapping** is a good way to run that conversation. Template: [`feature.feature`](../templates/feature.feature); see chapter [8](../guide/08-testing.md).
 
 **Learn it**
 

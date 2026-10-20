@@ -33,13 +33,13 @@ flowchart TB
 - **Design** covers everything up to Design-complete. The three personas (PM, UX, Eng) review only here [R1-Q12]. Iterating in *Exploring*, including rounds of review on the open design PR, needs no DCR; a DCR is needed only once the design PR has merged [R2-Q4, R18-Q7].
 - **Development** covers Dev-ready to Done. No persona reviews; the review lanes take over [R4-Q7′].
 - **Granularity:** one user story = one PRD = one slice = one slice PR [R1-Q9]. Work that no single story owns is an **enabler slice** (`ENB-…`) [R3-A3].
-- **Status lives in each artifact's frontmatter** (`status:`), and `docs/product/index.md` is generated from it. There is no separate tracker [R3-A4].
+- **Status lives in each artifact's frontmatter** (`status:`), and `docs/product/index.md` is generated from it. There is no separate tracker [R3-A4]. A PRD in *Exploring* has that status only on its `design/` branch, so the index lists every open `design/PRD-…` branch as *Exploring* [R28-Q12].
 
 ## 1.2 PRD statuses
 
 | Status | Meaning | Where the work happens |
 |---|---|---|
-| `Draft` | A story exists, with draft acceptance criteria and the use-case extensions it touches. | `docs/product/use-cases/UC-…/stories/US-…/` on `main` |
+| `Draft` | A story exists: its statement, the use-case steps it follows, `extensions:` and `touches:` [R28-Q4]. | `docs/product/use-cases/UC-…/stories/US-…/` on `main` |
 | `Exploring` | Flows, screens, copy and prototypes are iterated freely. No reviews. | A `design/PRD-…` branch and worktree [R1-Q10, R4-Q5′] |
 | `Design-complete` | The design is signed off. Its `.feature` files are frozen [R3-Q1a]. The design PR has merged into `main`. | `main` |
 | `Dev-ready` | Everything a developer needs is decided: ADRs accepted, TRDs written, blocking enablers scheduled. | `main` |
@@ -54,44 +54,47 @@ After `Done`, the lifecycle has no more statuses. The **outcome review** is a se
 
 ## 1.3 Before a PRD exists: the use case gate
 
-A use case moves through `Draft → Ready for review → Under review → Complete` [R7-Q1]:
-
-| Status | Meaning |
-|---|---|
-| `Draft` | Being written or clarified. |
-| `Ready for review` | The driver considers it complete against the criteria below. |
-| `Under review` | The extension checker has run and reviewers are commenting. |
-| `Complete` | The driver has signed it off. Stories may now be cut from it. |
+A use case moves from `Draft` (being written or clarified) to `Complete` (signed off by its driver; stories may now be cut from it) [R28-Q11]. The work happens on a plain branch, `uc/UC-012-<slug>`. Reviewers comment on the PR that sets `Complete`, and the gate check runs on it; the same PR may also cut the stories [R28-Q20].
 
 Stories are only cut from a **complete** use case [R4-Q2]. A use case is complete when:
 
-1. Every field of the Cockburn "fully dressed" format is filled [R1-Q6].
-2. Every main-scenario step has been run through the **failure-category checklist**:
-   - invalid input
-   - not found
-   - duplicate
-   - no permission
-   - conflict or concurrent edit
-   - timeout or external system down
-   - partial failure
-   - quota or limit reached
-   - stale data
-   - cancel or abandon
-   - privacy request
-3. Each resulting extension has a handling outcome, or is marked `deferred` or `out-of-scope` [R1-Q7].
-4. Stakeholders and their interests are listed.
-5. The inputs it draws on (personas, journeys) are cited by ID [R3-A5].
+1. It is at the **user-goal level**: one primary actor, in one sitting, leaves with the goal reached (Cockburn's coffee-break test). A summary goal is only an optional map of the user-goal use cases it groups; a subfunction is a step, not a use case [R28-Q1]. See [goal levels](../foundations/pm-lens.md#22-goal-levels).
 
-Stories are then cut as **vertical paths** that deliver value on their own, pass INVEST ([explained in chapter 3](03-design-playbook.md#33-step-2-cut-stories)), and fit about one week of slice work [R4-Q3]. Extensions that no story handles yet stay visible in the generated `coverage.md`.
+   The steps share one level of duration. A step that waits hours or days for another person, an outside party or a deadline is a **wait point**: the use case ends there, its success guarantee says what is pending and how the actor will hear, and the continuation is another use case, started by the other actor or by time [R29-Q2]. A use case may be **triggered by time**; its primary actor is then the stakeholder who cares that it runs [R29-Q3].
+2. Every field of the Cockburn "fully dressed" format is filled [R1-Q6]. Steps state intent, not screens or clicks [R28-Q7].
+3. Every main-scenario step is marked `(actor)` or `(system)`, every system step that isn't instant has a **duration class**, and every step has been run through the **failure categories of its kind** [R4-Q2, R28-Q6, R29-Q1]:
+
+   | Step kind | Categories |
+   |---|---|
+   | **Actor** step: the actor provides or chooses something | invalid input · duplicate · no permission · cancel or abandon |
+   | **System** step: the system looks up, stores or calls something | not found · conflict or concurrent edit · timeout or external system down · partial failure · quota or limit reached · stale data |
+
+   | Duration class of a system step | Takes | The actor | Adds |
+   |---|---|---|---|
+   | `instant` (default, not written) | under 1 s | doesn't wait | — |
+   | `wait` | 1 to 10 s | waits on the screen | — |
+   | `long` | over 10 s | watches, may give up | cancel or abandon [R29-Q4] |
+   | `background` | minutes or more | may leave | cancel or abandon, and a next step that tells the actor the outcome [R29-Q4, R29-Q5] |
+
+   The class is what the actor experiences in normal use, not a performance target [R12-Q5]. Cancel on a `long` or `background` step is answered `yes`, or `out-of-scope` with a reason such as "past the point of no return".
+
+   **Privacy request** is asked once per use case: can the actor ask to export or erase the personal data it handles?
+4. Each resulting extension has a handling outcome and a one-line **example** with a concrete instance, or is marked `deferred` or `out-of-scope` with a reason [R1-Q7, R28-Q3].
+5. Stakeholders and their interests are listed.
+6. The inputs it draws on (personas, journeys) are cited by ID [R3-A5].
+
+Stories are then cut as **vertical paths** that deliver value on their own: the first is the thinnest path through the whole main scenario, and each later one adds extensions or one variation [R28-Q8]. Each passes INVEST ([explained in chapter 3](03-design-playbook.md#cutting-stories)) and fits about one week of slice work [R4-Q3]. Several stories may claim the same extension [R28-Q9]. Extensions that no story claims yet stay visible in the generated `coverage.md`.
+
+**Step and extension IDs** (`UC-012.3a`) are renumbered only by `write-use-case renumber`, which rewrites every reference, and only until a PRD that references them reaches Design-complete. After that, the use case only grows: an inserted step takes a decimal number (`3.1`), a removed one is marked `retired`, and no ID is ever reused [R28-Q19′].
 
 ## 1.4 Draft → Exploring
 
-**Entry condition** [R2-Q4]: a story with draft acceptance criteria and the list of use-case extensions it touches. During *Exploring*, the acceptance criteria may still be written in the PRD's source language [R3-C1].
+**Entry condition** [R28-Q4]: a story with its statement, `extensions:` and `touches:` (`ui`, `api` or both). It has no acceptance criteria yet: the Gherkin scenarios are written during *Exploring*, starting from the examples of its extensions. `touches:` may change until Design-complete; after that, only through a DCR [R28-Q18].
 
-**Who moves it:** a founder picks the PRD **manually and explicitly**. The `priority:` field in the frontmatter informs the choice but does not make it [R6-Q1].
+**Who moves it:** a founder picks the PRD **manually and explicitly**. The `priority:` field in the frontmatter informs the choice but does not make it [R6-Q1]. The driver then runs `make design`, which checks the limit, records the design tool, sets the status and opens the worktree in one step [R28-Q17].
 
 **Limits** [R4-Q6]:
-- at most **3 PRDs in *Exploring* per driver**;
+- at most **3 PRDs in *Exploring* per driver**, counted from open `design/` branches [R28-Q12];
 - enabler slices that block feature slices go first.
 
 **Inside *Exploring*, anything goes** [R2-Q4]. There are no reviews and no gate checks. The driver explores in **one** design tool per PRD, either Figma or Claude Design, recorded as `design_tool:` in the frontmatter and fixed once *Exploring* starts [R18-Q4]. Whatever the tool, only the real-stack prototype and the markdown artifacts count at the gate [R1-Q5, R18-Q2].
@@ -102,20 +105,22 @@ This is the main design gate. It is passed through the **design PR** from `desig
 
 ### Checklist
 
+Items marked **(ui)** apply only when the PRD's `touches:` includes `ui`, and **(api)** only when it includes `api`; the gate check reads `touches:` to know which files to require [R28-Q5].
+
 | Item | Requirement | Decision |
 |---|---|---|
 | (a) | Use-case extension coverage is green: every extension the story touches maps to a scenario or is marked `deferred` / `out-of-scope`. | R2-Q3, R1-Q7 |
-| (b) | BDD scenarios cover every acceptance criterion, including failure paths. They are English Gherkin and are the only acceptance criteria. | R2-Q3, R3-C1 |
-| (c) | A flow map lists every screen and transition, with entry and exit points. | R2-Q3 |
-| (d) | A **state matrix** per screen covers empty, loading, error, partial, success, no-permission and stale data. | R2-Q3 |
-| (e) | The key information and key actions on each screen are traced to the story. | R2-Q3 |
-| (f) | The copy deck is complete in the source language and follows the voice guide. | R2-Q3, R2-Q6 |
-| (g) | Only design-system components are used. New components are raised as enabler slices. | R2-Q3 |
-| (h) | Accessibility basics: focus order, keyboard use, labels, contrast through tokens. | R2-Q3 |
-| (i) | Responsive behaviour is defined. | R2-Q3 |
+| (b) | BDD scenarios cover the story's main-scenario steps and every extension it claims, including failure paths, grouped under plain-English rules. They are English Gherkin in domain wording, without copy keys, and are the only acceptance criteria. | R2-Q3, R3-C1, R28-Q10, R28-Q16 |
+| (c) | **(ui)** A flow map lists every screen and transition, with entry and exit points. | R2-Q3 |
+| (d) | **(ui)** A **state matrix** per screen covers empty, loading, error, partial, success, no-permission and stale data. | R2-Q3 |
+| (e) | **(ui)** The key information and key actions on each screen are traced to the story. | R2-Q3 |
+| (f) | **(ui)** The copy deck is complete in the source language and follows the voice guide. | R2-Q3, R2-Q6 |
+| (g) | **(ui)** Only design-system components are used. New components are raised as enabler slices. | R2-Q3 |
+| (h) | **(ui)** Accessibility basics: focus order, keyboard use, labels, contrast through tokens. | R2-Q3 |
+| (i) | **(ui)** Responsive behaviour is defined. | R2-Q3 |
 | (j) | Authorisation per action: who may do what. | R2-Q3 |
 | (k) | Privacy data inventory: personal data shown or collected, purpose, retention. It includes the analytics event properties, and an **AI use** part when the PRD uses an AI model (model and provider, data sent, human oversight, transparency notice, AI Act risk category). | R2-Q3, R4-Q4c, R12-Q6a |
-| (l) | A draft API contract that the prototype mocks against, written against the fit analysis. | R2-Q3, R4-Q8a |
+| (l) | **(api)** A draft API contract that the prototype mocks against, written against the fit analysis. | R2-Q3, R4-Q8a |
 | (m) | Technical questions are listed and linked to ADRs. | R2-Q3 |
 | (n) | The PM, UX and Eng persona reviews are recorded in `reviews.md`. | R2-Q3 |
 | (o) | **Expected outcome and measurement plan:** user benefits with observable signals; numeric targets once `metrics_stage: growth`; events listed in the tracking plan. | R4-Q4a–c |
@@ -207,8 +212,8 @@ The current truth about behaviour is always the `.feature` files and use cases o
 A **gate check** runs on every PR that changes a `status:` field, both as one of our own skills and as a CI job [R4-Q12]. It checks:
 
 - the frontmatter;
-- that the files the target status requires exist;
-- that the generated coverage has no gaps;
+- that the files the target status requires exist, scaled by `touches:` [R28-Q5];
+- that the generated coverage has no gaps, and that no `UC-…` ID points nowhere or to a retired ID [R28-Q19′];
 - the sign-offs in `reviews.md`;
 - the status of linked ADRs;
 - for `Done`: that no review lane has an open blocking finding;
@@ -220,7 +225,7 @@ A failed check blocks the status change. The checks that a script can do mechani
 
 | Gate | Agents | Human sign-off |
 |---|---|---|
-| Use case → Complete | Use-case writer and extension checker | The use case's driver |
+| Use case → Complete | Use-case writer and extension checker | The use case's driver, on the `uc/` PR |
 | Draft → Exploring | None | A founder picks it |
 | Exploring → Design-complete | UX lane guideline checks; PM, UX and Eng personas | Two people: the driver plus one other (plus earlier drivers for amendments) |
 | Design-complete → Dev-ready | Gate check | The developer taking the slice |

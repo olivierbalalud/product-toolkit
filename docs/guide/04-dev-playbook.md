@@ -32,7 +32,7 @@ Set `status: In development` and commit: `docs(PRD-012.1): start slice`.
 Run the fit check again against current `main` and update `fit.md` [R4-Q8′ step 0]:
 
 - If code has moved since Design-complete, the tickets in the next step take it into account.
-- If the design must change, open a DCR ([chapter 3, §3.13](03-design-playbook.md#313-changing-a-design-after-the-gate)) and pause the tickets it affects [R7-Q3].
+- If the design must change, open a DCR ([chapter 3, §3.9](03-design-playbook.md#39-changing-a-design-after-the-gate)) and pause the tickets it affects [R7-Q3].
 - If an architecture gap appears, open a `Proposed` ADR and pause only the tickets it affects; the others carry on. If the ADR's outcome changes the UX, it becomes a DCR [R13-Q3].
 
 ## 4.5 Step 4: Cut the tickets
@@ -91,7 +91,7 @@ An import-linter contract keeps the business layer free of framework imports [R3
 
 1. **Move** the prototype routes from `(prototypes)/` into the real routes. Don't copy them: a prototype left after `Done` fails CI [R4-Q11].
 2. Replace the MSW mocks with the API client generated from the domain's OpenAPI (`src/packages/api-client/`) [R3-Q1g].
-3. Write the Playwright-BDD step definitions. Steps that name a copy key resolve it through the next-intl catalogs, so the same scenarios run in every locale [R3-C2].
+3. Write the Playwright-BDD step definitions. They map the scenarios' domain wording ("I am told the room is no longer free") to copy keys and resolve them through the next-intl catalogs, so the same scenarios run in every locale [R28-Q10].
 4. Generate the catalogs for the other locales with the translation skill; generated strings stay `needs-review` [R2-Q6, R4-Q10].
 5. Emit the events in the measurement plan through the **analytics port**, and assert them in tests with its fake [R4-Q4c]. If the real pipeline doesn't exist yet, the fake is enough for `Done` [R4-Q4d].
 

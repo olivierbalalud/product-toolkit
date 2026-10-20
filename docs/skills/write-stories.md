@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <founder>
 serves: cutting stories (after the use case gate)
-decisions: [R4-Q3, R9-Q1, R1-Q7, R27-Q1′, R28-Q1, R28-Q4, R28-Q5, R28-Q8, R28-Q9]
+decisions: [R4-Q3, R9-Q1, R1-Q7, R27-Q1′, R28-Q1, R28-Q4, R28-Q5, R28-Q8, R28-Q9, R29-Q6]
 plugin_version:
 ---
 
@@ -54,7 +54,7 @@ Expected failures without the skill (replace with observed ones before building)
 **Cutting stories**
 
 1. Read the use case; check its `Level` is `User goal` [R28-Q1], or stop and say so.
-2. Propose the **first story**: the thinnest path through the whole main scenario, with the simplest variation and only the extensions it can't ship without [R28-Q8].
+2. Propose the **first story**: the thinnest path through the whole main scenario, with the simplest variation and only the extensions it can't ship without [R28-Q8]. It keeps every step's duration class: a `long` or `background` step stays asynchronous, though its cancel and notification extensions may wait for a later story [R29-Q6].
 3. Propose **later stories**, each adding extensions or one item from "Technology and data variations" to that path.
 4. For each candidate, check INVEST, explained in [chapter 3](../guide/03-design-playbook.md#cutting-stories); *Independent* means independent of every story except the first of its use case. Split any over about one week of slice work [R4-Q3].
 5. Set `touches:` for each: `ui` when it adds or changes a screen, `api` when it adds or changes an endpoint or stored data [R28-Q5].
@@ -104,6 +104,8 @@ Writes only under `docs/product/`. No network.
 - Coverage counts tags, not intent: a mistagged scenario shows the wrong extension as covered.
 - A first story that skips a main-scenario step isn't end to end; defer extensions, not steps.
 - An extension such as *no permission* may belong to several stories; claim it in each one that must handle it.
+- "Make it work, then make it fast" never turns a `long` or `background` step into a synchronous one: changing the API shape later breaks clients. Defer the extensions, not the shape [R29-Q6].
+- A deadline, reminder or expiry is a time-triggered use case of its own, so it gets its own stories; don't fold it into the story of the use case that sets the deadline [R29-Q3, R29-Q6].
 
 ## 15. Evaluation plan
 

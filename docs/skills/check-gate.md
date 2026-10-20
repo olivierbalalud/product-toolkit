@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <technical founder>
 serves: every lifecycle gate (CI job on status changes, and locally)
-decisions: [R4-Q12, R3-Q1b, R3-A4, R4-Q4b, R4-Q4e, R11-Q10, R14-Q1, R14-Q2, R18-Q3, R18-Q4, R22-Q2, R4-Q7c, R7-Q2, R7-Q3, R28-Q5, R28-Q10, R28-Q11, R28-Q12, R28-Q19′]
+decisions: [R4-Q12, R3-Q1b, R3-A4, R4-Q4b, R4-Q4e, R11-Q10, R14-Q1, R14-Q2, R18-Q3, R18-Q4, R22-Q2, R4-Q7c, R7-Q2, R7-Q3, R28-Q5, R28-Q10, R28-Q11, R28-Q12, R28-Q19′, R29-Q1, R29-Q4, R29-Q5]
 plugin_version:
 ---
 
@@ -67,7 +67,7 @@ Checks by target status (from [chapter 1](../guide/01-lifecycle-and-gates.md)):
 
 | Target | Fails on | Warns on |
 |---|---|---|
-| Use case `Complete` [R28-Q11] | `Level` not `User goal` [R28-Q1]; empty Cockburn field; step not marked `(actor)` or `(system)`; grid cell unanswered; privacy-request line missing [R28-Q6]; extension without outcome or `deferred`/`out-of-scope` reason; handled extension without `*Example:*` [R28-Q3]; input not cited by ID. If the same PR cuts stories, `check_cut.py` after the use case passes [R28-Q20] | UI words in steps [R28-Q7] |
+| Use case `Complete` [R28-Q11] | `Level` not `User goal` [R28-Q1]; empty Cockburn field; step not marked `(actor)` or `(system)`, or an unknown duration class; grid cell unanswered, or a `long` or `background` step without a cancel answer [R29-Q1, R29-Q4]; a `background` step not followed by a system step [R29-Q5]; privacy-request line missing [R28-Q6]; extension without outcome or `deferred`/`out-of-scope` reason; handled extension without `*Example:*` [R28-Q3]; input not cited by ID. If the same PR cuts stories, `check_cut.py` after the use case passes [R28-Q20] | UI words in steps [R28-Q7]; words suggesting a wait point inside the scenario [R29-Q2] |
 | PRD `Exploring` | No story statement, `driver`, `source_locale`, `design_tool`, `extensions` or `touches` [R18-Q4, R28-Q4]; driver already has 3 open `design/` branches [R4-Q6, R28-Q12] | — |
 | PRD `Design-complete` | Checklist (a)–(p), (r): missing files: always `fit.md`, `features/`, `reviews.md`; with `touches: ui` also `flows.md`, `copy.md`; with `touches: api` also `contract.draft.yaml` [R28-Q5]; state-matrix gaps (with `ui`); coverage gaps; two sign-offs missing [R4-Q1]; earlier driver missing when `amends:` set [R4-Q8e′]; §3b missing at `growth` [R4-Q4b]; event not in tracking plan or badly named [R22-Q2]; a copy key in a scenario [R28-Q10], or a screen with no `@ui` scenario [R14-Q2]; §11b `prohibited`, or `high-risk` without an accepted ADR [R14-Q1]; `design_tool` changed since Exploring [R18-Q4]; Claude Design PRD without `design-export/` [R18-Q6] | (q) no usability test for a new flow [R11-Q10]; tool mirror older than the last design-system change [R18-Q3] |
 | PRD `Dev-ready` [R5-Q1] | Linked ADR not `accepted`; open questions in §15 | — |

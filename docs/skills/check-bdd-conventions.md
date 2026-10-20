@@ -4,7 +4,7 @@ status: outline
 priority: P1
 owner: <name>
 serves: Code lane; design gate
-decisions: [R3-Q1a, R3-C1, R3-C3, R14-Q2, R28-Q10, R28-Q16]
+decisions: [R3-Q1a, R3-C1, R3-C3, R14-Q2, R28-Q10, R28-Q16, R29-Q9]
 plugin_version:
 ---
 
@@ -24,7 +24,7 @@ Checks Gherkin and pytest-bdd step definitions against the framework's conventio
 
 ## 2. Scope
 
-- **Does:** checks `.feature` files (English only, tags, glossary terms, no copy keys, scenarios grouped under `Rule:` blocks, `@ui` rules) and step definitions (reuse of existing wording, fakes at the business layer, `@ui` steps mapping domain wording to copy keys) [R3-Q1a, R3-C3, R14-Q2, R28-Q10, R28-Q16].
+- **Does:** checks `.feature` files (English only, tags, glossary terms, no copy keys, scenarios grouped under `Rule:` blocks, `@ui` rules, no sleep-like steps or response-time assertions) and step definitions (reuse of existing wording, fakes at the business layer, `@ui` steps mapping domain wording to copy keys, time read through the clock port, no sleeps) [R3-Q1a, R3-C3, R14-Q2, R28-Q10, R28-Q16, R29-Q9].
 - **Does not:** write scenarios (`write-scenarios`) or run tests.
 - **Neighbouring skills:** `write-scenarios` writes; this checks. In the code lane and before the design gate.
 

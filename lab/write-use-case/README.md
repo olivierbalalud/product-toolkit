@@ -58,6 +58,17 @@ Then add a row to `cases/manifest.md`. Leave `gold.md` and `answers.md` to the l
 
 `answers.md` is what you would say in the interview: one bullet per fact that v3 doesn't contain and the gold version does. Every run reads it instead of interviewing you, so runs can be compared. The live interview is tested later, on the product's first use case (onboarding note, §5 step 10).
 
+## Gold versions
+
+Settled in the gold pilot on cases 01, 06 and 21 (2026-10-23). Conventions that apply to every use case, not only gold versions, are round 32 of the grilling log.
+
+- **Only what a run could produce.** A gold version holds what a skill run could write from v1 plus your answers: no source attribution, no proposals awaiting review. "Open issues" keeps only what the source itself leaves open, or says `None`.
+- **Gaps in v1 become extensions.** When a grid cell is truly `yes` and v1 has no extension for it, the gold version adds one with the handling you decided, and the decision goes into `answers.md`.
+- **Frontmatter:** `driver: lab`, `priority:` left empty.
+- **Related use cases** are named, never given the source's IDs, which clash with the lab's `UC-0NN`.
+
+`answers.md` holds facts in your voice, never sentences copied from the gold version, with no IDs, step numbers or template words. Its headings, in interview order: *Actor, goal and scope*; *Stakeholders and guarantees*; *Main scenario*; *What can go wrong*; *How each is handled*; *Durations*; *Out of scope*. It has no named examples, because a run writes its own.
+
 ## The loop
 
 1. **Import.** You add the cases; the lab drafts `gold.md` and `answers.md` for the `dev/` cases, and you review them.

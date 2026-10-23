@@ -23,7 +23,7 @@ Copy this and tick it off as you go:
 ```
 - [ ] 1. Read the inputs; list what is known and what is missing
 - [ ] 2. Check the level; find wait points
-- [ ] 3. Interview, until every field and cell can be filled
+- [ ] 3. Interview: first the inferred supporting actors and variations (continue, or go back to ideation), then until every field and cell can be filled
 - [ ] 4. Write the fields and the main scenario (marks, duration classes)
 - [ ] 5. Fill the grid and the privacy line
 - [ ] 6. Write the extensions, each with an example
@@ -65,9 +65,21 @@ When the inputs don't settle whether another party answers at once or later, tha
 
 The interview is the main thing this skill adds. Its target: **most use cases need fewer than 12 questions**; a use case with a full step list and notes may need 5. A question you could have answered from the facts sheet is a defect.
 
+**First question: supporting actors and variations.** Runs without this question kept leaving out the outside parties and the ways a step can be done, because drivers rarely volunteer them. From the facts sheet, infer:
+
+- the **supporting actors**: the outside systems or people a step calls on (a payment provider, a bank, a host who must accept);
+- the **technology and data variations**: how a step can be done without changing its outcome (by card or in cash, a CSV file or pasted rows, by name or on the floor plan).
+
+Present both lists in one question and offer two options:
+
+1. **Continue** with these, adding or dropping any.
+2. **Stop and go back to product ideation**: if the driver can't say who the outside parties are or how the actor does the work, the use case is premature. Positioning, competitive analysis, the users' pain points and the user journey come first.
+
+Recommend option 1 when the lists rest on the inputs; recommend option 2 only when the inputs hold no persona, journey or pain point behind this use case and the lists are mostly your guesses. For example: "I see two outside parties, the bank and the aggregator, and two ways to connect, through the aggregator or the bank's own API. (1) Continue with these, or (2) stop here and go back to ideation first. I recommend 1." On option 1, write only the actors and variations the driver confirms, and go on with topic 1. On option 2, write no use case: say in the report which ideation work is missing, as the inputs it would produce in `docs/product/inputs/` (personas `PER-`, journeys `JRN-`, pain points `PP-`, blockers `BLK-`), and stop. This question counts toward the target.
+
 **Order, from low to high precision.** Never jump ahead: a handling question asked before the list of conditions is complete wastes the driver's energy on the first few conditions.
 
-1. Actor, goal and boundary: the primary actor, the goal, the scope, supporting actors (outside systems or people a step calls on), preconditions, what is a separate task. Settle any wait point here.
+1. Actor, goal and boundary: the primary actor, the goal, the scope, preconditions, what is a separate task (supporting actors were settled by the first question). Settle any wait point here.
 2. Stakeholders and guarantees: who else has a stake and what each needs; the minimal guarantee (true however it ends) and the success guarantee (true when it succeeds).
 3. The main scenario: your rewritten steps, with marks and duration classes; the choices and defaults at each step; business rules the steps enforce.
 4. Conditions: everything that can go wrong or differ, for the actor steps, then for the system steps (`references/categories.md` lists the categories to probe).
@@ -114,7 +126,7 @@ Read `references/durations.md` if you have not yet. Fill the template from `asse
 - `Business rules`: a policy the business sets and could change on its own (a cutoff time, a 15-minute window, a maximum of 100,000 rows, "a purchased list is not consent"), each with an ID and where it applies: `BR-1 bookings last at most four hours (step 3, UC-012.3a)`. Not a business rule: a guarantee restated, a scope statement, "there is no limit", a description of what a step does.
 - Add a `Related use cases` bullet after Business rules, naming by goal (not by ID unless it exists) each continuation after a wait point, each time-triggered follow-up and each separate task the driver named.
 - `Open issues`: only what the driver explicitly left open, else `None`.
-- `Technology and data variations`: how a step is done (by name, on the floor plan, by code), never a different outcome.
+- `Technology and data variations`: the variations the driver confirmed in the first question: how a step is done (by name, on the floor plan, by code), never a different outcome.
 
 ## 5. Fill the grid
 
@@ -171,7 +183,9 @@ uv run scripts/check_grid.py <path/to/use-case.md>
 
 ## 10. Report
 
-Give the driver a short report, ready for the `uc/UC-…` PR that sets `Complete` (the driver signs off; you never set `Complete`):
+If the driver chose to go back to ideation, the report is only: why the use case stops, the supporting actors and variations that couldn't be confirmed, and the ideation work missing (positioning, competitive analysis, pain points, user journey) with the inputs it would produce. No file is written.
+
+Otherwise, give the driver a short report, ready for the `uc/UC-…` PR that sets `Complete` (the driver signs off; you never set `Complete`):
 
 - the file written, and the `check_grid.py` result;
 - the number of questions asked;
@@ -198,4 +212,15 @@ Re-running on a complete use case changes nothing: report that it passes.
 - A full erasure or export flow is usually its own use case; the privacy line then says `deferred` and names it.
 - What the system does after the success guarantee is already true (discarding a temporary file, notifying watchers later) goes in the guarantees, not in a step.
 
-<!-- Rationalizations: filled from excuses observed in lab runs (spec §14), each checked by a pressure-scenario eval. -->
+## Rationalizations
+
+Excuses seen in lab runs without this skill, and the reply to each:
+
+| Excuse | Reply |
+|---|---|
+| "The driver said 'use your recommendation', so I'll write my recommendation in." | A decision, yes: take it and list it under *Decided by me*. A fact (whether a limit exists, whether a condition can happen), no: leave it out and list it under *To confirm*. |
+| "This cell needs an answer, so I'll add a plausible condition." | A category with nothing to handle is `n/a`. A condition the driver didn't confirm is never written. |
+| "The use case stores no personal data of its own, so privacy is `no`." | `no` only when no personal data is involved at all; a name, an address or a history is personal data, so the line is `yes`, usually `deferred` to an account privacy use case. |
+| "Card or cash is a choice the actor makes here, so the main scenario branches." | The main scenario takes one path; the other is an extension or a variation. |
+| "Naming the connection technology makes the step precise." | Technology goes in Technology and data variations, never in a step. |
+| "The grid is full, so the use case is done." | The grid checks completeness, not quality: run the quality check (step 8). |

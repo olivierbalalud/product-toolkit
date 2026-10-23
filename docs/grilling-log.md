@@ -594,3 +594,12 @@ Drafting the gold versions of the other 17 lab cases raised one point the rules 
 | # | Question | Recommended | Decision |
 |---|----------|-------------|----------|
 | R33-Q1 | **A wait inside an extension.** An extension whose handling waits hours or days for another person, an outside party or a deadline (joining a waiting list, asking an administrator for access, funding by wire) ends the use case there, like a wait point in a step: it says what is pending and how the actor will hear, and the continuation is its own use case. An actor who doesn't finish their own work is still *cancel or abandon*, not a wait point. | Yes. | **Accepted.** Extends R29-Q2. |
+
+## Round 34: First results of the write-use-case lab (2026-10-23)
+
+Skill v1 was compared with runs without it on three dev cases and four held-out cases, each run interviewing a simulated product owner (results in [`lab/write-use-case/runs/`](../lab/write-use-case/runs/2026-10-23-holdout-comparison/summary.md)). With the skill, runs invented 1 to 4 items per case instead of 12 to 18 and scored higher on quality, but lost up to one point of coverage: supporting actors and technology or data variations that the product owner didn't volunteer. The user asked for the fix below and for the lessons to go back into the spec.
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R34-Q1 | **Supporting actors and variations first, with a way out.** The interview's first question proposes the supporting actors and the technology and data variations the skill infers from the inputs, with two options: continue with them (adding or dropping any), or stop and go back to product ideation (positioning, competitive analysis, the users' pain points and the user journey), because a use case whose outside parties and ways of working nobody can name is premature. On the second option no use case is written, and the report names the missing ideation work as the inputs it would produce (`PER-`, `JRN-`, `PP-`, `BLK-`). The skill does no ideation itself; inputs come from outside the framework [R11-Q11]. | The user's design. | **Accepted.** Refines R28-Q1. |
+| R34-Q2 | **The interview is built in.** The skill keeps its own short interview (precision order, a recommended answer per question, a stop rule, a target under 12 questions) instead of calling `grill-with-docs`, which has no stop rule. `domain-modeling` stays optional for the glossary. | Yes. | **Accepted.** Closes the spec's open question. |

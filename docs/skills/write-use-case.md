@@ -1,10 +1,10 @@
 ---
 name: write-use-case
-status: full
+status: building
 priority: P0
 owner: <founder>
 serves: use case gate (Draft → Complete)
-decisions: [R1-Q6, R1-Q7, R4-Q2, R28-Q1, R28-Q3, R28-Q6, R28-Q7, R28-Q11, R28-Q19′, R29-Q1, R29-Q2, R29-Q3, R29-Q4, R29-Q5, R30-Q1, R30-Q3, R30-Q11, R30-Q13, R31-Q1, R31-Q2, R31-Q3, R31-Q4, R31-Q5, R32-Q1, R32-Q2, R32-Q3, R32-Q4, R32-Q5, R32-Q6, R32-Q7, R32-Q8, R32-Q9, R32-Q10, R32-Q11, R33-Q1, R3-A5, R3-C3, R1-Q11]
+decisions: [R1-Q6, R1-Q7, R4-Q2, R28-Q1, R28-Q3, R28-Q6, R28-Q7, R28-Q11, R28-Q19′, R29-Q1, R29-Q2, R29-Q3, R29-Q4, R29-Q5, R30-Q1, R30-Q3, R30-Q11, R30-Q13, R31-Q1, R31-Q2, R31-Q3, R31-Q4, R31-Q5, R32-Q1, R32-Q2, R32-Q3, R32-Q4, R32-Q5, R32-Q6, R32-Q7, R32-Q8, R32-Q9, R32-Q10, R32-Q11, R33-Q1, R34-Q1, R34-Q2, R3-A5, R3-C3, R1-Q11]
 plugin_version:
 ---
 
@@ -16,20 +16,21 @@ Writes or completes a user-goal use case in Cockburn's "fully dressed" format, g
 
 ## 1. Problem and baseline
 
-Expected failures without the skill (replace with observed ones before building):
+Failures observed without the skill, in the lab's interview runs on 7 sample use cases (template only, same simulated product owner; [dev](../../lab/write-use-case/runs/2026-10-23-comparison/summary.md) and [held-out](../../lab/write-use-case/runs/2026-10-23-holdout-comparison/summary.md) results):
 
-1. Claude writes a happy-path scenario with two or three generic "error" lines, missing categories such as *stale data* or *quota*.
-2. The goal is at the wrong level: a summary ("manage the office") or a subfunction ("enter a date") instead of one user goal, so stories cut from it are too big or too small [R28-Q1].
-3. Steps describe the interface ("the user clicks Book") instead of intent [R28-Q7].
-4. Extensions are not keyed to steps (`UC-012.3a`), so stories and Gherkin tags can't refer to them [R3-A3]; or a step is inserted and the IDs are renumbered by hand, leaving tags in `.feature` files pointing at the wrong step.
-5. Domain words drift from the glossary ("reservation" vs "booking").
-6. Time is ignored: a five-minute upload is written like a lookup, so nobody asks whether the actor can cancel it or leave; or a step that waits a day for a manager's approval sits inside a one-sitting scenario [R29-Q1, R29-Q2].
+1. Every gap the product owner leaves open is filled with the writer's own rules, conditions and variations, marked as "recommendations": 12 to 18 invented items per use case. With the skill: 1 to 4.
+2. The privacy line is answered `no` although the use case handles names, addresses or histories.
+3. The main scenario branches on a choice (card or cash) instead of taking one path.
+4. Technology appears in steps (the connection method, an integration's field list).
+5. The format is not the problem: the template's comments alone produce a grid that passes `check_grid.py`. The skill's gain is in substance, not form.
+
+What the skill still misses (R34-Q1 addresses it): supporting actors and technology or data variations the product owner doesn't volunteer.
 
 ## 2. Scope
 
 - **Does:** fills [`use-case.md`](../templates/use-case.md); checks the goal is at the user-goal level and ends it at any wait point; interviews the driver where the use case is vague; marks each step `(actor)` or `(system)`, and each system step's duration class; fills the two failure tables and the privacy-request line; writes extensions, each handled one with a one-line example; cites inputs by ID [R3-A5]; checks glossary terms; renumbers steps and extensions in `renumber` mode.
 - **Does not:** cut stories (`write-stories`); write Gherkin (`write-scenarios`, during *Exploring*) [R28-A]; sign off (`Complete` is the driver's, on the use case PR) [R28-Q11]; invent personas or journeys, which come from outside the framework [R11-Q11].
-- **Neighbours:** may call `grill-with-docs` or `domain-modeling` (mattpocock) for interviews and glossary; `check-gate` verifies the result.
+- **Neighbours:** may call `domain-modeling` (mattpocock) for the glossary; the interview is built in [R34-Q2]; `check-gate` verifies the result.
 
 ## 3. Invocation
 
@@ -63,7 +64,7 @@ Copy this checklist and tick it off:
 
 1. **Read** the existing file and inputs. *Done when* actor, goal and scope are known, or listed as questions.
 2. **Check the level** with the coffee-break test: one primary actor, one sitting, the actor leaves with the goal reached [R28-Q1]. A summary goal becomes a short map listing the user-goal use cases it groups; a subfunction becomes a step of the use case that needs it. A step that waits hours or days for another person, an outside party or a deadline is a **wait point**: end the use case there, say in the success guarantee what is pending and how the actor will hear, and propose the continuation as its own use case, started by the other actor or by time [R29-Q2]. *Done when* `Level` is `User goal` and no step waits beyond the sitting.
-3. **Interview** the driver, one question at a time, each with a recommended answer, until every Cockburn field can be filled. Ask in order of precision: actor and goal, then stakeholders and guarantees, then the main scenario, then every condition, and only then their handling; never ask what the inputs, the facts note or the glossary already answer (`references/quality.md`) [R31-Q5]. For a use case started by time, the `Trigger` names the time event and the primary actor is the stakeholder who cares that it runs, never "the clock" [R29-Q3]. Supporting actors are the outside systems or people a step calls on [R32-Q5]; business rules go under Related information with IDs that steps cite [R32-Q6]. *Done when* no field of the table is empty; Supporting actors and Preconditions may be an explicit `None` rather than filler such as "the system is running" [R31-Q2].
+3. **Interview** the driver. The first question proposes the supporting actors and the technology and data variations inferred from the inputs, with two options: continue with them, or stop and go back to product ideation (positioning, competitive analysis, pain points, user journey); on the second, no use case is written and the report names the missing inputs [R34-Q1]. Then ask one question at a time, each with a recommended answer, until every Cockburn field can be filled. Ask in order of precision: actor and goal, then stakeholders and guarantees, then the main scenario, then every condition, and only then their handling; never ask what the inputs, the facts note or the glossary already answer (`references/quality.md`) [R31-Q5]. For a use case started by time, the `Trigger` names the time event and the primary actor is the stakeholder who cares that it runs, never "the clock" [R29-Q3]. Supporting actors are the outside systems or people a step calls on [R32-Q5]; business rules go under Related information with IDs that steps cite [R32-Q6]. *Done when* no field of the table is empty; Supporting actors and Preconditions may be an explicit `None` rather than filler such as "the system is running" [R31-Q2].
 4. **Write the main scenario**: numbered steps, each marked `(actor)` (the actor provides or chooses something) or `(system)` (the system looks up, stores or calls something), stating intent, never screens or clicks [R28-Q6, R28-Q7]. Step 1 may be a system step when the actor's request is the Trigger [R32-Q8]. Give each system step that isn't instant its **duration class**: `(system, wait)` for 1 to 10 s, `(system, long)` for over 10 s with the actor watching, `(system, background)` when the actor may leave; ask the driver when unsure. Follow a `background` step with a system step that tells the actor the outcome [R29-Q1, R29-Q5]. One system step may validate, record and respond while those actions share a duration class; split it where the class changes. Aim for 3 to 9 steps, counted after this bundling [R31-Q1].
 5. **Fill the grid** [R4-Q2, R28-Q6]: actor steps against invalid input, duplicate, no permission, cancel or abandon; system steps against not found, conflict or concurrent edit, timeout or external system down, partial failure, quota or limit, stale data, and, for `long` and `background` steps only, cancel or abandon [R29-Q4]. Each cell `yes`, `n/a` or `out-of-scope` with a reason; the cancel cell of a `long` or `background` step is never `n/a`. Every `yes` names the extensions that answer it, as in `yes: UC-012.3a` or `yes: UC-012.8a, UC-012.8b` [R32-Q3]; it names another step's extension only if that extension's handling applies unchanged there [R32-Q4]; never invent a condition to fill a cell [R31-Q3]. Invalid input belongs to the actor step that provides it, even when a later system step detects it; that system step answers `n/a` for it [R32-Q1]. Then answer the **privacy request** line once for the use case. *Done when* `scripts/check_grid.py` passes.
 6. **Write extensions** for every `yes`: ID `UC-NNN.<step><letter>`, or `UC-NNN.*<letter>` for a condition that can occur at every step [R32-Q2], or `UC-NNN.<first>-<last><letter>` for a range of steps; merge conditions with the same handling [R31-Q3]; then condition, handling, where it returns or ends, and a one-line `*Example:*` with a concrete instance [R28-Q3]; or `deferred` / `out-of-scope` with a reason [R1-Q7]. An extension on a `background` step says how the actor, who may have left, learns of it [R29-Q5]. An extension you can't give an example for isn't clear yet: ask the driver. *Done when* every handled extension has an example.
@@ -101,7 +102,7 @@ write-use-case/
 
 ## 9. Composition
 
-May call `grill-with-docs` (interview) and `domain-modeling` (glossary) through the Skill tool, when installed. No subagents.
+May call `domain-modeling` (glossary) through the Skill tool, when installed. The interview is the skill's own, not `grill-with-docs`, which has no stop rule [R34-Q2]. No subagents.
 
 ## 10. Claude Code wiring
 
@@ -109,7 +110,7 @@ May call `grill-with-docs` (interview) and `domain-modeling` (glossary) through 
 
 ## 11. Portability
 
-Portable core; composition written as "use the `grill-with-docs` skill if available" [R5-Q4a]. No Claude-only syntax in the body.
+Portable core; composition written as "use the `domain-modeling` skill if available" [R5-Q4a]. No Claude-only syntax in the body.
 
 ## 12. Headless and CI
 
@@ -136,11 +137,16 @@ Writes only under `docs/product/`. No network. Use cases and their examples must
 - A failure that fits no grid category (a device crash, a language that can't be detected) is still written as an extension; no cell names it [R32-Q7].
 - An invalid file or entry detected only when the system reads it is still the actor step's invalid input: key it there, not to the reading step [R32-Q1].
 
-**Rationalizations** [R32-Q11]: filled after lab step 3 (the baseline), from the excuses actually seen there, each checked by a pressure-scenario eval.
+**Rationalizations** [R32-Q11], from the lab's runs without the skill. Each still needs its pressure-scenario eval.
 
 | Excuse | Reply |
 |---|---|
-| | |
+| "The driver said 'use your recommendation', so I'll write my recommendation in." | A decision, yes, listed under *Decided by me*. A fact, no: leave it out and list it under *To confirm*. |
+| "This cell needs an answer, so I'll add a plausible condition." | A category with nothing to handle is `n/a`; an unconfirmed condition is never written. |
+| "The use case stores no personal data of its own, so privacy is `no`." | `no` only when no personal data is involved at all; otherwise `yes`, usually `deferred`. |
+| "Card or cash is a choice the actor makes here, so the main scenario branches." | One path in the main scenario; the other is an extension or a variation. |
+| "Naming the connection technology makes the step precise." | Technology goes in Technology and data variations. |
+| "The grid is full, so the use case is done." | The grid checks completeness, not quality: run the quality check. |
 
 ## 15. Evaluation plan
 
@@ -162,4 +168,4 @@ The category list, its split between actor and system steps, and the duration cl
 
 ## 18. Open questions
 
-- Whether the interview should reuse `grill-with-docs` as is, or a lighter built-in interview when that skill isn't installed.
+- None open. (Settled: the interview is built in [R34-Q2].)

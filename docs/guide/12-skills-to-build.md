@@ -82,7 +82,7 @@ Specs are in [`../skills/`](../skills/), written from [`skill-spec.md`](../templ
 ## 12.4 Build order
 
 1. **`check-gate`'s scripts first**, with the `coverage.md` and `index.md` generators. They are plain scripts, run in CI without an agent, and every other step relies on them.
-2. **`write-use-case`, `write-stories` and `write-scenarios`**, so the first use case, its stories and their scenarios can be written.
+2. **`write-use-case`, `write-stories` and `write-scenarios`**, so the first use case, its stories and their scenarios can be written. `write-use-case` is built in this repo's lab, [`lab/write-use-case/`](../../lab/write-use-case/README.md), on sample use cases from other products, and the driver copies it into the marketplace once it passes its held-out cases [R31-Q6, R31-Q9].
 3. **`check-fit` and `review-design`**, so the first PRD can reach Design-complete.
 4. **P1 lanes** before the first slice PR: `review-code` and `review-security` first, `review-ux` with its reviewers next.
 5. **P2** when the first outcome review is due, or the Vercel guidelines change.

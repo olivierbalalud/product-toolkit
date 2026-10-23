@@ -1,0 +1,2 @@
+- **source name**: SaaS Sea-Level Use Case Reference Guide (generated with Gemini), §6 "Spotify – Create Collaborative Blend Playlist"; no product documentation cited
+- **source link**: none

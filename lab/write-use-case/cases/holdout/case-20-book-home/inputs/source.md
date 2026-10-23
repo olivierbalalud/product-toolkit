@@ -1,0 +1,2 @@
+- **source name**: Airbnb — How to book a home (product documentation); use case synthesized in "8 SaaS Use Cases: Good, Bad, and Minimal Versions" (generated with OpenAI), §8 "B2C — Book Accommodation in Airbnb"
+- **source link**: https://www.airbnb.com/help/article/85

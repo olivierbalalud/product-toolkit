@@ -1,0 +1,2 @@
+- **source name**: Atlassian Jira — Create a work item and a subtask (product documentation); use case synthesized in "8 SaaS Use Cases: Good, Bad, and Minimal Versions" (generated with OpenAI), §3 "B2B — Create and Assign a Work Item in Jira"
+- **source link**: https://support.atlassian.com/jira-software-cloud/docs/create-a-work-item-and-a-subtask/

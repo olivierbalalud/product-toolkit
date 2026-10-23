@@ -1,0 +1,2 @@
+- **source name**: Wikipedia, "Use case", Examples section (CC BY-SA)
+- **source link**: https://en.wikipedia.org/wiki/Use_case

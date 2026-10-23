@@ -1,0 +1,2 @@
+- **source name**: Zoom — Scheduling meetings (product documentation); use case synthesized in "8 SaaS Use Cases: Good, Bad, and Minimal Versions" (generated with OpenAI), §5 "B2B — Schedule a Meeting in Zoom"
+- **source link**: https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060700

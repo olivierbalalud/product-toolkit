@@ -1,0 +1,2 @@
+- **source name**: SaaS Sea-Level Use Case Reference Guide (generated with Gemini), §8 "Duolingo – Recover Lapsed Daily Streak"; no product documentation cited
+- **source link**: none

@@ -1,0 +1,4 @@
+- **source name**: Oracle, Project WebSynergy Administration Guide, expense report use case (2010); source of version 2
+- **source link**: https://docs.oracle.com/cd/E19957-01/820-6364/ghstp/index.html
+- **source name**: Oracle Fusion Cloud Expenses, expense report approval; source of the approval flow in version 1
+- **source link**: https://docs.oracle.com/en/cloud/saas/financials/23d/fawde/expense-report-approval.html

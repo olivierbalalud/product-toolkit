@@ -1,0 +1,11 @@
+{
+  "file": "runs/2026-10-23-baseline/case-21-import-contacts/use-case.md",
+  "ok": true,
+  "errors": [],
+  "warnings": [
+    {
+      "rule": "ui-word",
+      "message": "step 2: UI word 'field'"
+    }
+  ]
+}

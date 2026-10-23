@@ -586,3 +586,11 @@ Three subagents drafted gold versions of lab cases 01, 06 and 21 from their v1, 
 | R32-Q9 | **`n/a` is not a cancel answer.** On an instant or wait step, the cancel cell is `n/a`. `check_grid.py` fails on `yes` or `out-of-scope` there, not on `n/a`. Spec §7 said "a cancel answer", which read as failing the template's own `n/a`. | Yes. | **Accepted.** Clarifies R29-Q4. |
 | R32-Q10 | **"Empty field" means the field table.** `check_grid.py` and `check-gate` check the Cockburn fields in the table; frontmatter such as `priority:` is not a field for that rule. | Yes. | **Accepted.** Clarifies R31-Q2. |
 | R32-Q11 | **Rationalizations in discipline skills.** The spec template's §14 gets an optional *Rationalizations* table: each excuse a model gives for breaking a rule ("the step is quick, so it needs no cancel"), with the one-line reply `SKILL.md` gives. Rows come only from failures seen in the baseline run, never from guesses, and each is checked by a pressure-scenario eval (obra/superpowers `writing-skills`, S18 in [`research/skill-authoring.md`](research/skill-authoring.md)). `write-use-case` fills its table after lab step 3. | Yes. | **Accepted.** Refines R5-Q4′ and R25-Q4. |
+
+## Round 33: Waits inside extensions (2026-10-23)
+
+Drafting the gold versions of the other 17 lab cases raised one point the rules left open. The user accepted the recommendation on 2026-10-23.
+
+| # | Question | Recommended | Decision |
+|---|----------|-------------|----------|
+| R33-Q1 | **A wait inside an extension.** An extension whose handling waits hours or days for another person, an outside party or a deadline (joining a waiting list, asking an administrator for access, funding by wire) ends the use case there, like a wait point in a step: it says what is pending and how the actor will hear, and the continuation is its own use case. An actor who doesn't finish their own work is still *cancel or abandon*, not a wait point. | Yes. | **Accepted.** Extends R29-Q2. |

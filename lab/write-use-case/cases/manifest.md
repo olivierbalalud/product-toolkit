@@ -18,7 +18,7 @@ One row per case, `dev/` and `holdout/` alike. See the [lab README](../README.md
 | `case-08-buy-stocks` | Personal finance app (B2C) | en | `wait-point`, `external-service` | dev | Cockburn, Use Case 1. Extension 4b defers the brokerage's acknowledgement; 4a is an open issue in the source |
 | `case-09-configure-webhook` | Payment platform webhooks: Stripe (B2B) | en | `external-service` | dev | Gemini set. Step 6 has the outside endpoint as its subject; extension 5a has a 5-second timeout |
 | `case-10-convert-lead` | CRM lead conversion: HubSpot (B2B) | en | — | dev | Gemini set. Duplicate-company check (2a) |
-| `case-11-run-offcycle-payroll` | Payroll: Gusto (B2B) | en | `background`, `external-service` | dev | Gemini set. Ends with the batch queued for clearing; banking cutoff and holiday rule (4a) |
+| `case-11-run-offcycle-payroll` | Payroll: Gusto (B2B) | en | `wait-point`, `external-service` | dev | Gemini set. Ends with the batch queued for clearing; banking cutoff and holiday rule (4a) |
 | `case-12-create-alert-monitor` | Observability alerts: Datadog (B2B) | en | `external-service` | dev | Gemini set. Three actor steps in a row (3–5); metric syntax in steps |
 | `case-13-publish-component-library` | Design library publishing: Figma (B2B) | en | — | dev | Gemini set. Concurrent publication (5a) |
 | `case-14-create-blend-playlist` | Shared playlist: Spotify (B2C) | en | `wait-point`, `time-trigger` | dev | Gemini set. v1 keeps the recipient's acceptance (step 4) inside the scenario, although it can come up to 48 hours later; schedules a daily refresh |

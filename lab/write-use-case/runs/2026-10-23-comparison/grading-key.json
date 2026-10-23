@@ -1,0 +1,14 @@
+{
+ "case-01-order-meal": {
+  "A": "with-skill",
+  "B": "without-skill"
+ },
+ "case-08-buy-stocks": {
+  "A": "without-skill",
+  "B": "with-skill"
+ },
+ "case-21-import-contacts": {
+  "A": "with-skill",
+  "B": "without-skill"
+ }
+}

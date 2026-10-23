@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <founder>
 serves: use case gate (Draft → Complete)
-decisions: [R1-Q6, R1-Q7, R4-Q2, R28-Q1, R28-Q3, R28-Q6, R28-Q7, R28-Q11, R28-Q19′, R29-Q1, R29-Q2, R29-Q3, R29-Q4, R29-Q5, R30-Q1, R30-Q3, R30-Q11, R30-Q13, R31-Q1, R31-Q2, R31-Q3, R31-Q4, R31-Q5, R32-Q1, R32-Q2, R32-Q3, R32-Q4, R32-Q5, R32-Q6, R32-Q7, R32-Q8, R32-Q9, R32-Q10, R32-Q11, R3-A5, R3-C3, R1-Q11]
+decisions: [R1-Q6, R1-Q7, R4-Q2, R28-Q1, R28-Q3, R28-Q6, R28-Q7, R28-Q11, R28-Q19′, R29-Q1, R29-Q2, R29-Q3, R29-Q4, R29-Q5, R30-Q1, R30-Q3, R30-Q11, R30-Q13, R31-Q1, R31-Q2, R31-Q3, R31-Q4, R31-Q5, R32-Q1, R32-Q2, R32-Q3, R32-Q4, R32-Q5, R32-Q6, R32-Q7, R32-Q8, R32-Q9, R32-Q10, R32-Q11, R33-Q1, R3-A5, R3-C3, R1-Q11]
 plugin_version:
 ---
 
@@ -132,6 +132,8 @@ Writes only under `docs/product/`. No network. Use cases and their examples must
 - A precondition the scenario checks is an extension, not a precondition; `None` is better than filler [R31-Q2].
 - An informal use case being rewritten often hides several: two actors with a wait between them (split at the wait point), one version per technical option (write it once with the options as variations; the option is an ADR), or a login or setup flow that is a subfunction [R30-Q13].
 - "Page" or "field" can be domain words; the UI-word warning is a prompt to check, not an error.
+- An extension that waits for another person or a deadline (a waiting list, an administrator's approval) ends the use case like a wait point in a step; an actor who doesn't finish their own work is *cancel or abandon* [R33-Q1].
+- A failure that fits no grid category (a device crash, a language that can't be detected) is still written as an extension; no cell names it [R32-Q7].
 - An invalid file or entry detected only when the system reads it is still the actor step's invalid input: key it there, not to the reading step [R32-Q1].
 
 **Rationalizations** [R32-Q11]: filled after lab step 3 (the baseline), from the excuses actually seen there, each checked by a pressure-scenario eval.

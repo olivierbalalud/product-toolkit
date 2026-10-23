@@ -93,7 +93,15 @@ The frontmatter above. One sentence on what the skill is for.
 
 ## 14. Gotchas
 
-<!-- Seed list; grows with each correction. -->
+<!-- Seed list; grows with each correction.
+     Discipline skills (rules a model is tempted to skip) add a Rationalizations table: each excuse seen in the baseline
+     run, with the one-line reply SKILL.md gives; never guessed, each checked by a pressure-scenario eval [R32-Q11]. -->
+
+**Rationalizations** (discipline skills only):
+
+| Excuse | Reply |
+|---|---|
+| | |
 
 ## 15. Evaluation plan
 

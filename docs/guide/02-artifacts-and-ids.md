@@ -13,7 +13,7 @@ This chapter lists every artifact the framework uses, its ID format, where its f
 | Artifact | ID format | Example | Parent |
 |---|---|---|---|
 | Use case | `UC-NNN` | `UC-012` | — |
-| Use-case extension | `UC-NNN.<step><letter>`; `UC-NNN.<first>-<last><letter>` for a range of steps; `UC-NNN.*<letter>` for any step [R31-Q3] | `UC-012.3a` (step 3, first extension); `UC-012.3.1a` after an inserted step [R28-Q19′]; `UC-012.3-6a` (steps 3 to 6); `UC-012.*a` (any step; in backticks in Markdown, where a bare `*` is emphasis) | Use case |
+| Use-case extension | `UC-NNN.<step><letter>`; `UC-NNN.<first>-<last><letter>` for a range of steps; `UC-NNN.*<letter>` for every step [R31-Q3, R32-Q2] | `UC-012.3a` (step 3, first extension); `UC-012.3.1a` after an inserted step [R28-Q19′]; `UC-012.3-6a` (steps 3 to 6); `UC-012.*a` (every step; in backticks in Markdown, where a bare `*` is emphasis) | Use case |
 | User story | `US-NNN.N` | `US-012.1` | Use case |
 | PRD | `PRD-NNN.N` | `PRD-012.1` (same number as its story, 1:1) | Story |
 | TRD | `TRD-NNN.N` | `TRD-012.1` | PRD |

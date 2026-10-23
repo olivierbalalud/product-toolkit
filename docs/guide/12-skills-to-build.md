@@ -100,6 +100,7 @@ Before step 4, run the checks in §12.6.
 | Triggering | About 20 labelled prompts per skill, half that should trigger and half near-misses that shouldn't |
 | Output | Cases with fixtures and graders, run **with and without** the plugin by `claude plugin eval` |
 | Authoring loop | Anthropic's `skill-creator`, then the cases are kept in `claude plugin eval` format in `evals/` |
+| Discipline | For skills whose rules a model is tempted to skip: the excuses seen in the baseline go into the spec's *Rationalizations* table, each with a pressure-scenario case [R32-Q11] |
 
 CI runs the evals **only on PRs that change the plugin**, with a pinned model, a threshold of 0.8 and a cost cap per run. Eval and review runs are billed API calls and count against the €100 monthly budget, reviewed monthly [R5-Q4c, R15-Q3].
 

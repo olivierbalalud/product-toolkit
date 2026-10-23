@@ -18,6 +18,7 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 | Field | Value |
 |---|---|
 | **Primary actor** | <role> <!-- for a time-triggered use case, the stakeholder who cares that it runs, never "the clock" [R29-Q3] --> |
+| **Supporting actors** | <outside systems or people a step calls on, or `None` [R32-Q5]> |
 | **Scope** | <the system under design> |
 | **Level** | User goal <!-- always: one actor, one sitting, goal reached (coffee-break test) [R28-Q1]. A step that waits hours or days for someone else or for a deadline ends the use case there [R29-Q2] --> |
 | **Trigger** | <what starts it: the actor's request, or a time event such as "24 hours after a request with no approval" [R29-Q3]> |
@@ -38,7 +39,8 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
      wait = 1 to 10 s; long = over 10 s, the actor stays; background = minutes or more, the actor may leave.
      A background step is followed by a system step that tells the actor the outcome [R29-Q5].
      One system step may validate, record and respond while those actions share a duration class; split it where
-     the class changes. Aim for 3 to 9 steps, counted after this bundling [R31-Q1]. -->
+     the class changes. Aim for 3 to 9 steps, counted after this bundling [R31-Q1].
+     Step 1 may be a system step when the actor's request is the Trigger [R32-Q8]. -->
 
 1. (actor) <Actor> <provides or chooses something>.
 2. (system) The system <looks up, stores or calls something>.
@@ -50,8 +52,10 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 <!-- Run each step through the categories of its kind [R4-Q2, R28-Q6]. Each "yes" becomes an extension below.
      "n/a" needs no reason; "out-of-scope" does. Cancel / abandon on a system step is answered only for long and
      background steps, and is never "n/a" there: "out-of-scope" needs a reason such as "past the point of no return";
-     it is "n/a" for instant and wait steps [R29-Q4]. A "yes" is answered by an extension whose key covers the step
-     (its number, a range containing it, or *), or names another one: "yes: UC-012.3a", or "yes: `UC-012.*a`" in backticks [R31-Q3]. -->
+     it is "n/a" for instant and wait steps [R29-Q4, R32-Q9]. Every "yes" names the extensions that answer it:
+     "yes: UC-012.3a", "yes: UC-012.8a, UC-012.8b", or "yes: `UC-012.*a`" in backticks [R31-Q3, R32-Q3]. It may name
+     another step's extension only if that extension's handling applies unchanged [R32-Q4]. Invalid input is keyed to
+     the actor step that provides it, even when a system step detects it [R32-Q1]. -->
 
 **Actor steps**
 
@@ -70,9 +74,10 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 
 ## Extensions
 
-<!-- ID = UC-012.<step><letter>; UC-012.*<letter> for a condition that can occur at any step; UC-012.<first>-<last><letter>
+<!-- ID = UC-012.<step><letter>; UC-012.*<letter> for a condition that can occur at every step [R32-Q2]; UC-012.<first>-<last><letter>
      for a range of steps, both ends included [R31-Q3]. Write an ID that contains * in backticks, or Markdown reads the * as emphasis. Merge conditions that are handled the same way. Each one has a handling outcome, or is marked deferred / out-of-scope with a reason [R1-Q7].
-     Each handled extension has a one-line concrete example; it becomes the first Gherkin scenario in Exploring [R28-A, R28-Q3]. -->
+     Each handled extension has a one-line concrete example; it becomes the first Gherkin scenario in Exploring [R28-A, R28-Q3].
+     An alternative that isn't a failure (a preview, several identical items) is an extension no "yes" names [R32-Q7]. -->
 
 - **UC-012.2a** <condition>:
   1. The system <handles it>.
@@ -80,7 +85,7 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 
   *Example:* <a concrete instance, e.g. "Ana books room 3 for 10:00, but Ben booked it a second earlier.">
 - **UC-012.3a** <condition>: `deferred`, <reason>.
-- **`UC-012.*a`** <condition that can occur at any step, e.g. the employee abandons the booking>:
+- **`UC-012.*a`** <condition that can occur at every step, e.g. the employee's session expires>:
   1. The system <handles it>.
   2. The use case ends.
 
@@ -95,4 +100,5 @@ stories: []              # filled when stories are cut: [US-012.1, US-012.2]
 ## Related information
 
 - **Frequency:** <how often>
+- **Business rules:** <BR-1 …, each with an ID that steps and extensions cite [R32-Q6]>
 - **Open issues:** <questions still open>

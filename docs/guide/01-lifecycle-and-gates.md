@@ -81,7 +81,7 @@ Stories are only cut from a **complete** use case [R4-Q2]. A use case is complet
    One system step may validate, record and respond while those actions share a duration class; it is split where the class changes. The main scenario has about 3 to 9 steps after this bundling, as Cockburn advises [R31-Q1].
 
    **Privacy request** is asked once per use case: can the actor ask to export or erase the personal data it handles?
-4. A "yes" is answered by an extension keyed to its step, to a range of steps that contains it, or to any step, or by naming an existing extension in the cell; conditions handled the same way are one extension [R31-Q3]. Each resulting extension has a handling outcome and a one-line **example** with a concrete instance, or is marked `deferred` or `out-of-scope` with a reason [R1-Q7, R28-Q3].
+4. Every "yes" names the extensions that answer it (`yes: UC-012.3a`) [R32-Q3]. An extension is keyed to one step, to a range of steps, or to every step (`UC-012.*a`) [R31-Q3, R32-Q2]; a cell names another step's extension only if its handling applies unchanged [R32-Q4]. Invalid input is keyed to the actor step that provides it [R32-Q1]. Conditions handled the same way are one extension, and alternatives that aren't failures are extensions too [R32-Q7]. Each resulting extension has a handling outcome and a one-line **example** with a concrete instance, or is marked `deferred` or `out-of-scope` with a reason [R1-Q7, R28-Q3].
 5. Stakeholders and their interests are listed.
 6. The inputs it draws on (personas, journeys, pain points, blockers) are cited by typed ID, and each ID exists in `docs/product/inputs/` [R3-A5, R30-Q1, R30-Q3].
 

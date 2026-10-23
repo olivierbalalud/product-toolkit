@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <founder>
 serves: Exploring → Design-complete (story scenarios)
-decisions: [R27-Q1′, R28-A, R28-Q10, R28-Q16, R29-Q9, R3-Q1a, R3-C3, R4-Q8b′, R1-Q7, R14-Q2]
+decisions: [R27-Q1′, R28-A, R28-Q10, R28-Q16, R29-Q9, R3-Q1a, R3-C3, R4-Q8b′, R1-Q7, R14-Q2, R31-Q3]
 plugin_version:
 ---
 
@@ -63,7 +63,7 @@ Expected failures without the skill (replace with observed ones before building)
 
 ## 7. Scripts vs judgement
 
-- `scripts/lint_gherkin.py`: Gherkin syntax; every scenario has `@US-` and `@UC-` tags that exist and are not `retired`; no copy keys in steps (strings shaped like `feature.screen.element`); at least one `@ui` scenario per screen in `flows.md` when `touches` includes `ui`; glossary terms (advisory); near-duplicates of existing steps (advisory); sleep-like steps such as "I wait 5 seconds" and response-time assertions such as "within 2 seconds" (blocking); a time-passing step in a scenario with no `Given` that sets the clock (advisory) [R29-Q9].
+- `scripts/lint_gherkin.py`: Gherkin syntax; every scenario has `@US-` and `@UC-` tags that exist and are not `retired`, including range and any-step extensions (`@UC-012.3-6a`, `@UC-012.*a`) [R31-Q3]; no copy keys in steps (strings shaped like `feature.screen.element`); at least one `@ui` scenario per screen in `flows.md` when `touches` includes `ui`; glossary terms (advisory); near-duplicates of existing steps (advisory); sleep-like steps such as "I wait 5 seconds" and response-time assertions such as "within 2 seconds" (blocking); a time-passing step in a scenario with no `Given` that sets the clock (advisory) [R29-Q9].
 - Coverage via `check-gate`'s `gen_coverage.py`.
 - **Judged by the model:** the rules and their wording; the scenarios that illustrate them; whether an extension's example is clear enough to turn into a scenario.
 
@@ -103,6 +103,7 @@ Writes only under `docs/product/`. No network. Scenarios use invented data, neve
 - An extension whose example can't become a scenario is a finding about the use case: ask its driver rather than invent one.
 - Coverage counts tags, not intent: a mistagged scenario shows the wrong extension as covered.
 - `Rule:` needs pytest-bdd 8 or later; tags on a rule pass down to its scenarios, so keep `@US-…` at feature level and `@UC-…` on each scenario.
+- `pytest -m` can't select a tag that contains `*`, such as `@UC-012.*a`, and Playwright's `--grep` reads `*` as part of a regular expression. Select those scenarios by their story tag, or escape the `*` in `--grep` [R31-Q3].
 - "When 24 hours pass" is a business step, not a wait: its step definition advances the fake clock behind the business layer's clock port [R29-Q9].
 - Test a deadline just before and just after it (14:59 and 15:01 for a 15:00 deadline); one example on each side is the minimum.
 

@@ -1,0 +1,2 @@
+- **source name**: Slack — Add people to a channel (product documentation); use case synthesized in "8 SaaS Use Cases: Good, Bad, and Minimal Versions" (generated with OpenAI), §1 "B2B — Add Colleagues to a Project Channel in Slack"
+- **source link**: https://slack.com/help/articles/201980108-Add-people-to-a-channel-Add-people-to-a-channel-Add-people-to-a-channel

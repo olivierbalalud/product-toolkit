@@ -1,0 +1,2 @@
+- **source name**: SaaS Sea-Level Use Case Reference Guide (generated with Gemini), §3 "Gusto – Execute Off-Cycle Contractor Payroll Run"; no product documentation cited
+- **source link**: none

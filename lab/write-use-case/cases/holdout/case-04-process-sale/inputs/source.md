@@ -1,0 +1,2 @@
+- **source name**: Craig Larman, Applying UML and Patterns, ch. 6, NextGen POS "Process Sale"
+- **source link**: https://courses.cs.duke.edu/cps108/spring04/readings/usecaseslarman.pdf

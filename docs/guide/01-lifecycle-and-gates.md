@@ -61,7 +61,7 @@ Stories are only cut from a **complete** use case [R4-Q2]. A use case is complet
 1. It is at the **user-goal level**: one primary actor, in one sitting, leaves with the goal reached (Cockburn's coffee-break test). A summary goal is only an optional map of the user-goal use cases it groups; a subfunction is a step, not a use case [R28-Q1]. See [goal levels](../foundations/pm-lens.md#22-goal-levels).
 
    The steps share one level of duration. A step that waits hours or days for another person, an outside party or a deadline is a **wait point**: the use case ends there, its success guarantee says what is pending and how the actor will hear, and the continuation is another use case, started by the other actor or by time [R29-Q2]. A use case may be **triggered by time**; its primary actor is then the stakeholder who cares that it runs [R29-Q3].
-2. Every field of the Cockburn "fully dressed" format is filled [R1-Q6]. Steps state intent, not screens or clicks [R28-Q7].
+2. Every field of the Cockburn "fully dressed" format is filled [R1-Q6]; Preconditions may be an explicit `None` rather than filler such as "the system is running" [R31-Q2]. Steps state intent, not screens or clicks [R28-Q7].
 3. Every main-scenario step is marked `(actor)` or `(system)`, every system step that isn't instant has a **duration class**, and every step has been run through the **failure categories of its kind** [R4-Q2, R28-Q6, R29-Q1]:
 
    | Step kind | Categories |
@@ -78,14 +78,16 @@ Stories are only cut from a **complete** use case [R4-Q2]. A use case is complet
 
    The class is what the actor experiences in normal use, not a performance target [R12-Q5]. Cancel on a `long` or `background` step is answered `yes`, or `out-of-scope` with a reason such as "past the point of no return".
 
+   One system step may validate, record and respond while those actions share a duration class; it is split where the class changes. The main scenario has about 3 to 9 steps after this bundling, as Cockburn advises [R31-Q1].
+
    **Privacy request** is asked once per use case: can the actor ask to export or erase the personal data it handles?
-4. Each resulting extension has a handling outcome and a one-line **example** with a concrete instance, or is marked `deferred` or `out-of-scope` with a reason [R1-Q7, R28-Q3].
+4. Every "yes" names the extensions that answer it (`yes: UC-012.3a`) [R32-Q3]. An extension is keyed to one step, to a range of steps, or to every step (`UC-012.*a`) [R31-Q3, R32-Q2]; a cell names another step's extension only if its handling applies unchanged [R32-Q4]. Invalid input is keyed to the actor step that provides it [R32-Q1]. Conditions handled the same way are one extension, and alternatives that aren't failures are extensions too [R32-Q7]. Each resulting extension has a handling outcome and a one-line **example** with a concrete instance, or is marked `deferred` or `out-of-scope` with a reason [R1-Q7, R28-Q3].
 5. Stakeholders and their interests are listed.
 6. The inputs it draws on (personas, journeys, pain points, blockers) are cited by typed ID, and each ID exists in `docs/product/inputs/` [R3-A5, R30-Q1, R30-Q3].
 
 Stories are then cut as **vertical paths** that deliver value on their own: the first is the thinnest path through the whole main scenario, and each later one adds extensions or one variation [R28-Q8]. Each passes INVEST ([explained in chapter 3](03-design-playbook.md#cutting-stories)) and fits about one week of slice work [R4-Q3]. Several stories may claim the same extension [R28-Q9]. Extensions that no story claims yet stay visible in the generated `coverage.md`.
 
-**Step and extension IDs** (`UC-012.3a`) are renumbered only by `write-use-case renumber`, which rewrites every reference, and only until a PRD that references them reaches Design-complete. After that, the use case only grows: an inserted step takes a decimal number (`3.1`), a removed one is marked `retired`, and no ID is ever reused [R28-Q19′].
+**Step and extension IDs** (`UC-012.3a`, and `UC-012.3-6a` or `UC-012.*a` for a range or any step [R31-Q3]) are renumbered only by `write-use-case renumber`, which rewrites every reference, and only until a PRD that references them reaches Design-complete. After that, the use case only grows: an inserted step takes a decimal number (`3.1`), a removed one is marked `retired`, and no ID is ever reused [R28-Q19′].
 
 ## 1.4 Draft → Exploring
 

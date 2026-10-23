@@ -4,7 +4,8 @@
 # No copy keys: describe what the user sees in domain words; the @ui step definitions map them to copy keys [R28-Q10].
 # Group scenarios under a Rule: one plain-English business rule, its examples beneath. Optional with one rule [R28-Q16].
 # Start from the examples of the use-case extensions this story handles [R28-A, R28-Q3].
-# Tag every scenario with the story and the use-case step or extension it covers [R3-Q1a].
+# Tag every scenario with the story and the use-case step or extension it covers [R3-Q1a]. Extension tags may name
+# a range (@UC-012.3-6a) or any step (@UC-012.*a); pytest -m can't select a tag that contains * [R31-Q3].
 # Time: set "now" in a Given ("Given it is Monday 09:00"), write time passing as a When ("When 24 hours pass
 # without approval"), and give a deadline rule examples on both sides of the deadline. Never wait or sleep,
 # and never assert a response time [R29-Q9, R12-Q5].

@@ -82,7 +82,7 @@ Specs are in [`../skills/`](../skills/), written from [`skill-spec.md`](../templ
 ## 12.4 Build order
 
 1. **`check-gate`'s scripts first**, with the `coverage.md` and `index.md` generators. They are plain scripts, run in CI without an agent, and every other step relies on them.
-2. **`write-use-case`, `write-stories` and `write-scenarios`**, so the first use case, its stories and their scenarios can be written.
+2. **`write-use-case`, `write-stories` and `write-scenarios`**, so the first use case, its stories and their scenarios can be written. `write-use-case` is built in this repo's lab, [`lab/write-use-case/`](../../lab/write-use-case/README.md), on sample use cases from other products, and the driver copies it into the marketplace once it passes its held-out cases [R31-Q6, R31-Q9].
 3. **`check-fit` and `review-design`**, so the first PRD can reach Design-complete.
 4. **P1 lanes** before the first slice PR: `review-code` and `review-security` first, `review-ux` with its reviewers next.
 5. **P2** when the first outcome review is due, or the Vercel guidelines change.
@@ -100,6 +100,7 @@ Before step 4, run the checks in §12.6.
 | Triggering | About 20 labelled prompts per skill, half that should trigger and half near-misses that shouldn't |
 | Output | Cases with fixtures and graders, run **with and without** the plugin by `claude plugin eval` |
 | Authoring loop | Anthropic's `skill-creator`, then the cases are kept in `claude plugin eval` format in `evals/` |
+| Discipline | For skills whose rules a model is tempted to skip: the excuses seen in the baseline go into the spec's *Rationalizations* table, each with a pressure-scenario case [R32-Q11] |
 
 CI runs the evals **only on PRs that change the plugin**, with a pinned model, a threshold of 0.8 and a cost cap per run. Eval and review runs are billed API calls and count against the €100 monthly budget, reviewed monthly [R5-Q4c, R15-Q3].
 

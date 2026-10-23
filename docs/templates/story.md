@@ -7,7 +7,8 @@ status: Draft            # becomes the PRD; see prd.md for the full template
 driver: <name>
 priority: <number or label>
 source_locale: en
-extensions: [UC-012.2a, UC-012.3a]   # the only list of the extensions this story handles [R4-Q3, R28-Q4]
+extensions: [UC-012.2a, UC-012.3a]   # the only list of the extensions this story handles [R4-Q3, R28-Q4];
+                                     # also UC-012.3-6a (steps 3 to 6) and UC-012.*a (any step) [R31-Q3]
 touches: [ui, api]       # ui, api, or both; decides which companion files the gate requires.
                          # Free to change until Design-complete, then through a DCR [R28-Q5, R28-Q18]
 ---

@@ -1,0 +1,2 @@
+- **source name**: Karl Wiegers, Use Cases for Cafeteria Ordering System R1.0 (Process Impact, 2002)
+- **source link**: https://katie.cs.mtech.edu/classes/esof328/Resources/COS_use_cases.pdf

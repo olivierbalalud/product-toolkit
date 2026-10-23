@@ -1,0 +1,2 @@
+- **source name**: SaaS Sea-Level Use Case Reference Guide (generated with Gemini), §2 "HubSpot – Convert Inbound Lead to Deal and Account"; no product documentation cited
+- **source link**: none

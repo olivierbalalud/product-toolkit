@@ -1,0 +1,24 @@
+{
+  "file": "runs/2026-10-23-baseline/case-14-create-blend-playlist/use-case.md",
+  "ok": false,
+  "errors": [
+    {
+      "rule": "grid-value",
+      "message": "step 1, Duplicate: 'n/a: a repeated request is not a failure; it makes a new link (BR-3), see UC-014.1a' is not yes, n/a or out-of-scope"
+    },
+    {
+      "rule": "grid-value",
+      "message": "step 1, No permission: 'n/a: every signed-in listener, free or paid, may invite (BR-5)' is not yes, n/a or out-of-scope"
+    },
+    {
+      "rule": "grid-value",
+      "message": "step 2, Quota / limit: 'n/a: no cap on Blends or open invitations (BR-4)' is not yes, n/a or out-of-scope"
+    }
+  ],
+  "warnings": [
+    {
+      "rule": "wait-word",
+      "message": "step 2: 'hours' suggests a wait point inside the scenario"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+- **source name**: Alistair Cockburn, Writing Effective Use Cases, Use Case 1 "Buy Stocks over the Web" (as reproduced in course material)
+- **source link**: https://courses.cs.washington.edu/courses/cse403/13au/lectures/04-usecases.ppt.pdf

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-This repo holds **research and documentation only**. It is the documented framework for designing and developing product features: process guide, templates, and a list of recommended Claude Code plugins. It does not contain product code. The product lives in a **separate monorepo**. Do not create or download plugins, skills or agents here. List and describe them in the docs instead.
+This repo holds **research and documentation only**. It is the documented framework for designing and developing product features: process guide, templates, and a list of recommended Claude Code plugins. It does not contain product code. The product lives in a **separate monorepo**. Do not create or download plugins, skills or agents here. List and describe them in the docs instead. The one exception is `lab/write-use-case/` [R31-Q6]: it holds the draft `write-use-case` skill while it is built, with its test cases. Nothing in it is installed as a project skill.
 
 - `docs/brief.md`: objectives, concerns and context as originally stated.
 - `docs/grilling-log.md`: the decisions taken in each Q&A round. It is authoritative where it refines the brief. A change to the framework starts as a new round here, then the guide is updated.
@@ -14,6 +14,7 @@ This repo holds **research and documentation only**. It is the documented framew
 - `docs/foundations/`: onboarding concepts per role, and the GDPR and AI Act one-pagers.
 - `docs/research/`: tooling research with sources.
 - `docs/context/monorepo-fit.md`: structural facts about the product monorepo. Everything else stays generic: no product concepts or internal names.
+- `lab/write-use-case/`: the lab that builds `write-use-case` ([its README](lab/write-use-case/README.md)). Its cases come from other products, in their own language, and are exempt from the English and neutral-domain rules below. They never contain content from the product monorepo, and real names and personal data are replaced before committing [R31-Q7]. Do not read `lab/write-use-case/cases/holdout/` while tuning the skill.
 
 Write the docs in English. Use the neutral example domain (meeting room booking) in examples.
 

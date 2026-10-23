@@ -4,7 +4,7 @@ status: full
 priority: P0
 owner: <founder>
 serves: cutting stories (after the use case gate)
-decisions: [R4-Q3, R9-Q1, R1-Q7, R27-Q1′, R28-Q1, R28-Q4, R28-Q5, R28-Q8, R28-Q9, R29-Q6]
+decisions: [R4-Q3, R9-Q1, R1-Q7, R27-Q1′, R28-Q1, R28-Q4, R28-Q5, R28-Q8, R28-Q9, R29-Q6, R31-Q3]
 plugin_version:
 ---
 
@@ -64,7 +64,7 @@ Expected failures without the skill (replace with observed ones before building)
 
 ## 7. Scripts vs judgement
 
-- `scripts/check_cut.py` (blocking): every story's `extensions:` exist in the use case and are not `retired`; every story has `touches:`; every story includes at least one main-scenario step or an extension path. Several stories may claim the same extension [R28-Q9].
+- `scripts/check_cut.py` (blocking): every story's `extensions:` exist in the use case and are not `retired`, in any of the three ID forms (`UC-012.3a`, `UC-012.3-6a`, `UC-012.*a`) [R31-Q3]; every story has `touches:`; every story includes at least one main-scenario step or an extension path. Several stories may claim the same extension [R28-Q9].
 - Coverage via `check-gate`'s `gen_coverage.py`.
 - **Judged by the model:** which path is thinnest; where to cut; whether a story delivers value on its own; INVEST; `touches:`.
 

@@ -8,7 +8,7 @@ driver: <name>
 priority: <number or label>
 source_locale: en        # en | fr [R1-Q11]
 design_tool: figma       # figma | claude-design; fixed once Exploring starts [R18-Q4]
-extensions: [UC-012.2a, UC-012.3a]
+extensions: [UC-012.2a, UC-012.3a]   # also UC-012.3-6a (steps 3 to 6) and UC-012.*a (any step) [R31-Q3]
 touches: [ui, api]       # decides which companion files the gate requires; DCR to change after Design-complete [R28-Q5, R28-Q18]
 adrs: []                 # e.g. [ADR-0007]; a Proposed ADR blocks Dev-ready [R1-Q13]
 trds: []                 # e.g. [TRD-012.1]

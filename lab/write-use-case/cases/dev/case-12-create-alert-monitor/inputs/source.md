@@ -1,0 +1,2 @@
+- **source name**: SaaS Sea-Level Use Case Reference Guide (generated with Gemini), §4 "Datadog – Create Multi-Condition Metric Alert Monitor"; no product documentation cited
+- **source link**: none

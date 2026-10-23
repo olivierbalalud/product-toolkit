@@ -37,7 +37,7 @@ What is tested, where the tests live, which tool runs them and when they must pa
 ## 8.3 Gherkin rules
 
 - **English only**, whatever the PRD's source language, so steps never turn into French identifiers [R3-Q1a].
-- **Tags** on every scenario: the story and the use-case step or extension, e.g. `@US-012.1 @UC-012.3a` [R3-Q1a].
+- **Tags** on every scenario: the story and the use-case step or extension, e.g. `@US-012.1 @UC-012.3a` [R3-Q1a]. Extension tags may name a range or any step, `@UC-012.3-6a` or `@UC-012.*a`; `pytest -m` can't select a tag that contains `*`, so select those scenarios by their story tag [R31-Q3].
 - **Domain words** are the glossary's English terms. A step-vocabulary check flags words that are not in the glossary [R3-C3].
 - **Rules above examples.** Scenarios are grouped under Gherkin `Rule:` blocks, each a plain-English business rule with its examples beneath; optional when a feature has one rule. pytest-bdd supports `Rule:` from version 8 [R28-Q16].
 - **UI text** is described in domain words, never by copy key. The `@ui` step definitions map the wording to copy keys and resolve them through the next-intl catalogs, so the same scenarios run in every locale, which also tests the translations [R28-Q10].

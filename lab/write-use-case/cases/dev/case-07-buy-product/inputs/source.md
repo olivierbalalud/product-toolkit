@@ -1,0 +1,2 @@
+- **source name**: Martin Fowler, UML Distilled, ch. 9, "Buy a Product" (as reproduced in course material)
+- **source link**: https://www.cs.toronto.edu/~sme/CSC302/notes/08-UseCases.pdf

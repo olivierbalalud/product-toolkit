@@ -1,0 +1,2 @@
+- **source name**: Scott Ambler, System Use Cases: An Agile Introduction, UC 17 "Enroll in Seminar" (agilemodeling.com)
+- **source link**: https://agilemodeling.com/artifacts/systemusecase.htm

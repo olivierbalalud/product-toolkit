@@ -1,0 +1,2 @@
+- **source name**: Written for the lab by Claude Opus 5.5 on 2026-10-23 to cover the `long` shape; modelled on the bank feeds of small-business accounting services, not on one product's documentation
+- **source link**: none

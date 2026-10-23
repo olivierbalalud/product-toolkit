@@ -1,0 +1,2 @@
+- **source name**: AI Unified Process, use-case-spec skill, reference example (GitHub, 2026)
+- **source link**: https://github.com/AI-Unified-Process/marketplace/blob/05af8163838df704620ebe1121cd6019dbce276c/aiup-core/skills/use-case-spec/references/example.md

@@ -1,0 +1,2 @@
+- **source name**: SaaS Sea-Level Use Case Reference Guide (generated with Gemini), §1 "Stripe – Configure Production Webhook Endpoint"; no product documentation cited
+- **source link**: none

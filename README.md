@@ -2,7 +2,7 @@
 
 A framework for designing product features (with Claude Design or Figma, kept in step with code) and developing several of them in parallel with Claude Code and git worktrees.
 
-This repository holds documentation only. Start with the [overview](docs/guide/00-overview.md).
+This repository holds documentation, plus one lab that builds a skill. Start with the [overview](docs/guide/00-overview.md).
 
 | Folder | Contents |
 |---|---|
@@ -13,3 +13,4 @@ This repository holds documentation only. Start with the [overview](docs/guide/0
 | [`docs/grilling-log.md`](docs/grilling-log.md) | Every decision, round by round; authoritative |
 | [`docs/brief.md`](docs/brief.md) | The original brief |
 | [`docs/research/`](docs/research/) | Research behind the decisions, with sources |
+| [`lab/write-use-case/`](lab/write-use-case/README.md) | Where the `write-use-case` skill is built and tested on sample use cases |

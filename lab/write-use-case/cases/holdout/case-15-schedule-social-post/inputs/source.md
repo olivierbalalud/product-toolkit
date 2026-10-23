@@ -1,0 +1,2 @@
+- **source name**: SaaS Sea-Level Use Case Reference Guide (generated with Gemini), §7 "Canva – Schedule Multi-Platform Social Media Post"; no product documentation cited
+- **source link**: none

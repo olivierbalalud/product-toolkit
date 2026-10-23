@@ -1,0 +1,18 @@
+{
+ "case-04-process-sale": {
+  "A": "with-skill",
+  "B": "without-skill"
+ },
+ "case-15-schedule-social-post": {
+  "A": "with-skill",
+  "B": "without-skill"
+ },
+ "case-20-book-home": {
+  "A": "with-skill",
+  "B": "without-skill"
+ },
+ "case-23-connect-bank-feed": {
+  "A": "without-skill",
+  "B": "with-skill"
+ }
+}
